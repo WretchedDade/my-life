@@ -1,5 +1,10 @@
 {
-	"routes": [],
+	"routes": [
+		{
+			"route": "/login",
+			"redirect": "/.auth/login/aad"
+		}
+	],
 	"navigationFallback": {
 		"rewrite": "/index.html"
 	}
