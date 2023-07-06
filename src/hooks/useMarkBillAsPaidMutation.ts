@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import { IMsalContext, useMsal } from "@azure/msal-react";
 
-import { MyLifeAPIScope } from "../utils/auth";
+import { Scopes } from "../utils/auth";
 import { getAccessToken } from "./useAccessToken";
 import { BillPayment, BillPaymentSchema } from "../types/bills";
 
@@ -19,7 +19,7 @@ export function useMarkBillAsPaidMutation() {
 
 async function MarkBillAsPaid(id: string, msal: IMsalContext): Promise<BillPayment | undefined> {
 	if (msal.accounts.length > 0) {
-		const accessToken = await getAccessToken(msal, { scopes: [MyLifeAPIScope], account: msal.accounts[0] });
+		const accessToken = await getAccessToken(msal, { scopes: Scopes, account: msal.accounts[0] });
 
 		if (accessToken) {
 			const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/bills/${id}/pay`, {

@@ -1,12 +1,11 @@
 import { z } from "zod";
 import { useQuery } from "react-query";
 
-import { BillConfiguration, BillConfigurationSchema } from "../types/billConfigurations";
 import { useAccessToken } from "./useAccessToken";
-import { MyLifeAPIScope } from "../utils/auth";
+import { BillConfiguration, BillConfigurationSchema } from "../types/billConfigurations";
 
 export function useBillConfigurationsQuery() {
-	const accessToken = useAccessToken([MyLifeAPIScope]);
+	const accessToken = useAccessToken();
 
 	return useQuery(["bill-configurations"], () => GetUnpaidBills(accessToken ?? ""), { enabled: accessToken != null });
 }

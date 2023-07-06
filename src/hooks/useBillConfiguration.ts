@@ -1,11 +1,10 @@
 import { useQuery } from "react-query";
 
-import { MyLifeAPIScope } from "../utils/auth";
 import { useAccessToken } from "./useAccessToken";
 import { BillConfiguration, BillConfigurationSchema } from "../types/billConfigurations";
 
 export function useBillConfigurationQuery(id: string, enabled = true) {
-	const accessToken = useAccessToken([MyLifeAPIScope]);
+	const accessToken = useAccessToken();
 
 	return useQuery(["bill-configurations", id], ({ queryKey }) => GetUnpaidBills(queryKey[1], accessToken ?? ""), { enabled: enabled && accessToken != null });
 }

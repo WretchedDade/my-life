@@ -8,14 +8,15 @@ import { Bills } from "./pages/Bills";
 import { SidebarLayout } from "./components/SidebarLayout";
 
 import { AuthContext } from "./contexts/AuthContext";
-import { IdTokenClaims, MyLifeAPIScope, RolesSchema } from "./utils/auth";
+import { IdTokenClaims, RolesSchema, Scopes } from "./utils/auth";
+import { NotFound } from "./pages/NotFound";
 
 export function App() {
 	const { roles, setRoles } = useContext(AuthContext);
 
 	const context = useMsal();
 	const { result, error } = useMsalAuthentication(InteractionType.Redirect, {
-		scopes: ["User.Read", MyLifeAPIScope],
+		scopes: Scopes,
 		redirectUri: `${window.location.origin}/Redirect`,
 		state: window.location.pathname,
 	});
@@ -23,9 +24,9 @@ export function App() {
 	useEffect(() => {
 		if (roles.length == 0) {
 			if (result) {
-				setRoles(RolesSchema.parse((result.idTokenClaims as IdTokenClaims)["roles"]));
+				setRoles(RolesSchema.parse((result.idTokenClaims as IdTokenClaims)["roles"] ?? []));
 			} else if (context.accounts.length > 0 && context.accounts[0].idTokenClaims) {
-				setRoles(RolesSchema.parse((context.accounts[0].idTokenClaims as IdTokenClaims)["roles"]));
+				setRoles(RolesSchema.parse((context.accounts[0].idTokenClaims as IdTokenClaims)["roles"] ?? []));
 			}
 		}
 	}, [roles, result, setRoles, context.accounts]);
@@ -55,6 +56,7 @@ export function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/bills" element={<Bills />} />
 				</Route>
+				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</AuthenticatedTemplate>
 	);

@@ -25,7 +25,7 @@ export function StatCard(props: StatCardProps) {
 	const Icon = props.icon;
 
 	return (
-		<div className="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6">
+		<div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white px-4 pb-12 pt-5 shadow-2xl sm:px-6 sm:pt-6">
 			<dt>
 				<div
 					className={classNames("absolute rounded-md bg-indigo-500 p-3", {

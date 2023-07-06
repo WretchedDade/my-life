@@ -27,7 +27,7 @@ export function BillPaymentsCard<TElement extends React.ElementType = "div">({ a
 	const markBillAsPaidMutation = useMarkBillAsPaidMutation();
 
 	return (
-		<Component className="flex flex-col overflow-hidden rounded-xl border border-gray-200">
+		<Component className="flex flex-col overflow-hidden rounded-xl border border-gray-200 shadow-2xl">
 			<div
 				style={{ backgroundImage: `url(${billPayment?.coverUri})` }}
 				className={classNames("flex h-52 items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 bg-[length:100%_auto] bg-top", {

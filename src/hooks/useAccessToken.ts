@@ -1,9 +1,11 @@
 import { useEffect, useContext } from "react";
 import { IMsalContext, useMsal } from "@azure/msal-react";
 import { InteractionRequiredAuthError, SilentRequest, PopupRequest } from "@azure/msal-browser";
+
+import { Scopes } from "../utils/auth";
 import { AuthContext } from "../contexts/AuthContext";
 
-export function useAccessToken(scopes: string[]) {
+export function useAccessToken() {
 	const msal = useMsal();
 
 	const { accessToken, setAccessToken } = useContext(AuthContext);
@@ -11,7 +13,7 @@ export function useAccessToken(scopes: string[]) {
 	useEffect(() => {
 		if (msal.accounts.length > 0) {
 			const request = {
-				scopes: scopes,
+				scopes: Scopes,
 				account: msal.accounts[0],
 			};
 
@@ -19,7 +21,7 @@ export function useAccessToken(scopes: string[]) {
 				if (token) setAccessToken(token);
 			});
 		}
-	}, [msal, scopes, setAccessToken]);
+	}, [msal, setAccessToken]);
 
 	return accessToken;
 }
