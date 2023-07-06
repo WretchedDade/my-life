@@ -28,7 +28,8 @@ export function StatCard(props: StatCardProps) {
 		<div className="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6">
 			<dt>
 				<div
-					className={classNames("absolute rounded-md bg-indigo-500 p-3 text-white", {
+					className={classNames("absolute rounded-md bg-indigo-500 p-3", {
+						"text-white": !props.loading,
 						[styles.loading]: props.loading,
 					})}>
 					<Icon className="h-8 w-8 text-inherit" aria-hidden="true" />
