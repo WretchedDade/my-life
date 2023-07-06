@@ -139,7 +139,3 @@ export function BillPaymentsCard<TElement extends React.ElementType = "div">({ a
 		</Component>
 	);
 }
-
-interface LoadingCardProps<TElement extends React.ElementType> {
-	as?: TElement;
-}
