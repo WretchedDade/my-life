@@ -1,25 +1,61 @@
-import { useQuery } from "react-query";
-import { GetUser } from "./utils/auth";
+import { useContext, useEffect } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { InteractionType, InteractionStatus } from "@azure/msal-browser";
+import { AuthenticatedTemplate, useMsal, useMsalAuthentication } from "@azure/msal-react";
 
-function App() {
-	const userQuery = useQuery("user", GetUser);
+import { Home } from "./pages/Home";
+import { Bills } from "./pages/Bills";
+import { SidebarLayout } from "./components/SidebarLayout";
+
+import { AuthContext } from "./contexts/AuthContext";
+import { IdTokenClaims, MyLifeAPIScope, RolesSchema } from "./utils/auth";
+
+export function App() {
+	const { roles, setRoles } = useContext(AuthContext);
+
+	const context = useMsal();
+	const { result, error } = useMsalAuthentication(InteractionType.Redirect, {
+		scopes: ["User.Read", MyLifeAPIScope],
+		redirectUri: `${window.location.origin}/Redirect`,
+		state: window.location.pathname,
+	});
+
+	useEffect(() => {
+		if (roles.length == 0) {
+			if (result) {
+				setRoles(RolesSchema.parse((result.idTokenClaims as IdTokenClaims)["roles"]));
+			} else if (context.accounts.length > 0 && context.accounts[0].idTokenClaims) {
+				setRoles(RolesSchema.parse((context.accounts[0].idTokenClaims as IdTokenClaims)["roles"]));
+			}
+		}
+	}, [roles, result, setRoles, context.accounts]);
+
+	if (context.inProgress !== InteractionStatus.None) {
+		return <p>Authentication in progress: {context.inProgress}</p>;
+	}
+
+	if (error) {
+		return (
+			<div>
+				<p>Authentication Error:</p>
+				<pre>
+					<code>{JSON.stringify({ error, result }, null, 4)}</code>
+				</pre>
+			</div>
+		);
+	}
+
+	if (!roles.includes("Access")) return <div>Access Denied</div>;
 
 	return (
-		<div>
-			<a className="block" href="/.auth/login/aad">
-				Login with Azure AD
-			</a>
-			<a className="block my-2" href="/.auth/logout">
-				Logout
-			</a>
-
-			{userQuery.data && (
-				<pre>
-					<code>{JSON.stringify(userQuery.data, null, 4)}</code>
-				</pre>
-			)}
-		</div>
+		<AuthenticatedTemplate>
+			<Routes>
+				<Route path="/Redirect" element={<Navigate to={result?.state ?? "/"} />} />
+				<Route path="/" element={<SidebarLayout />}>
+					<Route path="/" element={<Home />} />
+					<Route path="/bills" element={<Bills />} />
+				</Route>
+			</Routes>
+		</AuthenticatedTemplate>
 	);
 }
-
-export default App;

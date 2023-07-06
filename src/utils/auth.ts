@@ -1,8 +1,9 @@
-export async function GetUser() {
-	const response = await fetch("/.auth/me");
-	const payload = await response.json();
+import { z } from "zod";
 
-	const { clientPrincipal } = payload;
+export const MyLifeAPIScope = `api://${import.meta.env.VITE_AAD_CLIENT_ID}/access_as_user`;
 
-	return clientPrincipal;
+export const RolesSchema = z.array(z.string());
+
+export interface IdTokenClaims {
+	roles: string[];
 }
