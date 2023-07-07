@@ -11,7 +11,13 @@ export function useMarkBillAsPaidMutation() {
 
 	return useMutation({
 		mutationFn: (id: string) => MarkBillAsPaid(id, msal),
-		onSuccess: () => {
+		onSuccess: (_, id) => {
+			queryClient.setQueryData<BillPayment[] | undefined>(["bills", "unpaid"], (oldData) => {
+				if (oldData === undefined) return;
+
+				return [...oldData].filter((bill) => bill.id !== id);
+			});
+
 			queryClient.invalidateQueries("bills");
 		},
 	});

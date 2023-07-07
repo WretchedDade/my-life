@@ -1,6 +1,6 @@
+import { BanknotesIcon, HomeIcon } from "@heroicons/react/24/solid";
 import { useMemo } from "react";
-import { useLocation, Location } from "react-router-dom";
-import { HomeIcon, BanknotesIcon } from "@heroicons/react/24/outline";
+import { Location, useLocation } from "react-router-dom";
 
 export function useNavigationOptions() {
 	const location = useLocation();
@@ -10,6 +10,6 @@ export function useNavigationOptions() {
 function BuildNavigationOptions(location: Location) {
 	return [
 		{ name: "Home", href: "/", icon: HomeIcon, current: location.pathname === "/" },
-		{ name: "Bills", href: "/bills", icon: BanknotesIcon, current: location.pathname === "/bills" },
+		{ name: "Unpaid Bills", href: "/bills/unpaid", icon: BanknotesIcon, current: location.pathname === "/bills/unpaid" },
 	];
 }

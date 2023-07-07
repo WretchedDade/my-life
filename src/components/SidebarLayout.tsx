@@ -1,12 +1,12 @@
-import * as React from "react";
-import classNames from "classnames";
-import { Outlet } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import classNames from "classnames";
+import * as React from "react";
+import { Outlet } from "react-router-dom";
 
 import { useMe } from "../hooks/useMe";
-import { UserAvatar } from "./UserAvatar";
 import { useNavigationOptions } from "../hooks/useNavigationOptions";
+import { UserAvatar } from "./UserAvatar";
 
 export function SidebarLayout() {
 	const [sidebarOpen, setSidebarOpen] = React.useState(false);
@@ -84,7 +84,7 @@ function DynamicSidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 										<li>
 											<ul role="list" className="-mx-2 space-y-1">
 												{navigationOptions.map((navigationOption) => (
-													<li key={navigationOption.name}>
+													<li key={navigationOption.href}>
 														<a
 															href={navigationOption.href}
 															className={classNames(

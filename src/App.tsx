@@ -1,15 +1,16 @@
+import { InteractionStatus, InteractionType } from "@azure/msal-browser";
+import { AuthenticatedTemplate, useMsal, useMsalAuthentication } from "@azure/msal-react";
 import { useContext, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { InteractionType, InteractionStatus } from "@azure/msal-browser";
-import { AuthenticatedTemplate, useMsal, useMsalAuthentication } from "@azure/msal-react";
 
-import { Home } from "./pages/Home";
-import { Bills } from "./pages/Bills";
 import { SidebarLayout } from "./components/SidebarLayout";
+import { Home } from "./pages/Home";
+import { UnpaidBills } from "./pages/UnpaidBills";
 
 import { AuthContext } from "./contexts/AuthContext";
-import { IdTokenClaims, RolesSchema, Scopes } from "./utils/auth";
+import { Authenticating } from "./pages/Authenticating";
 import { NotFound } from "./pages/NotFound";
+import { IdTokenClaims, RolesSchema, Scopes } from "./utils/auth";
 
 export function App() {
 	const { roles, setRoles } = useContext(AuthContext);
@@ -32,7 +33,7 @@ export function App() {
 	}, [roles, result, setRoles, context.accounts]);
 
 	if (context.inProgress !== InteractionStatus.None) {
-		return <p>Authentication in progress: {context.inProgress}</p>;
+		return <Authenticating />;
 	}
 
 	if (error) {
@@ -54,7 +55,7 @@ export function App() {
 				<Route path="/Redirect" element={<Navigate to={result?.state ?? "/"} />} />
 				<Route path="/" element={<SidebarLayout />}>
 					<Route path="/" element={<Home />} />
-					<Route path="/bills" element={<Bills />} />
+					<Route path="/bills/unpaid" element={<UnpaidBills />} />
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

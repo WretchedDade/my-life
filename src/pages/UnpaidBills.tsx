@@ -2,7 +2,7 @@ import { useUnpaidBillsQuery } from "../hooks/useUnpaidBills";
 
 import { BillPaymentsGrid } from "../components/BillPayments/BillPaymentsGrid";
 
-export function Bills() {
+export function UnpaidBills() {
 	const { data, isLoading } = useUnpaidBillsQuery();
 
 	return (

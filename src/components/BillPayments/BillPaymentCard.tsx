@@ -12,6 +12,7 @@ import { asCurrency, asFullDate } from "../../utils/formatters";
 
 import { useBillConfigurationQuery } from "../../hooks/useBillConfiguration";
 import { useMarkBillAsPaidMutation } from "../../hooks/useMarkBillAsPaidMutation";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 interface BillPaymentsCardProps<TElement extends React.ElementType> {
 	as?: TElement;
@@ -30,15 +31,15 @@ export function BillPaymentsCard<TElement extends React.ElementType = "div">({ a
 		<Component className="flex flex-col overflow-hidden rounded-xl border border-gray-200 shadow-2xl">
 			<div
 				style={{ backgroundImage: `url(${billPayment?.coverUri})` }}
-				className={classNames("flex h-52 items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 bg-[length:100%_auto] bg-top", {
+				className={classNames("flex h-28  items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 bg-cover bg-center md:h-32 md:bg-top xl:h-52", {
 					[styles.loading]: isLoading,
 				})}
 			/>
 
-			<div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 px-6 py-4">
+			<div className="flex items-center gap-x-2 border-b border-gray-900/5 bg-gray-50 p-3 md:gap-x-4 md:px-6 md:py-4">
 				<div
 					className={classNames(
-						"flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-white object-cover text-center text-lg ring-1 ring-gray-900/10",
+						"flex h-6 w-6 flex-none items-center justify-center rounded-lg object-cover text-center text-lg ring-gray-900/10 sm:h-10 sm:w-10 sm:bg-white sm:ring-1",
 						{ [styles.loading]: isLoading },
 					)}>
 					<BillPaymentIcon billPayment={billPayment} className="h-6 w-6" />
@@ -104,20 +105,20 @@ export function BillPaymentsCard<TElement extends React.ElementType = "div">({ a
 			</div>
 
 			<dl className="-my-3 flex-grow divide-y divide-gray-100 p-4 text-sm leading-6">
-				<div className="flex justify-between gap-x-4 py-3">
+				<div className="flex justify-between gap-x-4 py-2 md:py-3">
 					<dt className="text-gray-500">Date Due</dt>
 					<dd className={classNames("text-gray-700", { [styles.loading]: isLoading })}>
 						<time dateTime={billPayment.dateDue.toDateString()}>{asFullDate(billPayment.dateDue)}</time>
 					</dd>
 				</div>
-				<div className="flex justify-between gap-x-4 py-3">
+				<div className="flex justify-between gap-x-4 py-2 md:py-3">
 					<dt className="text-gray-500">Amount</dt>
 					<dd className="flex items-start gap-x-2">
 						<div className={classNames("font-medium text-gray-900", { [styles.loading]: isLoading })}>{asCurrency(billPayment.amount)}</div>
 					</dd>
 				</div>
 				{billPayment.tags && billPayment.tags.length > 0 && (
-					<div className="flex justify-end gap-x-2 py-3">
+					<div className="flex justify-end gap-x-2 py-2 md:py-3">
 						{billPayment.tags.map((tag) => (
 							<BillPaymentTag key={`${billPayment.id}-${tag.name}`} name={tag.name} color={tag.color} isLoading={isLoading} />
 						))}
@@ -125,15 +126,17 @@ export function BillPaymentsCard<TElement extends React.ElementType = "div">({ a
 				)}
 			</dl>
 
-			<div className="flex items-center justify-end gap-x-4 border-t border-gray-900/5 bg-gray-50 px-6 py-4">
+			<div className="flex items-center justify-end gap-x-4 border-t border-gray-900/5 bg-gray-50 p-2 md:px-6 md:py-4">
 				<button
+					disabled={markBillAsPaidMutation.isLoading}
 					type="button"
 					onClick={() => markBillAsPaidMutation.mutate(billPayment.id)}
 					className={classNames(
-						"rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600",
+						"inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600",
 						{ [styles.loading]: isLoading },
 					)}>
 					Mark as Paid
+					{markBillAsPaidMutation.isLoading && <LoadingSpinner className="ml-1 h-4 w-4 text-white" />}
 				</button>
 			</div>
 		</Component>

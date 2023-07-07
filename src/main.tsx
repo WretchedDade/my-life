@@ -1,16 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { BrowserRouter } from "react-router-dom";
 
-import { MsalProvider } from "@azure/msal-react";
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
+import { MsalProvider } from "@azure/msal-react";
 
 import "./main.css";
 
+import { ErrorBoundary } from "react-error-boundary";
 import { App } from "./App.tsx";
 import { AuthContextProvider } from "./contexts/AuthContext.tsx";
+import { Error } from "./pages/Error.tsx";
 
 const queryClient = new QueryClient();
 
@@ -57,15 +59,17 @@ const publicClientApplication = new PublicClientApplication(configuration);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
-		<QueryClientProvider client={queryClient}>
-			<BrowserRouter future={{ v7_startTransition: true }}>
-				<MsalProvider instance={publicClientApplication}>
-					<AuthContextProvider>
-						<App />
-						<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
-					</AuthContextProvider>
-				</MsalProvider>
-			</BrowserRouter>
-		</QueryClientProvider>
+		<ErrorBoundary FallbackComponent={Error}>
+			<QueryClientProvider client={queryClient}>
+				<BrowserRouter future={{ v7_startTransition: true }}>
+					<MsalProvider instance={publicClientApplication}>
+						<AuthContextProvider>
+							<App />
+							<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+						</AuthContextProvider>
+					</MsalProvider>
+				</BrowserRouter>
+			</QueryClientProvider>
+		</ErrorBoundary>
 	</React.StrictMode>,
 );
