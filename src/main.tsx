@@ -22,36 +22,7 @@ const configuration: Configuration = {
 		authority: `https://login.microsoftonline.com/${import.meta.env.VITE_AAD_TENANT_ID}/`,
 	},
 	system: {
-		/**
-		 * Below you can configure MSAL.js logs. For more information, visit:
-		 * https://docs.microsoft.com/azure/active-directory/develop/msal-logging-js
-		 */
-		loggerOptions: {
-			// logLevel: LogLevel.Verbose,
-			// piiLoggingEnabled: true,
-			// loggerCallback: (level, message, containsPii) => {
-			// 	if (containsPii) {
-			// 		return;
-			// 	}
-			// 	switch (level) {
-			// 		case LogLevel.Error:
-			// 			console.error(message);
-			// 			return;
-			// 		case LogLevel.Info:
-			// 			console.info(message);
-			// 			return;
-			// 		case LogLevel.Verbose:
-			// 			console.debug(message);
-			// 			return;
-			// 		case LogLevel.Warning:
-			// 			console.warn(message);
-			// 			return;
-			// 		default:
-			// 			console.debug(message);
-			// 			return;
-			// 	}
-			// },
-		},
+		loggerOptions: {},
 	},
 };
 

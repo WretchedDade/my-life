@@ -9,6 +9,7 @@ import { UnpaidBills } from "./pages/UnpaidBills";
 
 import { AuthContext } from "./contexts/AuthContext";
 import { Authenticating } from "./pages/Authenticating";
+import { BloodPressure } from "./pages/BloodPressure";
 import { NotFound } from "./pages/NotFound";
 import { IdTokenClaims, RolesSchema, Scopes } from "./utils/auth";
 
@@ -56,6 +57,7 @@ export function App() {
 				<Route path="/" element={<SidebarLayout />}>
 					<Route path="/" element={<Home />} />
 					<Route path="/bills/unpaid" element={<UnpaidBills />} />
+					<Route path="/bloodpressure" element={<BloodPressure />} />
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

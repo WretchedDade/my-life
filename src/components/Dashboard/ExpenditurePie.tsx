@@ -1,12 +1,15 @@
 import { useMemo } from "react";
 import Chart from "react-google-charts";
 
-import { LoadingSpinner } from "../LoadingSpinner";
 import { useBudgetItems } from "../../hooks/useBudgetItems";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 const chartOptions: Chart["props"]["options"] = {
 	title: "",
 	backgroundColor: "transparent",
+	legend: {
+		position: "top",
+	},
 	tooltip: {
 		showColorCode: true,
 	},

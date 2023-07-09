@@ -2,8 +2,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import * as React from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
+import { faPeopleRoof } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMe } from "../hooks/useMe";
 import { useNavigationOptions } from "../hooks/useNavigationOptions";
 import { UserAvatar } from "./UserAvatar";
@@ -18,7 +20,7 @@ export function SidebarLayout() {
 
 			<Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-			<main className="py-10 lg:pl-72">
+			<main className="xl:72 py-10 lg:pl-52">
 				<div className="px-4 sm:px-6 lg:px-8">
 					<Outlet />
 				</div>
@@ -77,7 +79,10 @@ function DynamicSidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 							{/* Sidebar component, swap this element with another sidebar if you like */}
 							<div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
 								<div className="flex h-16 shrink-0 items-center">
-									<img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
+									<FontAwesomeIcon
+										className={classNames("h-8 w-8", navigationOptions.find((option) => option.current)?.colorWay.logo)}
+										icon={faPeopleRoof}
+									/>
 								</div>
 								<nav className="flex flex-1 flex-col">
 									<ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -85,23 +90,26 @@ function DynamicSidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 											<ul role="list" className="-mx-2 space-y-1">
 												{navigationOptions.map((navigationOption) => (
 													<li key={navigationOption.href}>
-														<a
-															href={navigationOption.href}
+														<Link
+															to={navigationOption.href}
 															className={classNames(
+																navigationOption.colorWay.nav,
 																navigationOption.current
-																	? "bg-gray-50 text-indigo-600"
+																	? navigationOption.colorWay.activeNav
 																	: "text-gray-700 hover:bg-gray-50 hover:text-indigo-600",
 																"group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
 															)}>
-															<navigationOption.icon
+															<FontAwesomeIcon
+																icon={navigationOption.icon}
 																className={classNames(
-																	navigationOption.current ? "text-indigo-600" : "text-gray-400 group-hover:text-indigo-600",
+																	navigationOption.colorWay.nav,
+																	navigationOption.current ? navigationOption.colorWay.activeNav : "text-gray-400",
 																	"h-6 w-6 shrink-0",
 																)}
 																aria-hidden="true"
 															/>
 															{navigationOption.name}
-														</a>
+														</Link>
 													</li>
 												))}
 											</ul>
@@ -122,10 +130,10 @@ function StaticSidebar() {
 	const navigationOptions = useNavigationOptions();
 
 	return (
-		<div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+		<div className="xl:72 hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-52 lg:flex-col">
 			<div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
 				<div className="flex h-16 shrink-0 items-center">
-					<img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
+					<FontAwesomeIcon className={classNames("h-8 w-8", navigationOptions.find((option) => option.current)?.colorWay.logo)} icon={faPeopleRoof} />
 				</div>
 				<nav className="flex flex-1 flex-col">
 					<ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -133,23 +141,24 @@ function StaticSidebar() {
 							<ul role="list" className="-mx-2 space-y-1">
 								{navigationOptions.map((navigationOption) => (
 									<li key={navigationOption.name}>
-										<a
-											href={navigationOption.href}
+										<Link
+											to={navigationOption.href}
 											className={classNames(
-												navigationOption.current
-													? "bg-gray-50 text-indigo-600"
-													: "text-gray-700 hover:bg-gray-50 hover:text-indigo-600",
+												navigationOption.colorWay.nav,
+												navigationOption.current ? navigationOption.colorWay.activeNav : "text-gray-700 hover:bg-gray-50",
 												"group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
 											)}>
-											<navigationOption.icon
+											<FontAwesomeIcon
+												icon={navigationOption.icon}
 												className={classNames(
-													navigationOption.current ? "text-indigo-600" : "text-gray-400 group-hover:text-indigo-600",
+													navigationOption.colorWay.nav,
+													navigationOption.current ? navigationOption.colorWay.activeNav : "text-gray-400",
 													"h-6 w-6 shrink-0",
 												)}
 												aria-hidden="true"
 											/>
 											{navigationOption.name}
-										</a>
+										</Link>
 									</li>
 								))}
 							</ul>

@@ -1,5 +1,5 @@
-import classNames from "classnames";
-
+import { Card } from "../components/Card";
+import { BloodPressureDashboardForm } from "../components/Dashboard/BloodPressureDashboardForm";
 import { BudgetPie } from "../components/Dashboard/BudgetPie";
 import { CurrentBills } from "../components/Dashboard/CurrentBills";
 import { ExpenditurePie } from "../components/Dashboard/ExpenditurePie";
@@ -9,38 +9,25 @@ export function Home() {
 		<>
 			<h1 className="mb-10 text-2xl">Home</h1>
 
-			<ul role="list" className="grid grid-cols-1 gap-6 md:grid-cols-2">
-				<HomeCard title="Bills from this and next Week">
+			<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+				<BloodPressureDashboardForm />
+
+				<Card title="Bills from this and next week" color="green" className="col-start-1">
 					<CurrentBills />
-				</HomeCard>
+				</Card>
 
-				<HomeCard title="Expenses" className="">
+				<Card title="Expenses">
 					<ExpenditurePie />
-				</HomeCard>
+				</Card>
 
-				<HomeCard title="Budget" className="">
+				<Card title="Budget">
 					<BudgetPie />
-				</HomeCard>
+				</Card>
 
 				{/* <HomeCard title="Expenditure Breakdown" className="">
 					<BudgetArea />
 				</HomeCard> */}
-			</ul>
-		</>
-	);
-}
-
-interface HomeCardProps {
-	title: string;
-	className?: string;
-}
-function HomeCard({ title, className, children }: React.PropsWithChildren<HomeCardProps>) {
-	return (
-		<li className={classNames("flex flex-col divide-y-2 divide-blue-400 overflow-hidden rounded-lg border-2 border-gray-200 bg-white shadow", className)}>
-			<div className="px-4 py-4 sm:p-6">
-				<h2 className="text-xl leading-6 text-gray-900">{title}</h2>
 			</div>
-			<div className="flex-grow bg-gray-50 px-4 py-5 sm:p-6">{children}</div>
-		</li>
+		</>
 	);
 }

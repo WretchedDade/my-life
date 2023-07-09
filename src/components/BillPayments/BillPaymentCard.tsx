@@ -1,14 +1,14 @@
-import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/20/solid";
+import { Fragment } from "react";
 
 import classNames from "classnames";
 import { BillPayment } from "../../types/bills";
-import { BillPaymentTag } from "./BillPaymentTag";
 import { BillPaymentIcon } from "./BillPaymentIcon";
+import { BillPaymentTag } from "./BillPaymentTag";
 
-import { styles } from "../../utils/styles";
 import { asCurrency, asFullDate } from "../../utils/formatters";
+import { styles } from "../../utils/styles";
 
 import { useBillConfigurationQuery } from "../../hooks/useBillConfiguration";
 import { useMarkBillAsPaidMutation } from "../../hooks/useMarkBillAsPaidMutation";
@@ -118,7 +118,7 @@ export function BillPaymentsCard<TElement extends React.ElementType = "div">({ a
 					</dd>
 				</div>
 				{billPayment.tags && billPayment.tags.length > 0 && (
-					<div className="flex justify-end gap-x-2 py-2 md:py-3">
+					<div className="flex flex-wrap items-center justify-end gap-2 py-2 md:py-3">
 						{billPayment.tags.map((tag) => (
 							<BillPaymentTag key={`${billPayment.id}-${tag.name}`} name={tag.name} color={tag.color} isLoading={isLoading} />
 						))}
@@ -132,7 +132,7 @@ export function BillPaymentsCard<TElement extends React.ElementType = "div">({ a
 					type="button"
 					onClick={() => markBillAsPaidMutation.mutate(billPayment.id)}
 					className={classNames(
-						"inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600",
+						"inline-flex items-center gap-x-1.5 rounded-md bg-green-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700",
 						{ [styles.loading]: isLoading },
 					)}>
 					Mark as Paid
