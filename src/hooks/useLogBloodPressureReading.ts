@@ -38,7 +38,7 @@ async function LogBloodPressureReading(systolic: number, diastolic: number, hear
 				systolic,
 				diastolic,
 				heartRate,
-				timeAtReading: dayjs().toDate(),
+				timeAtReading: dayjs().utc().toDate(),
 			};
 
 			const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/BloodPressure`, {

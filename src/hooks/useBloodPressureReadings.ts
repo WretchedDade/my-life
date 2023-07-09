@@ -8,11 +8,13 @@ import { Page } from "../types/shared";
 export function useBloodPressureReadings(pageNumber = 0, pageSize = 25) {
 	const accessToken = useAccessToken();
 
-	return useQuery(
-		["blood-pressure-readings", pageNumber, pageSize] as const,
-		({ queryKey: [, pageNumber, pageSize] }) => GetBloodPressureReadings(pageNumber, pageSize, accessToken ?? ""),
-		{ enabled: accessToken != null },
-	);
+	return useQuery({
+		enabled: accessToken != null,
+		keepPreviousData: true,
+
+		queryKey: ["blood-pressure-readings", pageNumber, pageSize] as const,
+		queryFn: ({ queryKey: [, pageNumber, pageSize] }) => GetBloodPressureReadings(pageNumber, pageSize, accessToken ?? ""),
+	});
 }
 
 async function GetBloodPressureReadings(pageNumber: number, pageSize: number, accessToken: string): Promise<Page<BloodPressureReading>> {

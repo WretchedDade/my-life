@@ -4,6 +4,9 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
 
+import dayjs from "dayjs";
+import * as utcPlugin from "dayjs/plugin/utc";
+
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 
@@ -14,7 +17,13 @@ import { App } from "./App.tsx";
 import { AuthContextProvider } from "./contexts/AuthContext.tsx";
 import { Error } from "./pages/Error.tsx";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+		},
+	},
+});
 
 const configuration: Configuration = {
 	auth: {
@@ -44,3 +53,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 		</ErrorBoundary>
 	</React.StrictMode>,
 );
+
+dayjs.extend(utcPlugin);

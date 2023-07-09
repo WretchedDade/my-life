@@ -3,7 +3,7 @@ import { useBloodPressureForm } from "../../hooks/useBloodPressureForm";
 import { Card, CardFooterAction, CardFooterActions } from "../Card";
 
 export function BloodPressureDashboardForm() {
-	const { onSubmit, onBlur, errors } = useBloodPressureForm();
+	const { formRef, onSubmit, onBlur, errors } = useBloodPressureForm();
 
 	const actions: CardFooterAction[] = [
 		{ text: "Reset", type: "reset", variant: "secondary" },
@@ -11,7 +11,7 @@ export function BloodPressureDashboardForm() {
 	];
 
 	return (
-		<form autoComplete="off" onSubmit={onSubmit} onBlur={onBlur}>
+		<form ref={formRef} autoComplete="off" onSubmit={onSubmit} onBlur={onBlur}>
 			<Card title="Track your Blood Pressure" footer={({ colorWay }) => <CardFooterActions colorWay={colorWay} actions={actions} />} color="red">
 				<div className="grid grid-cols-3 items-end gap-4">
 					<FormControl label="Systolic" name="systolic" error={errors.fieldErrors.systolic?.[0]} />

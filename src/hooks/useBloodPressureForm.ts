@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { z } from "zod";
 
 import { useLogBloodPressureReading } from "./useLogBloodPressureReading";
 
 export function useBloodPressureForm() {
+	const formRef = useRef<HTMLFormElement>(null);
 	const [errors, setErrors] = useState<Errors>({ formErrors: [], fieldErrors: {} });
 	const { mutate: LogBloodPressureReading } = useLogBloodPressureReading();
 
@@ -14,6 +15,7 @@ export function useBloodPressureForm() {
 
 		if (validationResult.success) {
 			LogBloodPressureReading(validationResult.data);
+			formRef.current?.reset();
 		} else {
 			setErrors(validationResult.error.flatten());
 		}
@@ -26,7 +28,7 @@ export function useBloodPressureForm() {
 			setErrors(validationResult.success ? { formErrors: [], fieldErrors: {} } : validationResult.error.flatten());
 	}
 
-	return { onSubmit, onBlur, errors };
+	return { formRef, onSubmit, onBlur, errors };
 }
 
 type Errors = z.inferFlattenedErrors<typeof bloodPressureFormSchema>;

@@ -6,7 +6,7 @@ import { ColorWays } from "../ColorWays";
 
 import { Page } from "../../types/shared";
 
-interface CardTableProps<TModel> extends Omit<CardProps, "children" | "contentPaddingDisabled" | "footer"> {
+export interface CardTableProps<TModel> extends Omit<CardProps, "children" | "contentPaddingDisabled" | "footer"> {
 	page: Page<TModel>;
 	headings: string[];
 
@@ -16,6 +16,11 @@ interface CardTableProps<TModel> extends Omit<CardProps, "children" | "contentPa
 	pagination?: {
 		onNext: () => void;
 		onPrevious: () => void;
+
+		pageSizeSelect?: {
+			defaultPageSize?: number;
+			onPageSizeChange: (pageSize: number) => void;
+		};
 	};
 }
 
@@ -34,7 +39,20 @@ export function CardTable<TModel>({
 			{...cardProps}
 			contentPaddingDisabled
 			footer={({ colorWay }) =>
-				pagination && <CardTableFooter colorWay={colorWay} page={page} onNext={pagination.onNext} onPrevious={pagination.onPrevious} />
+				pagination && (
+					<CardTableFooter
+						colorWay={colorWay}
+						page={page}
+						onNext={pagination.onNext}
+						onPrevious={pagination.onPrevious}
+						pageSizeSelect={
+							pagination.pageSizeSelect && {
+								defaultPageSize: pagination.pageSizeSelect.defaultPageSize ?? 10,
+								onPageSizeChange: pagination.pageSizeSelect.onPageSizeChange,
+							}
+						}
+					/>
+				)
 			}>
 			<table className="min-w-full divide-y divide-gray-300">
 				<thead className={classNames("", colorWay.table.header)}>
@@ -83,19 +101,55 @@ interface CardTableFooterProps<TModel> extends CardFooterProps {
 
 	onPrevious: (pageNumber: number) => void;
 	onNext: (pageNumber: number) => void;
+
+	pageSizeSelect?: {
+		defaultPageSize: number;
+		onPageSizeChange: (pageSize: number) => void;
+	};
 }
 
-function CardTableFooter<TModel>({ page, onPrevious, onNext, colorWay }: CardTableFooterProps<TModel>) {
+function CardTableFooter<TModel>({ page, onPrevious, onNext, pageSizeSelect, colorWay }: CardTableFooterProps<TModel>) {
 	return (
 		<nav className={classNames("flex items-center justify-between", colorWay.card.footer)} aria-label="Pagination">
+			{pageSizeSelect && (
+				<div className="hidden gap-x-4 sm:flex">
+					<select
+						id="pageSize"
+						name="pageSize"
+						className={classNames(
+							"block rounded border-0 p-1 pr-2 text-xs text-gray-900 ring-1 ring-gray-300 ring-offset-1 focus:ring-2  sm:leading-6",
+							colorWay.form.control,
+						)}
+						defaultValue={pageSizeSelect.defaultPageSize}
+						onChange={(event) => {
+							const target = event.target;
+							const newPageSize = target.value || target.options[target.selectedIndex].value;
+
+							console.log({ target, newPageSize });
+
+							return pageSizeSelect.onPageSizeChange(Number(newPageSize));
+						}}>
+						{[5, 10, 20, 30, 40, 50].map((pageSize) => (
+							<option key={pageSize} value={pageSize}>
+								{pageSize}
+							</option>
+						))}
+					</select>
+					<label htmlFor="pageSize" className="block text-sm font-medium leading-6 text-gray-900">
+						Items Per Page
+					</label>
+				</div>
+			)}
+
 			<div className="hidden sm:block">
 				<p className="text-sm text-gray-700">
 					Showing <span className="font-medium">{page.pageNumber * page.pageSize + 1}</span> to{" "}
-					<span className="font-medium">{page.pageNumber * page.pageSize + page.pageSize}</span> of{" "}
-					<span className="font-medium">{page?.totalCount}</span> results
+					<span className="font-medium">{Math.min(page.pageNumber * page.pageSize + page.pageSize, page.totalCount)}</span> of{" "}
+					<span className="font-medium">{page.totalCount}</span> results
 				</p>
 			</div>
-			<div className="flex flex-1 justify-between gap-x-4 sm:justify-end">
+
+			<div className="flex flex-1 justify-between gap-x-4 sm:flex-none sm:justify-end">
 				<Button color={colorWay.color} variant="secondary" onClick={() => onPrevious(page.pageNumber)} disabled={!page.hasPreviousPage}>
 					Previous
 				</Button>

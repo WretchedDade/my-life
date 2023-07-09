@@ -33,11 +33,19 @@ export function asOrdinal(value: number | undefined) {
 }
 
 export function asFullDate(value: string | undefined | Date) {
+	return asDateString(value, "full", "medium");
+}
+
+export function asDateString(
+	value: string | undefined | Date,
+	dateStyle: Intl.DateTimeFormatOptions["dateStyle"],
+	timeStyle: Intl.DateTimeFormatOptions["timeStyle"],
+) {
 	if (value === undefined) {
 		return "";
 	}
 
 	const date = value instanceof Date ? value : new Date(value);
 
-	return new Intl.DateTimeFormat("en-US", { dateStyle: "full" }).format(date);
+	return new Intl.DateTimeFormat("en-US", { dateStyle, timeStyle }).format(date);
 }

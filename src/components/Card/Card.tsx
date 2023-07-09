@@ -2,8 +2,11 @@ import classNames from "classnames";
 
 import { Button } from "../Button";
 import { ColorWay, ColorWays } from "../ColorWays";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 export interface CardProps extends React.PropsWithChildren<object> {
+	isLoading?: boolean;
+
 	color?: keyof ColorWays;
 
 	title: string;
@@ -25,7 +28,17 @@ export interface CardFooterProps {
 	colorWay: ColorWay;
 }
 
-export function Card({ title, description, children, color = "blue", action, footer: Footer, className, contentPaddingDisabled = false }: CardProps) {
+export function Card({
+	isLoading,
+	title,
+	description,
+	children,
+	color = "blue",
+	action,
+	footer: Footer,
+	className,
+	contentPaddingDisabled = false,
+}: CardProps) {
 	const colorWay = ColorWays[color];
 
 	return (
@@ -45,8 +58,20 @@ export function Card({ title, description, children, color = "blue", action, foo
 					)}
 				</div>
 			</div>
-			<div className={classNames({ "px-4 py-5 sm:p-6": !contentPaddingDisabled })}>{children}</div>
-			{Footer && <Footer colorWay={colorWay} />}
+			<div className="relative">
+				<div className={classNames({ "px-4 py-5 sm:p-6": !contentPaddingDisabled })}>{children}</div>
+				{Footer && <Footer colorWay={colorWay} />}
+				{isLoading && children && (
+					<div className="absolute top-0 h-full w-full bg-slate-600/25 text-red-600">
+						<LoadingSpinner centered className="h-1/2 w-1/2" />
+					</div>
+				)}
+				{isLoading && !children && (
+					<div className="h-72 w-full text-red-600">
+						<LoadingSpinner centered className="h-1/2 w-1/2" />
+					</div>
+				)}
+			</div>
 		</div>
 	);
 }

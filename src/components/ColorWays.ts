@@ -24,6 +24,10 @@ export interface ColorWay {
 		row: string;
 		oddRow: string;
 	};
+
+	form: {
+		control: string;
+	};
 }
 
 export interface ColorWays {
@@ -61,6 +65,10 @@ export const ColorWays: ColorWays = {
 			row: "hover:bg-blue-100",
 			oddRow: "bg-blue-50",
 		},
+
+		form: {
+			control: "focus:ring-blue-600",
+		},
 	},
 	green: {
 		color: "green",
@@ -88,6 +96,10 @@ export const ColorWays: ColorWays = {
 			header: "bg-green-600 text-white",
 			row: "hover:bg-green-100",
 			oddRow: "bg-green-50",
+		},
+
+		form: {
+			control: "focus:ring-green-600",
 		},
 	},
 	orange: {
@@ -117,6 +129,10 @@ export const ColorWays: ColorWays = {
 			row: "hover:bg-orange-100",
 			oddRow: "bg-orange-50",
 		},
+
+		form: {
+			control: "focus:ring-orange-600",
+		},
 	},
 	red: {
 		color: "red",
@@ -144,6 +160,10 @@ export const ColorWays: ColorWays = {
 			header: "bg-red-600 text-white",
 			row: "hover:bg-red-100",
 			oddRow: "bg-red-50",
+		},
+
+		form: {
+			control: "focus:ring-red-600",
 		},
 	},
 };
