@@ -20,7 +20,7 @@ import { Error } from "./pages/Error.tsx";
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
-			refetchOnWindowFocus: false,
+			// refetchOnWindowFocus: false,
 		},
 	},
 });

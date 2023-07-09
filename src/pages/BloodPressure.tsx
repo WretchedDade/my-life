@@ -23,7 +23,7 @@ export function BloodPressure() {
 	const [pageSize, setPageSize] = useState(5);
 	const [pageNumber, setPageNumber] = useState(0);
 
-	const { data: page, isLoading } = useBloodPressureReadings(pageNumber, pageSize);
+	const { data: page, isFetching } = useBloodPressureReadings(pageNumber, pageSize);
 
 	const pagination = useMemo<CardTableProps<BloodPressureReading>["pagination"]>(
 		() => ({
@@ -40,11 +40,11 @@ export function BloodPressure() {
 		[setPageNumber, pageNumber, setPageSize, pageSize],
 	);
 
-	if (page === undefined) return <Card isLoading={isLoading} color="red" title="Blood Pressure Log" />; // TODO: Loading state
+	if (page === undefined) return <Card isLoading={isFetching} color="red" title="Blood Pressure Log" />;
 
 	return (
 		<CardTable
-			isLoading={isLoading}
+			isLoading={isFetching}
 			color="red"
 			title="Blood Pressure Log"
 			page={page}
