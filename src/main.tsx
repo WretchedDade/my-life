@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
 
-import dayjs from "dayjs";
+import dayjs, { PluginFunc } from "dayjs";
 import * as utcPlugin from "dayjs/plugin/utc";
 
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
@@ -57,4 +57,4 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	</React.StrictMode>,
 );
 
-dayjs.extend(utcPlugin);
+dayjs.extend(utcPlugin as unknown as PluginFunc<unknown>);

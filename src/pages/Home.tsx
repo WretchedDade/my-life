@@ -3,11 +3,8 @@ import { BloodPressureDashboardForm } from "../components/Dashboard/BloodPressur
 import { BudgetPie } from "../components/Dashboard/BudgetPie";
 import { CurrentBills } from "../components/Dashboard/CurrentBills";
 import { ExpenditurePie } from "../components/Dashboard/ExpenditurePie";
-import { useNotifier } from "../hooks/useShowNotification";
 
 export function Home() {
-	const notifier = useNotifier();
-
 	return (
 		<>
 			<h1 className="mb-10 text-2xl">Home</h1>
@@ -26,10 +23,6 @@ export function Home() {
 				<Card heading={{ title: "Budget" }}>
 					<BudgetPie />
 				</Card>
-
-				{/* <HomeCard title="Expenditure Breakdown" className="">
-					<BudgetArea />
-				</HomeCard> */}
 			</div>
 		</>
 	);
