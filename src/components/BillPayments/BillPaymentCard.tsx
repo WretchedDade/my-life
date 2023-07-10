@@ -1,12 +1,12 @@
 import classNames from "classnames";
-import { BillPayment } from "../../types/bills";
-import { BillPaymentTag } from "./BillPaymentTag";
-
-import { asCurrency, asFullDate } from "../../utils/formatters";
 
 import { ColorWays, IsValidColorWay } from "../../ColorWays";
 import { useMarkBillAsPaidMutation } from "../../hooks/useMarkBillAsPaidMutation";
+import { BillPayment } from "../../types/bills";
+import { asCurrency, asFullDate } from "../../utils/formatters";
+
 import { Card, CardFooterActions } from "../Card";
+import { Tag } from "../Tag";
 import { BillPaymentIcon } from "./BillPaymentIcon";
 
 interface BillPaymentsCardProps {
@@ -66,7 +66,9 @@ export function BillPaymentsCard({ billPayment, isLoading }: BillPaymentsCardPro
 				{nonAutoPayTags && nonAutoPayTags.length > 0 && (
 					<div className="flex flex-wrap items-center justify-end gap-2 py-2 md:py-3">
 						{nonAutoPayTags.map((tag) => (
-							<BillPaymentTag key={`${billPayment.id}-${tag.name}`} name={tag.name} color={tag.color} />
+							<Tag key={`${billPayment.id}-${tag.name}`} color={tag.color}>
+								{tag.name}
+							</Tag>
 						))}
 					</div>
 				)}

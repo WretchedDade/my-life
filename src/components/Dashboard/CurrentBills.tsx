@@ -65,8 +65,12 @@ function CurrentBillTimelineItem({ loading, bill, isFinalItem }: CurrentBillTime
 						<CurrentBillTimelineIcon loading={loading} isPaid={bill.isPaid} isPastDue={isPastDue} />
 					</div>
 					<div className="flex min-w-0 flex-1 items-center justify-between space-x-4">
-						<div className="flex items-center space-x-4">
-							<p className={classNames("text-gray-900 ", { [styles.loading]: loading, "sm:group-hover:font-semibold": !loading })}>
+						<div className="flex space-x-4">
+							<p
+								className={classNames("text-gray-900", {
+									[styles.loading]: loading,
+									"sm:group-hover:font-semibold": !loading,
+								})}>
 								{bill.name.split(" - ")[0]}
 							</p>
 							{isPastDue && (

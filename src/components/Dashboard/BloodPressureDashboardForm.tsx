@@ -3,11 +3,11 @@ import { useBloodPressureForm } from "../../hooks/useBloodPressureForm";
 import { Card, CardFooterAction, CardFooterActions } from "../Card";
 
 export function BloodPressureDashboardForm() {
-	const { formRef, onSubmit, onBlur, errors } = useBloodPressureForm();
+	const { formRef, onSubmit, onBlur, errors, isMutating } = useBloodPressureForm();
 
 	const actions: CardFooterAction[] = [
-		{ text: "Reset", type: "reset", variant: "secondary" },
-		{ text: "Submit", type: "submit" },
+		{ text: "Reset", type: "reset", variant: "secondary", disabled: isMutating },
+		{ text: "Submit", type: "submit", isLoading: isMutating },
 	];
 
 	return (

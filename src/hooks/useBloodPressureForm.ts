@@ -6,7 +6,7 @@ import { useLogBloodPressureReading } from "./useLogBloodPressureReading";
 export function useBloodPressureForm() {
 	const formRef = useRef<HTMLFormElement>(null);
 	const [errors, setErrors] = useState<Errors>({ formErrors: [], fieldErrors: {} });
-	const { mutate: LogBloodPressureReading } = useLogBloodPressureReading();
+	const { mutate: LogBloodPressureReading, isLoading } = useLogBloodPressureReading();
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -28,7 +28,7 @@ export function useBloodPressureForm() {
 			setErrors(validationResult.success ? { formErrors: [], fieldErrors: {} } : validationResult.error.flatten());
 	}
 
-	return { formRef, onSubmit, onBlur, errors };
+	return { formRef, onSubmit, onBlur, errors, isMutating: isLoading };
 }
 
 type Errors = z.inferFlattenedErrors<typeof bloodPressureFormSchema>;
