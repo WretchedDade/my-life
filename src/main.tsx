@@ -15,6 +15,7 @@ import "./main.css";
 import { ErrorBoundary } from "react-error-boundary";
 import { App } from "./App.tsx";
 import { AuthContextProvider } from "./contexts/AuthContext.tsx";
+import { NotificationContextProvider } from "./contexts/Notification.tsx";
 import { Error } from "./pages/Error.tsx";
 
 const queryClient = new QueryClient({
@@ -44,8 +45,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 				<BrowserRouter future={{ v7_startTransition: true }}>
 					<MsalProvider instance={publicClientApplication}>
 						<AuthContextProvider>
-							<App />
-							<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+							<NotificationContextProvider>
+								<App />
+								<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+							</NotificationContextProvider>
 						</AuthContextProvider>
 					</MsalProvider>
 				</BrowserRouter>

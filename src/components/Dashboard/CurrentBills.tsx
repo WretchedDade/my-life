@@ -66,12 +66,12 @@ function CurrentBillTimelineItem({ loading, bill, isFinalItem }: CurrentBillTime
 					</div>
 					<div className="flex min-w-0 flex-1 items-center justify-between space-x-4">
 						<div className="flex items-center space-x-4">
-							<p className={classNames("text-gray-900 ", { [styles.loading]: loading, "group-hover:font-semibold": !loading })}>
+							<p className={classNames("text-gray-900 ", { [styles.loading]: loading, "sm:group-hover:font-semibold": !loading })}>
 								{bill.name.split(" - ")[0]}
 							</p>
 							{isPastDue && (
-								<span className="inline-flex items-center gap-x-1.5 rounded-md bg-red-100 px-1.5 py-0.5 text-xs font-medium text-red-700 group-hover:bg-red-200 group-hover:text-red-800">
-									<svg className="h-1.5 w-1.5 fill-red-500 group-hover:fill-red-600" viewBox="0 0 6 6" aria-hidden="true">
+								<span className="inline-flex items-center gap-x-1.5 rounded-md bg-red-100 px-1.5 py-0.5 text-xs font-medium text-red-700 sm:group-hover:bg-red-200 sm:group-hover:text-red-800">
+									<svg className="h-1.5 w-1.5 fill-red-500 sm:group-hover:fill-red-600" viewBox="0 0 6 6" aria-hidden="true">
 										<circle cx={3} cy={3} r={3} />
 									</svg>
 									Past Due
@@ -79,7 +79,7 @@ function CurrentBillTimelineItem({ loading, bill, isFinalItem }: CurrentBillTime
 							)}
 						</div>
 						<div
-							className={classNames("whitespace-nowrap text-right text-sm text-gray-500 group-hover:text-gray-900", {
+							className={classNames("whitespace-nowrap text-right text-sm text-gray-500 sm:group-hover:text-gray-900", {
 								[styles.loading]: loading,
 							})}>
 							<time dateTime={bill.dateDue.toDateString()}>{asFullDate(bill.dateDue)}</time>
@@ -109,13 +109,13 @@ function CurrentBillTimelineIcon({ loading, isPaid, isPastDue }: CurrentBillTime
 			className={classNames("flex h-8 w-8 items-center justify-center rounded-full", {
 				"text-white": !loading,
 				[styles.loading]: loading && (isPaid || isPastDue),
-				"bg-green-500 group-hover:bg-green-600": isPaid,
-				"bg-red-500 group-hover:bg-red-600": isPastDue,
+				"bg-green-500 sm:group-hover:bg-green-600": isPaid,
+				"bg-red-500 sm:group-hover:bg-red-600": isPastDue,
 			})}>
 			{Icon ? (
 				<Icon className="h-6 w-6 text-inherit" aria-hidden="true" />
 			) : (
-				<div className={classNames("h-4 w-4 rounded-full bg-gray-200 group-hover:bg-gray-300", { [styles.loading]: loading })}></div>
+				<div className={classNames("h-4 w-4 rounded-full bg-gray-200 sm:group-hover:bg-gray-300", { [styles.loading]: loading })}></div>
 			)}
 		</span>
 	);

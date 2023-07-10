@@ -1,17 +1,23 @@
-import { useMutation, useQueryClient } from "react-query";
 import { IMsalContext, useMsal } from "@azure/msal-react";
+import { useMutation, useQueryClient } from "react-query";
 
+import { ColorWaysKey } from "../ColorWays";
+import { BillPayment, BillPaymentSchema } from "../types/bills";
 import { Scopes } from "../utils/auth";
 import { getAccessToken } from "./useAccessToken";
-import { BillPayment, BillPaymentSchema } from "../types/bills";
+import { useNotifier } from "./useShowNotification";
 
-export function useMarkBillAsPaidMutation() {
+export function useMarkBillAsPaidMutation(color: ColorWaysKey) {
 	const msal = useMsal();
 	const queryClient = useQueryClient();
+
+	const notifier = useNotifier();
 
 	return useMutation({
 		mutationFn: (id: string) => MarkBillAsPaid(id, msal),
 		onSuccess: (_, id) => {
+			notifier.success("Bill marked as paid", { title: "Success!", color });
+
 			queryClient.setQueryData<BillPayment[] | undefined>(["bills", "unpaid"], (oldData) => {
 				if (oldData === undefined) return;
 

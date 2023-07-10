@@ -1,17 +1,18 @@
 import classNames from "classnames";
 
 import { Card, CardFooterProps, CardProps } from ".";
+import { ColorWays } from "../../ColorWays";
 import { Button } from "../Button";
-import { ColorWays } from "../ColorWays";
 
 import { Page } from "../../types/shared";
 
 export interface CardTableProps<TModel> extends Omit<CardProps, "children" | "contentPaddingDisabled" | "footer"> {
 	page: Page<TModel>;
-	headings: string[];
+
+	headings: React.ComponentType<React.HTMLAttributes<HTMLTableCellElement>>[];
+	getRowValues: (item: TModel) => React.ComponentType<React.HTMLAttributes<HTMLTableCellElement>>[];
 
 	getRowKey?: (item: TModel, index: number) => string;
-	getRowValues: (item: TModel) => React.ReactNode[];
 
 	pagination?: {
 		onNext: () => void;
@@ -26,10 +27,13 @@ export interface CardTableProps<TModel> extends Omit<CardProps, "children" | "co
 
 export function CardTable<TModel>({
 	page,
-	headings,
-	getRowKey = (_, index) => index.toString(),
-	getRowValues,
 	pagination,
+
+	headings,
+	getRowValues,
+
+	getRowKey = (_, index) => index.toString(),
+
 	...cardProps
 }: CardTableProps<TModel>) {
 	const colorWay = ColorWays[cardProps.color ?? "blue"];
@@ -54,19 +58,17 @@ export function CardTable<TModel>({
 					/>
 				)
 			}>
-			<table className="min-w-full divide-y divide-gray-300">
-				<thead className={classNames("", colorWay.table.header)}>
+			<table className="min-w-full">
+				<thead className={classNames(colorWay.table.header)}>
 					<tr>
-						{headings.map((heading, headingIndex) => (
-							<th
-								key={headingIndex}
-								scope="col"
-								className={classNames("text-left text-sm font-semibold text-inherit", {
-									"py-3.5 pl-4 pr-3 sm:pl-6": headingIndex === 0,
-									"px-3 py-3.5": headingIndex !== 0,
-								})}>
-								{heading}
-							</th>
+						{headings.map((TableHeaderCell, index) => (
+							<TableHeaderCell
+								key={index}
+								className={classNames("text-xs font-medium capitalize tracking-wide text-inherit sm:text-sm", {
+									"py-3.5 pl-4 pr-3 text-left sm:pl-6": index === 0,
+									"px-3 py-3.5 text-center": index !== 0,
+								})}
+							/>
 						))}
 					</tr>
 				</thead>
@@ -75,17 +77,15 @@ export function CardTable<TModel>({
 						page.items?.map((item, itemIndex) => {
 							const rowKey = getRowKey(item, itemIndex);
 							return (
-								<tr key={rowKey} className={classNames(colorWay.table.row, { [colorWay.table.oddRow]: itemIndex % 2 != 0 })}>
-									{getRowValues(item).map((content, contentIndex) => (
-										<td
-											key={`${rowKey}-cell${contentIndex}`}
-											scope="col"
-											className={classNames("whitespace-nowrap text-sm", {
-												"py-4 pl-4 pr-3 font-medium text-gray-900 sm:pl-6": contentIndex === 0,
-												"px-3 py-4 text-gray-500": contentIndex !== 0,
-											})}>
-											{content}
-										</td>
+								<tr key={rowKey} className={classNames(colorWay.table.row, { [colorWay.table.evenRow]: itemIndex % 2 == 0 })}>
+									{getRowValues(item).map((TableCell, index) => (
+										<TableCell
+											key={`${rowKey}-cell${index}`}
+											className={classNames("whitespace-nowrap text-xs sm:text-sm", {
+												"p-1 pl-4 text-left font-medium text-gray-900 sm:py-4 sm:pl-6 sm:pr-3": index === 0,
+												"p-1 text-center text-gray-500 sm:px-3 sm:py-4": index !== 0,
+											})}
+										/>
 									))}
 								</tr>
 							);

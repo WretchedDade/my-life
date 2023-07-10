@@ -1,7 +1,7 @@
 import { faHeartPulse, faIgloo, faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
 import { useMemo } from "react";
 import { Location, useLocation } from "react-router-dom";
-import { ColorWay, ColorWays } from "../components/ColorWays";
+import { ColorWay, ColorWays } from "../ColorWays";
 
 export function useNavigationOptions() {
 	const location = useLocation();

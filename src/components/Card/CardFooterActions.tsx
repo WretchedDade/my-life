@@ -1,8 +1,8 @@
 import classNames from "classnames";
 
 import { CardFooterProps } from ".";
+import { ColorWay } from "../../ColorWays";
 import { Button, ButtonProps } from "../Button";
-import { ColorWay } from "../ColorWays";
 
 export interface CardFooterAction extends Omit<ButtonProps, "children" | "size" | "color"> {
 	text: string;

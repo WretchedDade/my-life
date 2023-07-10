@@ -1,4 +1,5 @@
 import { BillPayment } from "../../types/bills";
+import { LoadingSpinner } from "../LoadingSpinner";
 import { BillPaymentsCard } from "./BillPaymentCard";
 
 interface BillPaymentsGridProps {
@@ -6,36 +7,19 @@ interface BillPaymentsGridProps {
 	billPayments: BillPayment[];
 }
 
-const mockBillPayment: BillPayment = {
-	id: "1",
-	billConfigurationId: "1",
-	name: "Mock Bill Payment",
-	amount: 100,
-	dateDue: new Date(),
-	tags: [
-		{
-			name: "Mock Tag",
-			color: "Blue",
-		},
-	],
-	isAutoPay: true,
-	isPaid: false,
-};
-
 export function BillPaymentsGrid({ isLoading, billPayments }: BillPaymentsGridProps) {
 	if (isLoading) {
 		return (
-			<BillPaymentsGridList>
-				<BillPaymentsCard as="li" isLoading billPayment={mockBillPayment} />
-				<BillPaymentsCard as="li" isLoading billPayment={mockBillPayment} />
-			</BillPaymentsGridList>
+			<div className="flex-grow">
+				<LoadingSpinner centered className="h-32" />
+			</div>
 		);
 	}
 
 	return (
 		<BillPaymentsGridList>
 			{billPayments.map((billPayment) => (
-				<BillPaymentsCard as="li" key={billPayment.id} billPayment={billPayment} />
+				<BillPaymentsCard key={billPayment.id} billPayment={billPayment} />
 			))}
 		</BillPaymentsGridList>
 	);

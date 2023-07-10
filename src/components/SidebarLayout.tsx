@@ -20,8 +20,8 @@ export function SidebarLayout() {
 
 			<Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-			<main className="xl:72 py-10 lg:pl-52">
-				<div className="px-4 sm:px-6 lg:px-8">
+			<main className="flex min-h-[calc(100vh-64px)] py-5 sm:min-h-screen sm:py-10 lg:pl-52">
+				<div className="flex flex-grow flex-col px-4 sm:px-6 lg:px-8">
 					<Outlet />
 				</div>
 			</main>
@@ -178,7 +178,7 @@ function StaticSidebar() {
 
 function Header({ setSidebarOpen }: SidebarProps) {
 	return (
-		<div className="sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+		<div className="sticky top-0 z-40 flex h-16 items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden">
 			<button type="button" className="-m-2.5 p-2.5 text-gray-700 lg:hidden" onClick={() => setSidebarOpen(true)}>
 				<span className="sr-only">Open sidebar</span>
 				<Bars3Icon className="h-6 w-6" aria-hidden="true" />

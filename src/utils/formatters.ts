@@ -33,7 +33,7 @@ export function asOrdinal(value: number | undefined) {
 }
 
 export function asFullDate(value: string | undefined | Date) {
-	return asDateString(value, "full", "medium");
+	return asDateString(value, "full", undefined);
 }
 
 export function asDateString(

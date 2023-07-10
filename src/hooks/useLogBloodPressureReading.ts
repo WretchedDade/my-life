@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { BloodPressureReading, BloodPressureReadingSchema } from "../types/BloodPressureReading";
 import { Scopes } from "../utils/auth";
 import { getAccessToken } from "./useAccessToken";
+import { useNotifier } from "./useShowNotification";
 
 type Variables = Required<Omit<BloodPressureReading, "timeAtReading" | "id">>;
 
@@ -12,17 +13,24 @@ export function useLogBloodPressureReading() {
 	const msal = useMsal();
 	const queryClient = useQueryClient();
 
+	const notifier = useNotifier();
+
 	return useMutation({
 		mutationFn: ({ systolic, diastolic, heartRate }: Variables) => {
 			return LogBloodPressureReading(systolic, diastolic, heartRate, msal);
 		},
 
 		onSuccess: (newBloodPressureReading) => {
-			queryClient.setQueryData<BloodPressureReading[] | undefined>("blood-pressure-readings", (oldData) => {
-				if (oldData === undefined || newBloodPressureReading === undefined) return;
+			if (newBloodPressureReading === undefined) return;
 
-				return [newBloodPressureReading, ...oldData];
+			notifier.success(`The reading of ${newBloodPressureReading.systolic}/${newBloodPressureReading.diastolic} was successfully logged`, {
+				color: "red",
+				title: "Reading Logged",
 			});
+
+			queryClient.setQueryData<BloodPressureReading[] | undefined>("blood-pressure-readings", (oldData) =>
+				oldData !== undefined ? [newBloodPressureReading, ...oldData] : undefined,
+			);
 
 			queryClient.invalidateQueries("blood-pressure-readings");
 		},

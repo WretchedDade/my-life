@@ -1,13 +1,13 @@
-import { z } from "zod";
 import { useQuery } from "react-query";
+import { z } from "zod";
 
-import { useAccessToken } from "./useAccessToken";
 import { BillPayment, BillPaymentSchema } from "../types/bills";
+import { useAccessToken } from "./useAccessToken";
 
 export function useUnpaidBillsQuery() {
 	const accessToken = useAccessToken();
 
-	return useQuery(["bills", "unpaid"], () => GetUnpaidBills(accessToken ?? ""), { enabled: accessToken != null });
+	return useQuery({ queryKey: ["bills", "unpaid"], queryFn: () => GetUnpaidBills(accessToken ?? ""), enabled: accessToken != null, keepPreviousData: true });
 }
 
 async function GetUnpaidBills(accessToken: string): Promise<BillPayment[]> {

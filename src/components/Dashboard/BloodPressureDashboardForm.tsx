@@ -12,7 +12,10 @@ export function BloodPressureDashboardForm() {
 
 	return (
 		<form ref={formRef} autoComplete="off" onSubmit={onSubmit} onBlur={onBlur}>
-			<Card title="Track your Blood Pressure" footer={({ colorWay }) => <CardFooterActions colorWay={colorWay} actions={actions} />} color="red">
+			<Card
+				heading={{ title: "Track your Blood Pressure" }}
+				footer={({ colorWay }) => <CardFooterActions colorWay={colorWay} actions={actions} />}
+				color="red">
 				<div className="grid grid-cols-3 items-end gap-4">
 					<FormControl label="Systolic" name="systolic" error={errors.fieldErrors.systolic?.[0]} />
 					<FormControl label="Diastolic" name="diastolic" error={errors.fieldErrors.diastolic?.[0]} />
@@ -41,7 +44,7 @@ function FormControl({ name, label, error }: FormControlProps) {
 				name={name}
 				id={name}
 				className={classNames(
-					"block w-3/4 rounded-md border-0 p-1.5 text-sm text-gray-900 shadow-sm outline-none ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:leading-6",
+					"block w-3/4 appearance-none rounded-md border-0 p-1.5 text-sm text-gray-900 shadow-sm outline-none ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:leading-6",
 					{
 						"ring-red-900 focus:ring-red-900": error,
 					},
