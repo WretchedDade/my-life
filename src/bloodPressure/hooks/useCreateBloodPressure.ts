@@ -9,7 +9,7 @@ import { BloodPressureReading, BloodPressureReadingSchema } from "..";
 
 type Variables = Required<Omit<BloodPressureReading, "timeAtReading" | "id">>;
 
-export function useCreateBloodPressure() {
+export function useCreateBloodPressure({ onSuccess }: { onSuccess?: () => void } = {}) {
 	const msal = useMsal();
 	const queryClient = useQueryClient();
 
@@ -22,6 +22,8 @@ export function useCreateBloodPressure() {
 
 		onSuccess: (newBloodPressureReading) => {
 			if (newBloodPressureReading === undefined) return;
+
+			onSuccess?.();
 
 			notifier.success(`The reading of ${newBloodPressureReading.systolic}/${newBloodPressureReading.diastolic} was successfully logged`, {
 				color: "red",

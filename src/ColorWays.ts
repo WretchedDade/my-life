@@ -38,6 +38,7 @@ export interface ColorWay {
 
 	form: {
 		control: string;
+		input: string;
 	};
 
 	notification: {
@@ -53,6 +54,14 @@ export interface ColorWay {
 	spinner: {
 		primary: string;
 		secondary: string;
+	};
+
+	modal: {
+		header: {
+			root: string;
+			dismiss: string;
+			description: string;
+		};
 	};
 }
 
@@ -76,7 +85,7 @@ export const ColorWays: ColorWays = {
 				"border-2 enabled:hover:bg-blue-100 focus-visible:outline-blue-300 border-blue-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed",
 		},
 		table: { header: "bg-blue-600 text-white", row: "", evenRow: "bg-blue-50" },
-		form: { control: "focus:ring-blue-600" },
+		form: { control: "focus:ring-blue-600", input: "ring-blue-300 focus:ring-blue-500" },
 		notification: {
 			root: "bg-blue-100 ring-blue-600 text-blue-600",
 			dismiss: "hover:bg-blue-200 hover:text-blue-600 focus:ring-blue-600",
@@ -84,6 +93,7 @@ export const ColorWays: ColorWays = {
 		},
 		tag: { root: "text-blue-600 bg-blue-600/20 ring-blue-600" },
 		spinner: { primary: "text-blue-600", secondary: "white" },
+		modal: { header: { root: "bg-blue-700 text-white", dismiss: "bg-blue-700 text-blue-200 hover:text-white", description: "text-blue-200" } },
 	},
 	green: {
 		color: "green",
@@ -104,7 +114,7 @@ export const ColorWays: ColorWays = {
 				"border-2 enabled:hover:bg-green-100 focus-visible:outline-green-300 border-green-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed",
 		},
 		table: { header: "bg-green-600 text-white", row: "", evenRow: "bg-green-50" },
-		form: { control: "focus:ring-green-600" },
+		form: { control: "focus:ring-green-600", input: "ring-green-300 focus:ring-green-500" },
 		notification: {
 			root: "bg-green-100 ring-green-600 text-green-600",
 			dismiss: "hover:bg-green-200 hover:text-green-600 focus:ring-green-600",
@@ -112,6 +122,7 @@ export const ColorWays: ColorWays = {
 		},
 		tag: { root: "text-green-600 bg-green-600/20 ring-green-600" },
 		spinner: { primary: "text-green-600", secondary: "white" },
+		modal: { header: { root: "bg-green-700 text-white", dismiss: "bg-green-700 text-green-200 hover:text-white", description: "text-green-200" } },
 	},
 	orange: {
 		color: "orange",
@@ -132,7 +143,7 @@ export const ColorWays: ColorWays = {
 				"border-2 enabled:hover:bg-orange-100 focus-visible:outline-orange-300 border-orange-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed",
 		},
 		table: { header: "bg-orange-600 text-white", row: "", evenRow: "bg-orange-50" },
-		form: { control: "focus:ring-orange-600" },
+		form: { control: "focus:ring-orange-600", input: "ring-orange-300 focus:ring-orange-500" },
 		notification: {
 			root: "bg-orange-100 ring-orange-600 text-orange-600",
 			dismiss: "hover:bg-orange-200 hover:text-orange-600 focus:ring-orange-600",
@@ -140,6 +151,7 @@ export const ColorWays: ColorWays = {
 		},
 		tag: { root: "text-orange-600 bg-orange-600/20 ring-orange-600" },
 		spinner: { primary: "text-orange-600", secondary: "white" },
+		modal: { header: { root: "bg-orange-700 text-white", dismiss: "bg-orange-700 text-orange-200 hover:text-white", description: "text-orange-200" } },
 	},
 	red: {
 		color: "red",
@@ -160,7 +172,7 @@ export const ColorWays: ColorWays = {
 				"border-2 enabled:hover:bg-red-100 focus-visible:outline-red-300 border-red-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed",
 		},
 		table: { header: "bg-red-600 text-white", row: "", evenRow: "bg-red-50" },
-		form: { control: "focus:ring-red-600" },
+		form: { control: "focus:ring-red-600", input: "ring-red-300 focus:ring-red-500" },
 		notification: {
 			root: "bg-red-100 ring-red-600 text-red-600",
 			dismiss: "hover:bg-red-200 hover:text-red-600 focus:ring-red-600",
@@ -168,6 +180,7 @@ export const ColorWays: ColorWays = {
 		},
 		tag: { root: "text-red-600 bg-red-600/20 ring-red-600" },
 		spinner: { primary: "text-red-600", secondary: "white" },
+		modal: { header: { root: "bg-red-700 text-white", dismiss: "bg-red-700 text-red-200 hover:text-white", description: "text-red-200" } },
 	},
 	purple: {
 		color: "purple",
@@ -188,7 +201,7 @@ export const ColorWays: ColorWays = {
 				"border-2 enabled:hover:bg-purple-100 focus-visible:outline-purple-300 border-purple-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed",
 		},
 		table: { header: "bg-purple-600 text-white", row: "", evenRow: "bg-purple-50" },
-		form: { control: "focus:ring-purple-600" },
+		form: { control: "focus:ring-purple-600", input: "ring-purple-300 focus:ring-purple-500" },
 		notification: {
 			root: "bg-purple-100 ring-purple-600 text-purple-600",
 			dismiss: "hover:bg-purple-200 hover:text-purple-600 focus:ring-purple-600",
@@ -196,6 +209,7 @@ export const ColorWays: ColorWays = {
 		},
 		tag: { root: "text-purple-600 bg-purple-600/20 ring-purple-600" },
 		spinner: { primary: "text-purple-600", secondary: "white" },
+		modal: { header: { root: "bg-purple-700 text-white", dismiss: "bg-purple-700 text-purple-200 hover:text-white", description: "text-purple-200" } },
 	},
 };
 

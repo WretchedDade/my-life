@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useCallback, useMemo, useState } from "react";
-import { BloodPressureReading, useBloodPressureReadings } from "..";
+import { AddBloodPressureSlideOver, BloodPressureReading, useBloodPressureReadings } from "..";
 import { CardTable, CardTableProps } from "../../shared/components";
 import { useTailwindBreakpoint } from "../../shared/hooks";
 import { Format } from "../../shared/utils";
@@ -11,6 +11,8 @@ interface BloodPressureCardProps {
 }
 
 export function BloodPressureCard({ defaultPageSize = 10, className }: BloodPressureCardProps) {
+	const [addModalOpen, setAddModalOpen] = useState(false);
+
 	const [pageSize, setPageSize] = useState(defaultPageSize);
 	const [pageNumber, setPageNumber] = useState(0);
 
@@ -22,7 +24,7 @@ export function BloodPressureCard({ defaultPageSize = 10, className }: BloodPres
 		return {
 			onNext: () => setPageNumber(pageNumber + 1),
 			onPrevious: () => setPageNumber(pageNumber - 1),
-			pageSizeSelect: {
+			sizeSelectOptions: {
 				pageSize,
 				pageSizes,
 				onPageSizeChange: (newPageSize) => setPageSize(newPageSize),
@@ -66,22 +68,22 @@ export function BloodPressureCard({ defaultPageSize = 10, className }: BloodPres
 		[isAboveSm],
 	);
 
-	// if (page === undefined) return <Card isLoading={isFetching} color="red" heading={{ title: "Blood Pressure Log" }} />;
-
 	return (
-		<CardTable
-			color="red"
-			isRefreshing={isFetching && !isLoading}
-			isLoading={isLoading}
-			heading={{ title: "Blood Pressure Log" }}
-			page={page}
-			pagination={pagination}
-			headings={headings}
-			getRowKey={getRowKey}
-			getRowValues={getRowValues}
-			className={className}
-			// action={{ act: () => undefined, text: "Log Reading" }}
-		/>
+		<>
+			<CardTable
+				color="red"
+				isRefreshing={isFetching && !isLoading}
+				isLoading={isLoading}
+				heading={{ title: "Blood Pressure Log", action: { onClick: () => setAddModalOpen(true), text: "Add New" } }}
+				page={page}
+				pagination={pagination}
+				headings={headings}
+				getRowKey={getRowKey}
+				getRowValues={getRowValues}
+				className={className}
+			/>
+			<AddBloodPressureSlideOver open={addModalOpen} onClose={() => setAddModalOpen(false)} />
+		</>
 	);
 }
 

@@ -76,6 +76,7 @@ function getColorWay(color: string) {
 
 		form: {
 			control: `focus:ring-${color}-600`,
+			input: `ring-${color}-300 focus:ring-${color}-500 placeholder:text-${color}-400`,
 		},
 
 		notification: {
@@ -91,6 +92,14 @@ function getColorWay(color: string) {
 		spinner: {
 			primary: `text-${color}-600`,
 			secondary: `white`,
+		},
+
+		modal: {
+			header: {
+				root: `bg-${color}-700 text-white`,
+				dismiss: `bg-${color}-700 text-${color}-200 hover:text-white`,
+				description: `text-${color}-200`,
+			},
 		},
 	};
 }
@@ -126,6 +135,7 @@ function getColorWayType() {
 
 		form: {
 			control: string,
+			input: string,
 		},
 
 		notification: {
@@ -141,6 +151,14 @@ function getColorWayType() {
 		spinner: {
 			primary: string,
 			secondary: string,
+		},
+
+		modal: {
+			header: {
+				root: string,
+				dismiss: string,
+				description: string,
+			},
 		}
 	}`;
 }

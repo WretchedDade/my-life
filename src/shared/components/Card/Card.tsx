@@ -2,7 +2,7 @@ import classNames from "classnames";
 
 import { ColorWay, ColorWays } from "../../../ColorWays";
 
-import { Button, LoadingSpinner } from "..";
+import { Button, ButtonProps, LoadingSpinner } from "..";
 
 export interface CardProps extends React.PropsWithChildren<object> {
 	isLoading?: boolean;
@@ -20,10 +20,7 @@ export interface CardProps extends React.PropsWithChildren<object> {
 
 		icon?: React.ComponentType<{ colorWay: ColorWay }>;
 
-		action?: {
-			act: () => void;
-			text: string;
-		};
+		action?: Omit<ButtonProps, "size" | "color" | "type" | "children"> & { text: string };
 	};
 
 	footer?: React.ComponentType<CardFooterProps>;
@@ -64,7 +61,6 @@ export function Card({
 				className={classNames("flex flex-wrap items-center justify-between px-4 py-5 sm:flex-nowrap sm:px-6", colorWay.card.header, {
 					"rounded-t-lg": !mediaUrl,
 				})}>
-				{/* <div className="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap"> */}
 				<div>
 					<h3 className={classNames("text-lg font-semibold text-gray-900", { "flex items-center gap-x-4 whitespace-nowrap": isRefreshing })}>
 						{title}
@@ -81,15 +77,18 @@ export function Card({
 					</div>
 				)}
 
-				{isRefreshing && <LoadingSpinner color={color} className="h-7 w-7" />}
-				{action && !isRefreshing && (
-					<div className="ml-4 mt-4 flex-shrink-0">
-						<Button color={color} size="lg" type="button" onClick={action.act}>
-							{action.text}
-						</Button>
+				{(isRefreshing || action) && (
+					<div className="flex items-center gap-x-4">
+						{isRefreshing && <LoadingSpinner color={color} className="h-7 w-7" />}
+						{action && (
+							<div className="flex-shrink-0">
+								<Button color={color} size="lg" type="button" {...action} disabled={action.disabled || isLoading || isRefreshing}>
+									{action.text}
+								</Button>
+							</div>
+						)}
 					</div>
 				)}
-				{/* </div> */}
 			</div>
 			<div className="relative flex flex-grow flex-col">
 				<div className={classNames("flex-grow", { "px-4 py-5 sm:p-6": !contentPaddingDisabled })}>{children}</div>

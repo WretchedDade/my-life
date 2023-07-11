@@ -49,7 +49,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 						<AuthContextProvider>
 							<NotificationContextProvider>
 								<App />
-								<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+								<ReactQueryDevtools initialIsOpen={false} position="bottom-left" />
 							</NotificationContextProvider>
 						</AuthContextProvider>
 					</MsalProvider>

@@ -14,12 +14,12 @@ interface CardFooterActionsProps extends CardFooterProps {
 	colorWay: ColorWay;
 }
 
-export function CardFooterActions({ actions, colorWay, isRefreshing: isFetching, isLoading }: CardFooterActionsProps) {
+export function CardFooterActions({ actions, colorWay, isRefreshing, isLoading }: CardFooterActionsProps) {
 	return (
 		<div className={classNames(colorWay.card.footer)}>
 			<div className="flex justify-end gap-x-4">
 				{actions.map(({ text, ...buttonProps }, i) => (
-					<Button key={text + i} color={colorWay.color} size="sm" {...buttonProps} disabled={isFetching || isLoading || buttonProps.disabled}>
+					<Button key={text + i} color={colorWay.color} size="sm" {...buttonProps} disabled={isRefreshing || isLoading || buttonProps.disabled}>
 						{text}
 					</Button>
 				))}

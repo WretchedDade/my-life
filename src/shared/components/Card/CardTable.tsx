@@ -18,12 +18,16 @@ export interface CardTableProps<TModel> extends Omit<CardProps, "children" | "co
 		onNext: () => void;
 		onPrevious: () => void;
 
-		pageSizeSelect?: {
+		sizeSelectOptions?: {
 			pageSize: number;
 			pageSizes?: number[];
 			onPageSizeChange: (pageSize: number) => void;
 		};
 	};
+}
+
+function getPageSizes(pageSizes: number[] | undefined, totalCount: number | undefined) {
+	return (pageSizes ?? CardTable.DefaultPageSizes).filter((pageSize) => pageSize <= (totalCount ?? 0) + 10);
 }
 
 export function CardTable<TModel>({
@@ -39,6 +43,11 @@ export function CardTable<TModel>({
 }: CardTableProps<TModel>) {
 	const colorWay = ColorWays[cardProps.color ?? "blue"];
 
+	const sizeSelectOptions =
+		pagination?.sizeSelectOptions != null
+			? { ...pagination.sizeSelectOptions, pageSizes: getPageSizes(pagination.sizeSelectOptions.pageSizes, page?.totalCount) }
+			: undefined;
+
 	return (
 		<Card
 			{...cardProps}
@@ -50,7 +59,7 @@ export function CardTable<TModel>({
 						page={page}
 						onNext={pagination.onNext}
 						onPrevious={pagination.onPrevious}
-						sizeSelectOptions={pagination.pageSizeSelect}
+						sizeSelectOptions={sizeSelectOptions}
 						{...props}
 					/>
 				)
@@ -102,7 +111,7 @@ interface CardTableFooterProps<TModel> extends CardFooterProps {
 
 	sizeSelectOptions?: {
 		pageSize: number;
-		pageSizes?: number[];
+		pageSizes: number[];
 		onPageSizeChange: (pageSize: number) => void;
 	};
 }
@@ -112,7 +121,7 @@ CardTable.DefaultPageSizes = [10, 20, 30, 40, 50];
 function CardTableFooter<TModel>({ page, onPrevious, onNext, sizeSelectOptions, colorWay, isLoading, isRefreshing }: CardTableFooterProps<TModel>) {
 	return (
 		<nav className={classNames("flex items-center justify-between", colorWay.card.footer)} aria-label="Pagination">
-			{sizeSelectOptions && (
+			{sizeSelectOptions && sizeSelectOptions.pageSizes.length > 1 && (
 				<div className="hidden gap-x-4 sm:flex">
 					<select
 						id="pageSize"
@@ -126,11 +135,10 @@ function CardTableFooter<TModel>({ page, onPrevious, onNext, sizeSelectOptions, 
 							const target = event.target;
 							const newPageSize = target.value || target.options[target.selectedIndex].value;
 
-							console.log({ target, newPageSize });
-
 							return sizeSelectOptions.onPageSizeChange(Number(newPageSize));
-						}}>
-						{(sizeSelectOptions.pageSizes ?? CardTable.DefaultPageSizes).map((pageSize) => (
+						}}
+						disabled={isRefreshing || isLoading}>
+						{sizeSelectOptions.pageSizes.map((pageSize) => (
 							<option key={pageSize} value={pageSize}>
 								{pageSize}
 							</option>
