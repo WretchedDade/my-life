@@ -1,17 +1,13 @@
 import { InteractionStatus, InteractionType } from "@azure/msal-browser";
 import { AuthenticatedTemplate, useMsal, useMsalAuthentication } from "@azure/msal-react";
+
 import { useContext, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import { SidebarLayout } from "./components/SidebarLayout";
-import { Home } from "./pages/Home";
-import { UnpaidBills } from "./pages/UnpaidBills";
+import { Layout } from "./shared/components";
 
-import { AuthContext } from "./contexts/AuthContext";
-import { Authenticating } from "./pages/Authenticating";
-import { BloodPressure } from "./pages/BloodPressure";
-import { NotFound } from "./pages/NotFound";
-import { IdTokenClaims, RolesSchema, Scopes } from "./utils/auth";
+import { AuthContext, IdTokenClaims, RolesSchema, Scopes } from "./auth";
+import { Authenticating, BloodPressure, Home, NotFound, UnpaidBills } from "./pages";
 
 export function App() {
 	const { roles, setRoles } = useContext(AuthContext);
@@ -54,7 +50,7 @@ export function App() {
 		<AuthenticatedTemplate>
 			<Routes>
 				<Route path="/Redirect" element={<Navigate to={result?.state ?? "/"} />} />
-				<Route path="/" element={<SidebarLayout />}>
+				<Route path="/" element={<Layout />}>
 					<Route path="/" element={<Home />} />
 					<Route path="/bills/unpaid" element={<UnpaidBills />} />
 					<Route path="/bloodpressure" element={<BloodPressure />} />

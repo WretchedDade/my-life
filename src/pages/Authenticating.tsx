@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LoadingSpinner } from "../components/LoadingSpinner";
+import { LoadingSpinner } from "../shared/components";
 
 export function Authenticating() {
 	const [showSpinner, setShowSpinner] = useState(false);

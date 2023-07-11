@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { ErrorBoundary } from "react-error-boundary";
+import { BrowserRouter } from "react-router-dom";
+
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { BrowserRouter } from "react-router-dom";
 
 import dayjs from "dayjs";
 import utcPlugin from "dayjs/plugin/utc";
@@ -12,11 +14,11 @@ import { MsalProvider } from "@azure/msal-react";
 
 import "./main.css";
 
-import { ErrorBoundary } from "react-error-boundary";
 import { App } from "./App.tsx";
-import { AuthContextProvider } from "./contexts/AuthContext.tsx";
-import { NotificationContextProvider } from "./contexts/Notification.tsx";
-import { Error } from "./pages/Error.tsx";
+
+import { AuthContextProvider } from "./auth";
+import { Error } from "./pages";
+import { NotificationContextProvider } from "./shared/NotificationContext.tsx";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
