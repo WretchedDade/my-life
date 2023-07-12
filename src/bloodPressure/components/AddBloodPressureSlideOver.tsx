@@ -40,11 +40,11 @@ export function AddBloodPressureSlideOver({ open, onClose }: AddBloodPressureSli
 
 	return (
 		<SlideOver
+			as="form"
 			ref={formRef}
 			open={open}
 			onClose={onClose}
 			color="red"
-			as="form"
 			onBlur={onBlur}
 			onReset={onReset}
 			onSubmit={onSubmit}

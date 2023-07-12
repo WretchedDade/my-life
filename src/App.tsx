@@ -8,6 +8,7 @@ import { Layout } from "./shared/components";
 
 import { AuthContext, IdTokenClaims, RolesSchema, Scopes } from "./auth";
 import { Authenticating, BloodPressure, Home, NotFound, UnpaidBills } from "./pages";
+import { DemoPage } from "./pages/DemoPage";
 
 export function App() {
 	const { roles, setRoles } = useContext(AuthContext);
@@ -45,6 +46,10 @@ export function App() {
 	}
 
 	if (!roles.includes("Access")) return <div>Access Denied</div>;
+
+	if (import.meta.env.DEV && import.meta.env.VITE_DEMO_MODE) {
+		return <DemoPage />;
+	}
 
 	return (
 		<AuthenticatedTemplate>

@@ -19,6 +19,19 @@ interface NavigationOption {
 }
 
 function BuildNavigationOptions(location: Location): NavigationOption[] {
+	if (import.meta.env.DEV && import.meta.env.VITE_DEMO_MODE) {
+		return [
+			{
+				name: "Home",
+				href: "/",
+				icon: faIgloo,
+				current: location.pathname === "/",
+
+				colorWay: ColorWays.blue,
+			},
+		];
+	}
+
 	return [
 		{
 			name: "Home",
