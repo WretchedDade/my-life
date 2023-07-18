@@ -4,13 +4,17 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 
 import { Dialog, Transition } from "@headlessui/react";
 
-import { faBars, faPeopleRoof, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faMoon, faPeopleRoof, faSun, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { Button } from ".";
 import { UserAvatar, useMe } from "../../auth";
+import { DarkModeContext } from "../DarkModeContext";
 import { useNavigationOptions } from "../hooks";
 
 export function Layout() {
+	const { isDarkMode } = React.useContext(DarkModeContext);
+
 	const [sidebarOpen, setSidebarOpen] = React.useState(false);
 	const location = useLocation();
 
@@ -19,17 +23,19 @@ export function Layout() {
 	}, [location.pathname]);
 
 	return (
-		<div>
-			<DynamicSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-			<StaticSidebar />
+		<div className={classNames({ dark: isDarkMode })}>
+			<div className="text-gray-900 dark:text-gray-50">
+				<DynamicSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+				<StaticSidebar />
 
-			<Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+				<Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-			<main className="flex min-h-[calc(100vh-64px)] py-5 sm:min-h-screen sm:py-10 lg:pl-52">
-				<div className="flex flex-grow flex-col px-4 sm:px-6 lg:px-8">
-					<Outlet />
-				</div>
-			</main>
+				<main className="flex min-h-[calc(100vh-64px)] py-5 dark:bg-slate-800 sm:min-h-screen sm:py-10 lg:pl-52">
+					<div className="flex flex-grow flex-col px-4 sm:px-6 lg:px-8">
+						<Outlet />
+					</div>
+				</main>
+			</div>
 		</div>
 	);
 }
@@ -82,7 +88,7 @@ function DynamicSidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 								</div>
 							</Transition.Child>
 							{/* Sidebar component, swap this element with another sidebar if you like */}
-							<div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
+							<div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2 dark:bg-slate-900">
 								<div className="flex h-16 shrink-0 items-center">
 									<FontAwesomeIcon
 										className={classNames("h-8 w-8", navigationOptions.find((option) => option.current)?.colorWay.logo)}
@@ -101,14 +107,16 @@ function DynamicSidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 																navigationOption.colorWay.nav,
 																navigationOption.current
 																	? navigationOption.colorWay.activeNav
-																	: "text-gray-700 hover:bg-gray-50 hover:text-indigo-600",
+																	: "text-gray-700 dark:text-gray-50",
 																"group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
 															)}>
 															<FontAwesomeIcon
 																icon={navigationOption.icon}
 																className={classNames(
 																	navigationOption.colorWay.nav,
-																	navigationOption.current ? navigationOption.colorWay.activeNav : "text-gray-400",
+																	navigationOption.current
+																		? navigationOption.colorWay.activeNav
+																		: "text-gray-400 dark:text-gray-300",
 																	"h-6 w-6 shrink-0",
 																)}
 																aria-hidden="true"
@@ -133,10 +141,11 @@ function DynamicSidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 function StaticSidebar() {
 	const { data: me } = useMe();
 	const navigationOptions = useNavigationOptions();
+	const { isDarkMode, toggleDarkMode } = React.useContext(DarkModeContext);
 
 	return (
 		<div className="xl:72 hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-52 lg:flex-col">
-			<div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
+			<div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 dark:border-r-2 dark:border-gray-950 dark:bg-slate-900">
 				<div className="flex h-16 shrink-0 items-center">
 					<FontAwesomeIcon className={classNames("h-8 w-8", navigationOptions.find((option) => option.current)?.colorWay.logo)} icon={faPeopleRoof} />
 				</div>
@@ -150,14 +159,14 @@ function StaticSidebar() {
 											to={navigationOption.href}
 											className={classNames(
 												navigationOption.colorWay.nav,
-												navigationOption.current ? navigationOption.colorWay.activeNav : "text-gray-700 hover:bg-gray-50",
+												navigationOption.current ? navigationOption.colorWay.activeNav : "text-gray-700 dark:text-gray-50",
 												"group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
 											)}>
 											<FontAwesomeIcon
 												icon={navigationOption.icon}
 												className={classNames(
 													navigationOption.colorWay.nav,
-													navigationOption.current ? navigationOption.colorWay.activeNav : "text-gray-400",
+													navigationOption.current ? navigationOption.colorWay.activeNav : "text-gray-400 dark:text-gray-300",
 													"h-6 w-6 shrink-0",
 												)}
 												aria-hidden="true"
@@ -169,9 +178,14 @@ function StaticSidebar() {
 							</ul>
 						</li>
 						<li className="-mx-6 mt-auto">
-							<div className="flex items-center gap-x-4 border-t px-6 py-3">
-								<UserAvatar />
-								<span>{me?.displayName}</span>
+							<div className="flex items-center justify-between gap-x-4 border-t px-4 py-3 dark:border-t-2 dark:border-slate-950">
+								<div className="flex items-center gap-x-4 text-inherit">
+									<UserAvatar />
+									<span>{me?.givenName}</span>
+								</div>
+								<Button shape="Circle" color={isDarkMode ? "yellow" : "slate"} variant="secondary" size="xs" onClick={toggleDarkMode}>
+									<FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} className="h-5 w-5 text-inherit" />
+								</Button>
 							</div>
 						</li>
 					</ul>
@@ -182,15 +196,19 @@ function StaticSidebar() {
 }
 
 function Header({ setSidebarOpen }: SidebarProps) {
+	const { isDarkMode, toggleDarkMode } = React.useContext(DarkModeContext);
 	return (
-		<div className="sticky top-0 z-40 flex h-16 items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden">
-			<button type="button" className="-m-2.5 p-2.5 text-gray-700 lg:hidden" onClick={() => setSidebarOpen(true)}>
+		<div className="sticky top-0 z-40 flex h-16 items-center gap-x-6 bg-white px-4 py-4 text-gray-900 shadow-sm dark:bg-slate-900 dark:text-gray-50 sm:px-6 lg:hidden">
+			<button type="button" className="-m-2.5 p-2.5 lg:hidden" onClick={() => setSidebarOpen(true)}>
 				<span className="sr-only">Open sidebar</span>
 				<FontAwesomeIcon icon={faBars} className="h-5 w-5" aria-hidden="true" />
 			</button>
-			<div className="flex-1 text-sm font-semibold leading-6 text-gray-900">Dashboard</div>
-			<div>
+			<div className="flex-1 text-sm font-semibold leading-6 ">Dashboard</div>
+			<div className="flex items-center gap-x-4">
 				<UserAvatar />
+				<Button shape="Circle" color={isDarkMode ? "yellow" : "slate"} variant="secondary" size="xs" onClick={toggleDarkMode}>
+					<FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} className="h-5 w-5 text-inherit" />
+				</Button>
 			</div>
 		</div>
 	);

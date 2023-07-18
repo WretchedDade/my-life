@@ -39,7 +39,7 @@ export function asFullDate(value: string | undefined | Date) {
 export function asDateString(
 	value: string | undefined | Date,
 	dateStyle: Intl.DateTimeFormatOptions["dateStyle"],
-	timeStyle: Intl.DateTimeFormatOptions["timeStyle"],
+	timeStyle: Intl.DateTimeFormatOptions["timeStyle"] = undefined,
 ) {
 	if (value === undefined) {
 		return "";

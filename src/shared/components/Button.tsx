@@ -4,14 +4,26 @@ import { LoadingSpinner } from ".";
 
 import { ColorWay, ColorWays } from "../../ColorWays";
 
+type ButtonShapes = "Circle" | "Square";
+
 export interface ButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+	shape?: ButtonShapes;
 	color?: keyof ColorWays;
 	variant?: keyof ColorWay["actions"];
 	size?: "xs" | "sm" | "md" | "lg" | "xl";
 	isLoading?: boolean;
 }
 
-export function Button({ color = "blue", variant = "primary", size = "md", type = "button", isLoading = false, children, ...buttonProps }: ButtonProps) {
+export function Button({
+	shape = "Square",
+	color = "blue",
+	variant = "primary",
+	size = "md",
+	type = "button",
+	isLoading = false,
+	children,
+	...buttonProps
+}: ButtonProps) {
 	const colorWay = ColorWays[color];
 
 	return (
@@ -20,14 +32,14 @@ export function Button({ color = "blue", variant = "primary", size = "md", type 
 			type={type}
 			disabled={isLoading || buttonProps.disabled}
 			className={classNames(
-				"flex items-center gap-x-2 rounded font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+				"flex items-center gap-x-2 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
 				colorWay.actions[variant],
 				{
-					[buttonSizes.xs]: size === "xs",
-					[buttonSizes.sm]: size === "sm",
-					[buttonSizes.md]: size === "md",
-					[buttonSizes.lg]: size === "lg",
-					[buttonSizes.xl]: size === "xl",
+					[buttonSizes.xs(shape)]: size === "xs",
+					[buttonSizes.sm(shape)]: size === "sm",
+					[buttonSizes.md(shape)]: size === "md",
+					[buttonSizes.lg(shape)]: size === "lg",
+					[buttonSizes.xl(shape)]: size === "xl",
 				},
 				buttonProps.className,
 			)}>
@@ -38,9 +50,9 @@ export function Button({ color = "blue", variant = "primary", size = "md", type 
 }
 
 const buttonSizes = {
-	xs: "rounded px-1.5 py-1 text-xs",
-	sm: "rounded px-2 py-1 text-sm",
-	md: "rounded-md px-2.5 py-1.5 text-sm",
-	lg: "rounded-md px-3 py-2 text-sm",
-	xl: "rounded-md px-3.5 py-2.5 text-sm",
+	xs: (shape: ButtonShapes) => classNames("text-xs", { "px-1.5 py-1 rounded": shape === "Square", "p-1 rounded-full": shape === "Circle" }),
+	sm: (shape: ButtonShapes) => classNames("text-sm", { "px-2 py-1 rounded": shape === "Square", "p-2 rounded-full": shape === "Circle" }),
+	md: (shape: ButtonShapes) => classNames("text-sm", { "px-2.5 py-1.5 rounded-md": shape === "Square", "p-2.5 rounded-full": shape === "Circle" }),
+	lg: (shape: ButtonShapes) => classNames("text-sm", { "px-3 py-2 rounded-md": shape === "Square", "p-3 rounded-full": shape === "Circle" }),
+	xl: (shape: ButtonShapes) => classNames("text-sm", { "px-3.5 py-2.5 rounded-md": shape === "Square", "p-3.5 rounded-full": shape === "Circle" }),
 };

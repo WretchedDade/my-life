@@ -1,16 +1,18 @@
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { useCallback, useMemo, useState } from "react";
 import { AddBloodPressureSlideOver, BloodPressureReading, useBloodPressureReadings } from "..";
-import { CardTable, CardTableProps } from "../../shared/components";
+import { Button, CardTable, CardTableProps } from "../../shared/components";
 import { useTailwindBreakpoint } from "../../shared/hooks";
 import { Format } from "../../shared/utils";
 
-interface BloodPressureCardProps {
+interface BloodPressureTableCardProps {
 	className?: string;
 	defaultPageSize?: number;
 }
 
-export function BloodPressureCard({ defaultPageSize = 10, className }: BloodPressureCardProps) {
+export function BloodPressureTableCard({ defaultPageSize = 10, className }: BloodPressureTableCardProps) {
 	const [addModalOpen, setAddModalOpen] = useState(false);
 
 	const [pageSize, setPageSize] = useState(defaultPageSize);
@@ -57,13 +59,13 @@ export function BloodPressureCard({ defaultPageSize = 10, className }: BloodPres
 					{reading.heartRate}
 				</td>
 			),
-			// (props) => (
-			// 	<td {...props}>
-			// 		<Button color="red" size={isAboveSm ? "md" : "xs"}>
-			// 			Delete
-			// 		</Button>
-			// 	</td>
-			// ),
+			(props) => (
+				<td {...props} className={classNames(props.className, { "flex items-center justify-end": isAboveSm })}>
+					<Button color="red" size={isAboveSm ? "sm" : "xs"}>
+						<FontAwesomeIcon icon={faTrashCan} /> Delete
+					</Button>
+				</td>
+			),
 		],
 		[isAboveSm],
 	);
@@ -95,7 +97,7 @@ const headings: CardTableProps<BloodPressureReading>["headings"] = [
 			Heart Rate
 		</th>
 	),
-	// (props) => <th {...props}></th>,
+	(props) => <th {...props}></th>,
 ];
 
 const getRowKey = (reading: BloodPressureReading) => reading.id;

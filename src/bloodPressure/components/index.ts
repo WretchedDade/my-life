@@ -1,2 +1,3 @@
 export * from "./AddBloodPressureSlideOver";
-export * from "./BloodPressureCard";
+export * from "./BloodPressureChartCard";
+export * from "./BloodPressureTableCard";

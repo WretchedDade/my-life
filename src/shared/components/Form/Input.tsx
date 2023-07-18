@@ -15,7 +15,7 @@ export function Input({ color, className, error = false, ...props }: InputProps)
 		<input
 			{...props}
 			className={classNames(
-				"block w-full appearance-none rounded-md border-0 p-1.5 text-sm text-gray-900 shadow-sm outline-none ring-1 ring-inset focus:ring-2 focus:ring-inset sm:leading-6",
+				"dark: block w-full appearance-none rounded-md border-0 p-1.5 text-sm text-gray-900 shadow-sm outline-none ring-2 ring-inset  focus:ring-inset dark:bg-slate-700 dark:text-gray-50 dark:ring-slate-900 dark:focus:ring-slate-950 sm:leading-6",
 				{
 					"ring-red-900 focus:ring-red-900": error,
 					[colorWay.form.input]: !error,

@@ -57,29 +57,29 @@ export function AddBloodPressureSlideOver({ open, onClose }: AddBloodPressureSli
 			}}>
 			<div className="space-y-6 p-6">
 				<div>
-					<label htmlFor="systolic" className="block text-sm font-medium leading-6 text-gray-900">
+					<label htmlFor="systolic" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
 						Systolic
 					</label>
 					<div className="mt-2">
-						<Input color="red" name="systolic" id="systolic" type="number" />
+						<Input color="red" name="systolic" id="systolic" type="number" placeholder="120" />
 						{errors.fieldErrors.systolic?.[0] && <FormError>{errors.fieldErrors.systolic?.[0]}</FormError>}
 					</div>
 				</div>
 				<div>
-					<label htmlFor="diastolic" className="block text-sm font-medium leading-6 text-gray-900">
+					<label htmlFor="diastolic" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
 						Diastolic
 					</label>
 					<div className="mt-2">
-						<Input color="red" name="diastolic" id="diastolic" type="number" />
+						<Input color="red" name="diastolic" id="diastolic" type="number" placeholder="80" />
 						{errors.fieldErrors.diastolic?.[0] && <FormError>{errors.fieldErrors.diastolic?.[0]}</FormError>}
 					</div>
 				</div>
 				<div>
-					<label htmlFor="heartRate" className="block text-sm font-medium leading-6 text-gray-900">
+					<label htmlFor="heartRate" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
 						Heart Rate
 					</label>
 					<div className="mt-2">
-						<Input color="red" name="heartRate" id="heartRate" type="number" />
+						<Input color="red" name="heartRate" id="heartRate" type="number" placeholder="85" />
 						{errors.fieldErrors.heartRate?.[0] && <FormError>{errors.fieldErrors.heartRate?.[0]}</FormError>}
 					</div>
 				</div>

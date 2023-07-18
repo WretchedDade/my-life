@@ -1,5 +1,3 @@
-import classNames from "classnames";
-
 import { ColorWays, IsValidColorWay } from "../../ColorWays";
 import { Format } from "../../shared/utils";
 
@@ -42,23 +40,23 @@ export function BillPaymentsCard({ billPayment, isLoading }: BillPaymentsCardPro
 					]}
 				/>
 			)}>
-			<dl className="-my-3 flex-grow divide-y divide-gray-100 p-4 text-sm leading-6">
+			<dl className="-my-3 flex-grow divide-y divide-gray-100 p-4 text-sm leading-6 text-gray-700 dark:divide-slate-950 dark:text-gray-200">
 				<div className="flex justify-between gap-x-4 py-2 md:py-3">
-					<dt className="text-gray-500">Date Due</dt>
-					<dd className={classNames("text-gray-700")}>
+					<dt className="text-inherit">Date Due</dt>
+					<dd className="text-inherit">
 						<time dateTime={billPayment.dateDue.toDateString()}>{Format.asFullDate(billPayment.dateDue)}</time>
 					</dd>
 				</div>
 				<div className="flex justify-between gap-x-4 py-2 md:py-3">
-					<dt className="text-gray-500">Amount</dt>
+					<dt className="text-inherit">Amount</dt>
 					<dd className="flex items-start gap-x-2">
-						<div className={classNames("font-medium text-gray-900")}>{Format.asCurrency(billPayment.amount)}</div>
+						<div className="font-medium text-inherit">{Format.asCurrency(billPayment.amount)}</div>
 					</dd>
 				</div>
 				<div className="flex justify-between gap-x-4 py-2 md:py-3">
-					<dt className="text-gray-500">Is Auto-Pay?</dt>
+					<dt className="text-inherit">Is Auto-Pay?</dt>
 					<dd className="flex items-start gap-x-2">
-						<div className={classNames("font-medium text-gray-900")}>{billPayment.isAutoPay ? "Yes" : "No"}</div>
+						<div className="font-medium text-inherit">{billPayment.isAutoPay ? "Yes" : "No"}</div>
 					</dd>
 				</div>
 				{nonAutoPayTags && nonAutoPayTags.length > 0 && (

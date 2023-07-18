@@ -7,7 +7,7 @@ import tailwindConfig from "../tailwind.config";
 const fullConfig = resolveConfig(tailwindConfig as unknown as Config);
 
 if (fullConfig?.theme?.colors) {
-	const colors = ["blue", "green", "orange", "red", "purple"];
+	const colors = ["blue", "green", "orange", "red", "purple", "slate", "yellow"];
 
 	fs.writeFileSync(
 		"./src/ColorWays.ts",
@@ -50,33 +50,43 @@ function getColorWay(color: string) {
 		color: `${color}`,
 
 		card: {
-			root: `shadow-${color}-100 divide-${color}-600`,
-			header: `border-${color}-600 bg-${color}-100`,
+			root: `shadow-${color}-200 divide-${color}-600 dark:shadow-${color}-950 dark:divide-${color}-950}`,
+			header: `border-${color}-600 bg-${color}-100 dark:border-${color}-950 dark:bg-${color}-700`,
 			title: `text-${color}-900`,
 			description: `text-${color}-600`,
 			footer: `border-${color}-600 border-t p-3 px-6`,
 			icon: `text-${color}-600 ring-${color}-600`,
 		},
 
-		logo: `text-${color}-500`,
+		logo: `text-${color}-500 dark:text-${color}-300`,
 
-		nav: `hover:text-${color}-500 hover:bg-${color}-100 group-hover:text-${color}-500 focus-visible:outline-${color}-500`,
-		activeNav: `text-${color}-500 hover:text-${color}-700 group-hover:text-${color}-700 bg-${color}-100`,
+		nav:
+			`hover:text-${color}-500 hover:bg-${color}-100 group-hover:text-${color}-500 focus-visible:outline-${color}-500 ` +
+			`dark:hover:text-${color}-600 dark:hover:bg-${color}-200 dark:group-hover:text-${color}-600 dark:focus-visible:outline-${color}-700`,
+
+		activeNav:
+			`text-${color}-500 hover:text-${color}-700 group-hover:text-${color}-700 bg-${color}-100 ` +
+			`dark:text-${color}-700 dark:hover:text-${color}-600 dark:group-hover:text-${color}-600 dark:bg-${color}-300 dark:group-hover:bg-${color}-200`,
 
 		actions: {
-			primary: `bg-${color}-600 hover:bg-${color}-700 focus-visible:outline-${color}-700 text-white disabled:opacity-50 disabled:cursor-not-allowed`,
-			secondary: `border-2 enabled:hover:bg-${color}-100 focus-visible:outline-${color}-300 border-${color}-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`,
+			primary:
+				`bg-${color}-600 hover:bg-${color}-700 focus-visible:outline-${color}-700 text-white disabled:opacity-50 disabled:cursor-not-allowed ` +
+				`dark:bg-${color}-900 dark:hover:bg-${color}-950 dark:focus-visible:outline-${color}-950 dark:text-gray-50 dark:disabled:opacity-75`,
+
+			secondary:
+				`border-2 enabled:hover:bg-${color}-100 focus-visible:outline-${color}-300 border-${color}-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-${color}-600 ` +
+				`dark:enabled:hover:bg-${color}-900 dark:focus-visible:outline-${color}-900 dark:border-${color}-900 dark:text-${color}-300`,
 		},
 
 		table: {
-			header: `bg-${color}-600 text-white`,
+			header: `bg-${color}-600 text-white dark:bg-${color}-900 dark:text-gray-50`,
 			row: "",
 			evenRow: `bg-${color}-50`,
 		},
 
 		form: {
 			control: `focus:ring-${color}-600`,
-			input: `ring-${color}-300 focus:ring-${color}-500 placeholder:text-${color}-400`,
+			input: `ring-${color}-300 focus:ring-${color}-500 placeholder:text-gray-300`,
 		},
 
 		notification: {
@@ -86,7 +96,7 @@ function getColorWay(color: string) {
 		},
 
 		tag: {
-			root: `text-${color}-600 bg-${color}-600/20 ring-${color}-600`,
+			root: `text-${color}-600 bg-${color}-600/20 ring-${color}-600 dark:text-${color}-300 dark:bg-${color}-900/20 dark:ring-${color}-900`,
 		},
 
 		spinner: {

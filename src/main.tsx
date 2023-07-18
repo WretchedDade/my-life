@@ -18,6 +18,7 @@ import { App } from "./App.tsx";
 
 import { AuthContextProvider } from "./auth";
 import { Error } from "./pages";
+import { DarkModeContextProvider } from "./shared/DarkModeContext.tsx";
 import { NotificationContextProvider } from "./shared/NotificationContext.tsx";
 
 const queryClient = new QueryClient({
@@ -43,18 +44,20 @@ const publicClientApplication = new PublicClientApplication(configuration);
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
 		<ErrorBoundary FallbackComponent={Error}>
-			<QueryClientProvider client={queryClient}>
-				<BrowserRouter future={{ v7_startTransition: true }}>
-					<MsalProvider instance={publicClientApplication}>
-						<AuthContextProvider>
-							<NotificationContextProvider>
-								<App />
-								<ReactQueryDevtools initialIsOpen={false} position="top-right" />
-							</NotificationContextProvider>
-						</AuthContextProvider>
-					</MsalProvider>
-				</BrowserRouter>
-			</QueryClientProvider>
+			<DarkModeContextProvider>
+				<QueryClientProvider client={queryClient}>
+					<BrowserRouter future={{ v7_startTransition: true }}>
+						<MsalProvider instance={publicClientApplication}>
+							<AuthContextProvider>
+								<NotificationContextProvider>
+									<App />
+									<ReactQueryDevtools initialIsOpen={false} position="bottom-left" toggleButtonProps={{ style: { bottom: 52 } }} />
+								</NotificationContextProvider>
+							</AuthContextProvider>
+						</MsalProvider>
+					</BrowserRouter>
+				</QueryClientProvider>
+			</DarkModeContextProvider>
 		</ErrorBoundary>
 	</React.StrictMode>,
 );

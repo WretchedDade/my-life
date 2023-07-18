@@ -50,7 +50,7 @@ export function Card({
 	const { title, description, mediaUrl, icon: Icon, action } = heading;
 
 	return (
-		<div className={classNames("flex flex-col overflow-hidden rounded-lg bg-white shadow-xl", colorWay.card.root, className)}>
+		<div className={classNames("flex flex-col overflow-hidden rounded-lg bg-white shadow-xl dark:bg-slate-900", colorWay.card.root, className)}>
 			{mediaUrl && (
 				<div
 					style={{ backgroundImage: `url(${mediaUrl})` }}
@@ -58,11 +58,11 @@ export function Card({
 				/>
 			)}
 			<div
-				className={classNames("flex flex-wrap items-center justify-between px-4 py-5 sm:flex-nowrap sm:px-6", colorWay.card.header, {
+				className={classNames("flex h-16 flex-wrap items-center justify-between px-4 py-5 sm:flex-nowrap sm:px-6", colorWay.card.header, {
 					"rounded-t-lg": !mediaUrl,
 				})}>
 				<div>
-					<h3 className={classNames("text-lg font-semibold text-gray-900", { "flex items-center gap-x-4 whitespace-nowrap": isRefreshing })}>
+					<h3 className={classNames("text-lg font-semibold text-inherit", { "flex items-center gap-x-4 whitespace-nowrap": isRefreshing })}>
 						{title}
 					</h3>
 					{description && <p className="mt-2 text-sm text-gray-600">{description}</p>}
@@ -70,7 +70,7 @@ export function Card({
 				{Icon && (
 					<div
 						className={classNames(
-							"flex h-6 w-6 flex-none items-center justify-center rounded-lg object-cover text-center text-lg sm:h-10 sm:w-10 sm:bg-white sm:ring-1",
+							"flex h-6 w-6 flex-none items-center justify-center rounded-lg object-cover text-center text-lg sm:h-10 sm:w-10 sm:bg-white sm:ring-2 sm:dark:bg-slate-800 sm:dark:ring-slate-950",
 							colorWay.card.icon,
 						)}>
 						<Icon colorWay={colorWay} />

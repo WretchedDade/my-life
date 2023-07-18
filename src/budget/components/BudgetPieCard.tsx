@@ -1,11 +1,13 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import Chart from "react-google-charts";
 
 import { useBudgetItems } from "..";
 import { Card } from "../../shared/components";
+import { DarkModeContext } from "../../shared/DarkModeContext";
 
 const chartOptions: Chart["props"]["options"] = {
-	title: "",
+	is3D: true,
+
 	backgroundColor: "transparent",
 	legend: {
 		alignment: "center",
@@ -14,15 +16,17 @@ const chartOptions: Chart["props"]["options"] = {
 	tooltip: {
 		showColorCode: true,
 	},
+
 	slices: {
-		2: { offset: 0.1 },
+		0: { offset: 0.2 },
 	},
-	pieStartAngle: 135,
+
 	pieSliceText: "value",
 };
 
 export function BudgetPieCard() {
 	const { data: budgetItems } = useBudgetItems();
+	const { isDarkMode } = useContext(DarkModeContext);
 
 	const data = useMemo(() => {
 		if (budgetItems === undefined) return null;
@@ -35,15 +39,23 @@ export function BudgetPieCard() {
 
 		return [
 			["Name", "Amount"],
+			["Remaining", remainingIncome],
 			["Bills", totalBills],
 			["Expenses", totalExpenses],
-			["Remaining", remainingIncome],
 		];
 	}, [budgetItems]);
 
 	return (
 		<Card color="blue" heading={{ title: "Budget" }} isLoading={!data}>
-			{data && <Chart chartType="PieChart" data={data} width="100%" height="400px" options={chartOptions} />}
+			{data && (
+				<Chart
+					chartType="PieChart"
+					data={data}
+					width="100%"
+					height="400px"
+					options={{ ...chartOptions, legend: { ...chartOptions, textStyle: { color: isDarkMode ? "white" : "black" } } }}
+				/>
+			)}
 		</Card>
 	);
 }
