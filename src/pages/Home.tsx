@@ -2,7 +2,7 @@ import { BillTimelineCard } from "../bills";
 import { BloodPressureChartCard, BloodPressureTableCard } from "../bloodPressure";
 import { BudgetPieCard, ExpenditurePieCard } from "../budget";
 
-export function Home() }
+export function Home() {
 	return (
 		<>
 			<h1 className="mb-10 text-2xl">Home</h1>
