@@ -27,7 +27,7 @@ function Demo() {
 			</div>
 
 			<h2 className="mb-2 text-lg">Account Info</h2>
-			<div className="max-w-[calc(100vw-287px)] bg-gray-50 p-4">
+			<div className="max-w-[calc(100vw-287px)] bg-gray-50 p-4 dark:bg-zinc-900">
 				<pre className="overflow-x-auto">{JSON.stringify(account, null, 4)}</pre>
 			</div>
 		</div>

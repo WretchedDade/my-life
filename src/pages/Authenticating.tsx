@@ -12,7 +12,7 @@ export function Authenticating() {
 	if (!showSpinner) return null;
 
 	return (
-		<LoadingSpinner centered className="h-32 w-32" centeringDivClassName="bg-gray-50">
+		<LoadingSpinner centered className="h-32 w-32" centeringDivClassName="bg-gray-50 dark:bg-zinc-900 dark:text-gray-50">
 			<p className="text-xl">Authenticating...</p>
 		</LoadingSpinner>
 	);
