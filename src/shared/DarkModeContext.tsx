@@ -12,15 +12,18 @@ export const DarkModeContext = createContext<DarkModeContext>({
 	toggleDarkMode: () => undefined,
 });
 
+const isDarkModeLocalStorage = localStorage.getItem("isDarkMode");
+
 export function DarkModeContextProvider({ children }: PropsWithChildren<object>) {
 	const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
 	const prefersDarkMode = useMediaQuery({
-		query: "prefers-color-scheme: dark",
+		query: "(prefers-color-scheme: dark)",
 	});
 
 	useEffect(() => {
-		setIsDarkMode(prefersDarkMode);
+		if (isDarkModeLocalStorage == null) setIsDarkMode(prefersDarkMode);
+		else setIsDarkMode(JSON.parse(isDarkModeLocalStorage));
 	}, [prefersDarkMode, setIsDarkMode]);
 
 	useEffect(() => {
@@ -29,6 +32,8 @@ export function DarkModeContextProvider({ children }: PropsWithChildren<object>)
 		} else {
 			document.documentElement.classList.remove("dark");
 		}
+
+		localStorage.setItem("isDarkMode", JSON.stringify(isDarkMode));
 	}, [isDarkMode]);
 
 	const toggleDarkMode = useCallback(() => setIsDarkMode((current) => !current), [setIsDarkMode]);

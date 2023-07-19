@@ -79,13 +79,13 @@ export function CardTable<TModel>({
 							))}
 						</tr>
 					</thead>
-					<tbody className="divide-y divide-gray-200 dark:divide-slate-950">
+					<tbody className="divide-y divide-gray-200 dark:divide-zinc-950">
 						{page.items.map((item, itemIndex) => {
 							const rowKey = getRowKey(item, itemIndex);
 							return (
 								<tr
 									key={rowKey}
-									className={classNames(colorWay.table.row, { [`${colorWay.table.evenRow} dark:bg-slate-800`]: itemIndex % 2 == 0 })}>
+									className={classNames(colorWay.table.row, { [`${colorWay.table.evenRow} dark:bg-zinc-800`]: itemIndex % 2 == 0 })}>
 									{getRowValues(item).map((TableCell, index) => (
 										<TableCell
 											key={`${rowKey}-cell${index}`}
@@ -129,7 +129,7 @@ function CardTableFooter<TModel>({ page, onPrevious, onNext, sizeSelectOptions, 
 						id="pageSize"
 						name="pageSize"
 						className={classNames(
-							"block rounded border-0 p-1 pr-2 text-xs text-gray-900 ring-1 ring-gray-300 ring-offset-1 focus:ring-2 dark:bg-slate-900 dark:text-gray-50 sm:leading-6",
+							"block rounded border-0 p-1 pr-2 text-xs text-gray-900 ring-1 ring-gray-300 ring-offset-1 focus:ring-2 dark:bg-zinc-900 dark:text-gray-50 sm:leading-6",
 							colorWay.form.control,
 						)}
 						defaultValue={sizeSelectOptions.pageSize}

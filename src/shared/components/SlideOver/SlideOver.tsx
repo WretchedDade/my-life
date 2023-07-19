@@ -63,7 +63,7 @@ export const SlideOver: PolymorphicComponent<SlideOverBaseProps> = forwardRef(
 									<Dialog.Panel className="pointer-events-auto w-screen max-w-md">
 										<Component
 											ref={ref}
-											className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-xl dark:divide-y-2 dark:divide-gray-900 dark:border-l-2 dark:border-slate-900 dark:bg-slate-800"
+											className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-xl dark:divide-y-2 dark:divide-gray-900 dark:border-l-2 dark:border-zinc-900 dark:bg-zinc-800"
 											{...props}>
 											<div className="h-0 flex-1 overflow-y-auto">
 												<div className="flex flex-1 flex-col justify-between">

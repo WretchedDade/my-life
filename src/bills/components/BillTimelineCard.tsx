@@ -45,7 +45,7 @@ function CurrentBillTimelineItem({ loading, bill, isFinalItem }: CurrentBillTime
 	return (
 		<li>
 			<div className="relative pb-8">
-				{!isFinalItem && <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200 dark:bg-slate-800" aria-hidden="true" />}
+				{!isFinalItem && <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200 dark:bg-zinc-800" aria-hidden="true" />}
 				<Link to="/bills/unpaid" className={classNames("group relative flex space-x-3", { ["pointer-events-none"]: loading })}>
 					<div>
 						<CurrentBillTimelineIcon loading={loading} isPaid={bill.isPaid} isPastDue={isPastDue} />
@@ -112,7 +112,7 @@ function CurrentBillTimelineIcon({ loading, isPaid, isPastDue }: CurrentBillTime
 				<FontAwesomeIcon icon={icon} className="h-5 w-5 text-inherit" aria-hidden="true" />
 			) : (
 				<div
-					className={classNames("h-4 w-4 rounded-full bg-gray-200 dark:bg-slate-800 sm:group-hover:bg-gray-300 sm:dark:group-hover:bg-gray-950", {
+					className={classNames("h-4 w-4 rounded-full bg-gray-200 dark:bg-zinc-800 sm:group-hover:bg-gray-300 sm:dark:group-hover:bg-gray-950", {
 						[Styles.loading]: loading,
 					})}></div>
 			)}

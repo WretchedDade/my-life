@@ -96,7 +96,7 @@ export const ColorWays: ColorWays = {
 			title: "text-blue-900",
 		},
 		tag: { root: "text-blue-600 bg-blue-600/20 ring-blue-600 dark:text-blue-300 dark:bg-blue-900/20 dark:ring-blue-900" },
-		spinner: { primary: "text-blue-600", secondary: "white" },
+		spinner: { primary: "text-blue-600 dark:text-blue-300", secondary: "white" },
 		modal: { header: { root: "bg-blue-700 text-white", dismiss: "bg-blue-700 text-blue-200 hover:text-white", description: "text-blue-200" } },
 	},
 	green: {
@@ -127,7 +127,7 @@ export const ColorWays: ColorWays = {
 			title: "text-green-900",
 		},
 		tag: { root: "text-green-600 bg-green-600/20 ring-green-600 dark:text-green-300 dark:bg-green-900/20 dark:ring-green-900" },
-		spinner: { primary: "text-green-600", secondary: "white" },
+		spinner: { primary: "text-green-600 dark:text-green-300", secondary: "white" },
 		modal: { header: { root: "bg-green-700 text-white", dismiss: "bg-green-700 text-green-200 hover:text-white", description: "text-green-200" } },
 	},
 	orange: {
@@ -158,7 +158,7 @@ export const ColorWays: ColorWays = {
 			title: "text-orange-900",
 		},
 		tag: { root: "text-orange-600 bg-orange-600/20 ring-orange-600 dark:text-orange-300 dark:bg-orange-900/20 dark:ring-orange-900" },
-		spinner: { primary: "text-orange-600", secondary: "white" },
+		spinner: { primary: "text-orange-600 dark:text-orange-300", secondary: "white" },
 		modal: { header: { root: "bg-orange-700 text-white", dismiss: "bg-orange-700 text-orange-200 hover:text-white", description: "text-orange-200" } },
 	},
 	red: {
@@ -189,7 +189,7 @@ export const ColorWays: ColorWays = {
 			title: "text-red-900",
 		},
 		tag: { root: "text-red-600 bg-red-600/20 ring-red-600 dark:text-red-300 dark:bg-red-900/20 dark:ring-red-900" },
-		spinner: { primary: "text-red-600", secondary: "white" },
+		spinner: { primary: "text-red-600 dark:text-red-300", secondary: "white" },
 		modal: { header: { root: "bg-red-700 text-white", dismiss: "bg-red-700 text-red-200 hover:text-white", description: "text-red-200" } },
 	},
 	purple: {
@@ -220,7 +220,7 @@ export const ColorWays: ColorWays = {
 			title: "text-purple-900",
 		},
 		tag: { root: "text-purple-600 bg-purple-600/20 ring-purple-600 dark:text-purple-300 dark:bg-purple-900/20 dark:ring-purple-900" },
-		spinner: { primary: "text-purple-600", secondary: "white" },
+		spinner: { primary: "text-purple-600 dark:text-purple-300", secondary: "white" },
 		modal: { header: { root: "bg-purple-700 text-white", dismiss: "bg-purple-700 text-purple-200 hover:text-white", description: "text-purple-200" } },
 	},
 	slate: {
@@ -251,7 +251,7 @@ export const ColorWays: ColorWays = {
 			title: "text-slate-900",
 		},
 		tag: { root: "text-slate-600 bg-slate-600/20 ring-slate-600 dark:text-slate-300 dark:bg-slate-900/20 dark:ring-slate-900" },
-		spinner: { primary: "text-slate-600", secondary: "white" },
+		spinner: { primary: "text-slate-600 dark:text-slate-300", secondary: "white" },
 		modal: { header: { root: "bg-slate-700 text-white", dismiss: "bg-slate-700 text-slate-200 hover:text-white", description: "text-slate-200" } },
 	},
 	yellow: {
@@ -282,7 +282,7 @@ export const ColorWays: ColorWays = {
 			title: "text-yellow-900",
 		},
 		tag: { root: "text-yellow-600 bg-yellow-600/20 ring-yellow-600 dark:text-yellow-300 dark:bg-yellow-900/20 dark:ring-yellow-900" },
-		spinner: { primary: "text-yellow-600", secondary: "white" },
+		spinner: { primary: "text-yellow-600 dark:text-yellow-300", secondary: "white" },
 		modal: { header: { root: "bg-yellow-700 text-white", dismiss: "bg-yellow-700 text-yellow-200 hover:text-white", description: "text-yellow-200" } },
 	},
 };

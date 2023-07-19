@@ -30,7 +30,7 @@ export function Layout() {
 
 				<Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-				<main className="flex min-h-[calc(100vh-64px)] py-5 dark:bg-slate-800 sm:min-h-screen sm:py-10 lg:pl-52">
+				<main className="flex min-h-[calc(100vh-64px)] py-5 dark:bg-zinc-800 sm:min-h-screen sm:py-10 lg:pl-52">
 					<div className="flex flex-grow flex-col px-4 sm:px-6 lg:px-8">
 						<Outlet />
 					</div>
@@ -88,7 +88,7 @@ function DynamicSidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 								</div>
 							</Transition.Child>
 							{/* Sidebar component, swap this element with another sidebar if you like */}
-							<div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2 dark:bg-slate-900">
+							<div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2 dark:bg-zinc-900">
 								<div className="flex h-16 shrink-0 items-center">
 									<FontAwesomeIcon
 										className={classNames("h-8 w-8", navigationOptions.find((option) => option.current)?.colorWay.logo)}
@@ -145,7 +145,7 @@ function StaticSidebar() {
 
 	return (
 		<div className="xl:72 hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-52 lg:flex-col">
-			<div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 dark:border-r-2 dark:border-gray-950 dark:bg-slate-900">
+			<div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 dark:border-r-2 dark:border-gray-950 dark:bg-zinc-900">
 				<div className="flex h-16 shrink-0 items-center">
 					<FontAwesomeIcon className={classNames("h-8 w-8", navigationOptions.find((option) => option.current)?.colorWay.logo)} icon={faPeopleRoof} />
 				</div>
@@ -178,7 +178,7 @@ function StaticSidebar() {
 							</ul>
 						</li>
 						<li className="-mx-6 mt-auto">
-							<div className="flex items-center justify-between gap-x-4 border-t px-4 py-3 dark:border-t-2 dark:border-slate-950">
+							<div className="flex items-center justify-between gap-x-4 border-t px-4 py-3 dark:border-t-2 dark:border-zinc-950">
 								<div className="flex items-center gap-x-4 text-inherit">
 									<UserAvatar />
 									<span>{me?.givenName}</span>
@@ -198,7 +198,7 @@ function StaticSidebar() {
 function Header({ setSidebarOpen }: SidebarProps) {
 	const { isDarkMode, toggleDarkMode } = React.useContext(DarkModeContext);
 	return (
-		<div className="sticky top-0 z-40 flex h-16 items-center gap-x-6 bg-white px-4 py-4 text-gray-900 shadow-sm dark:bg-slate-900 dark:text-gray-50 sm:px-6 lg:hidden">
+		<div className="sticky top-0 z-40 flex h-16 items-center gap-x-6 bg-white px-4 py-4 text-gray-900 shadow-sm dark:bg-zinc-900 dark:text-gray-50 sm:px-6 lg:hidden">
 			<button type="button" className="-m-2.5 p-2.5 lg:hidden" onClick={() => setSidebarOpen(true)}>
 				<span className="sr-only">Open sidebar</span>
 				<FontAwesomeIcon icon={faBars} className="h-5 w-5" aria-hidden="true" />

@@ -40,7 +40,7 @@ export function BillPaymentsCard({ billPayment, isLoading }: BillPaymentsCardPro
 					]}
 				/>
 			)}>
-			<dl className="-my-3 flex-grow divide-y divide-gray-100 p-4 text-sm leading-6 text-gray-700 dark:divide-slate-950 dark:text-gray-200">
+			<dl className="-my-3 flex-grow divide-y divide-gray-100 p-4 text-sm leading-6 text-gray-700 dark:divide-zinc-950 dark:text-gray-200">
 				<div className="flex justify-between gap-x-4 py-2 md:py-3">
 					<dt className="text-inherit">Date Due</dt>
 					<dd className="text-inherit">

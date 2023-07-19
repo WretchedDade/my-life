@@ -50,7 +50,7 @@ export function Card({
 	const { title, description, mediaUrl, icon: Icon, action } = heading;
 
 	return (
-		<div className={classNames("flex flex-col overflow-hidden rounded-lg bg-white shadow-xl dark:bg-slate-900", colorWay.card.root, className)}>
+		<div className={classNames("flex flex-col overflow-hidden rounded-lg bg-white shadow-xl dark:bg-zinc-900", colorWay.card.root, className)}>
 			{mediaUrl && (
 				<div
 					style={{ backgroundImage: `url(${mediaUrl})` }}
@@ -70,7 +70,7 @@ export function Card({
 				{Icon && (
 					<div
 						className={classNames(
-							"flex h-6 w-6 flex-none items-center justify-center rounded-lg object-cover text-center text-lg sm:h-10 sm:w-10 sm:bg-white sm:ring-2 sm:dark:bg-slate-800 sm:dark:ring-slate-950",
+							"flex h-6 w-6 flex-none items-center justify-center rounded-lg object-cover text-center text-lg sm:h-10 sm:w-10 sm:bg-white sm:ring-2 sm:dark:bg-zinc-800 sm:dark:ring-zinc-950",
 							colorWay.card.icon,
 						)}>
 						<Icon colorWay={colorWay} />
@@ -94,7 +94,7 @@ export function Card({
 				<div className={classNames("flex-grow", { "px-4 py-5 sm:p-6": !contentPaddingDisabled })}>{children}</div>
 				{Footer && <Footer colorWay={colorWay} isRefreshing={isRefreshing} isLoading={isLoading} />}
 				{isLoading && children && (
-					<div className="absolute top-0 h-full w-full bg-slate-600/30">
+					<div className="absolute top-0 h-full w-full bg-zinc-600/30">
 						<LoadingSpinner color={color} centered className="h-1/2 w-1/2" />
 					</div>
 				)}

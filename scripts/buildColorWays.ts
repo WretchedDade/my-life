@@ -100,7 +100,7 @@ function getColorWay(color: string) {
 		},
 
 		spinner: {
-			primary: `text-${color}-600`,
+			primary: `text-${color}-600 dark:text-${color}-300`,
 			secondary: `white`,
 		},
 
