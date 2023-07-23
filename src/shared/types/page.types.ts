@@ -9,4 +9,6 @@ export const PageBaseSchema = z.object({
 	hasNextPage: z.boolean(),
 });
 
-export type Page<TModel> = z.infer<typeof PageBaseSchema> & { items: TModel[] };
+export type PageMetadata = z.infer<typeof PageBaseSchema>;
+export type PageItems<TModel> = { items: TModel[] };
+export type Page<TModel> = PageMetadata & PageItems<TModel>;

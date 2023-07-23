@@ -1,12 +1,11 @@
-import classNames from "classnames";
-import { Link } from "react-router-dom";
-
 import { faCheck, faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import { BillFilter, BillPayment, useBills } from "..";
 import { Card } from "../../shared/components";
-import { Format, Styles } from "../../shared/utils";
+
+import { Format, Styles, classNames } from "../../shared/utils";
 
 interface BillTimelineProps {
 	filter: Extract<BillFilter, "ThisWeek" | "NextWeek">;

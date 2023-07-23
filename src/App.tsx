@@ -7,11 +7,13 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Layout } from "./shared/components";
 
 import { AuthContext, IdTokenClaims, RolesSchema, Scopes } from "./auth";
-import { Authenticating, BloodPressure, Home, NotFound, UnpaidBills } from "./pages";
+import { Authenticating, NotFound } from "./pages";
 import { DemoPage } from "./pages/DemoPage";
+import { useNavigationOptions } from "./shared/hooks";
 
 export function App() {
 	const { roles, setRoles } = useContext(AuthContext);
+	const navigationOptions = useNavigationOptions();
 
 	const context = useMsal();
 	const { result, error } = useMsalAuthentication(InteractionType.Redirect, {
@@ -56,9 +58,9 @@ export function App() {
 			<Routes>
 				<Route path="/Redirect" element={<Navigate to={result?.state ?? "/"} />} />
 				<Route path="/" element={<Layout />}>
-					<Route path="/" element={<Home />} />
-					<Route path="/bills/unpaid" element={<UnpaidBills />} />
-					<Route path="/bloodpressure" element={<BloodPressure />} />
+					{navigationOptions.map((option) => (
+						<Route path={option.href} element={option.element} />
+					))}
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

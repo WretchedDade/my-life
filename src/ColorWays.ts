@@ -15,6 +15,7 @@ export interface ColorWay {
 
 	card: {
 		root: string;
+		bordered: string;
 		header: string;
 		title: string;
 		description: string;
@@ -34,8 +35,10 @@ export interface ColorWay {
 
 	table: {
 		header: string;
-		row: "";
 		evenRow: string;
+		bordered: string;
+		special: string;
+		summaryRow: string;
 	};
 
 	form: {
@@ -50,7 +53,9 @@ export interface ColorWay {
 	};
 
 	tag: {
-		root: string;
+		normal: string;
+		solid: string;
+		dimSolid: string;
 	};
 
 	spinner: {
@@ -72,6 +77,7 @@ export const ColorWays: ColorWays = {
 		color: "blue",
 		card: {
 			root: "shadow-blue-200 divide-blue-600 dark:shadow-blue-950 dark:divide-blue-950}",
+			bordered: "border-2 border-blue-600 dark:border-blue-900",
 			header: "border-blue-600 bg-blue-100 dark:border-blue-950 dark:bg-blue-700",
 			title: "text-blue-900",
 			description: "text-blue-600",
@@ -88,14 +94,24 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border-2 enabled:hover:bg-blue-100 focus-visible:outline-blue-300 border-blue-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-blue-600 dark:enabled:hover:bg-blue-900 dark:focus-visible:outline-blue-900 dark:border-blue-900 dark:text-blue-300",
 		},
-		table: { header: "bg-blue-600 text-white dark:bg-blue-900 dark:text-gray-50", row: "", evenRow: "bg-blue-50" },
+		table: {
+			header: "bg-blue-600 text-white dark:bg-blue-900 dark:text-gray-50",
+			evenRow: "bg-blue-50 dark:bg-zinc-800",
+			bordered: "border-x border-blue-600 dark:border-blue-900",
+			special: "font-bold bg-blue-200 text-blue-700 dark:bg-blue-900/50 dark:text-gray-50",
+			summaryRow: "bg-blue-200 text-gray-900 dark:bg-blue-900/50 dark:text-gray-50",
+		},
 		form: { control: "focus:ring-blue-600", input: "ring-blue-300 focus:ring-blue-500 placeholder:text-gray-300" },
 		notification: {
 			root: "bg-blue-100 ring-blue-600 text-blue-600",
 			dismiss: "hover:bg-blue-200 hover:text-blue-600 focus:ring-blue-600",
 			title: "text-blue-900",
 		},
-		tag: { root: "text-blue-600 bg-blue-600/20 ring-blue-600 dark:text-blue-300 dark:bg-blue-900/20 dark:ring-blue-900" },
+		tag: {
+			normal: "text-blue-600 bg-blue-600/20 ring-blue-600 dark:text-blue-300 dark:bg-blue-900/20 dark:ring-blue-900",
+			solid: "bg-blue-500 text-white ring-blue-700 ring-2 dark:bg-blue-700/50 dark:text-gray-50",
+			dimSolid: "bg-blue-500/50 text-blue-900 ring-blue-700/50 ring-2 dark:bg-blue-700/50 dark:text-gray-200",
+		},
 		spinner: { primary: "text-blue-600 dark:text-blue-300", secondary: "white" },
 		modal: { header: { root: "bg-blue-700 text-white", dismiss: "bg-blue-700 text-blue-200 hover:text-white", description: "text-blue-200" } },
 	},
@@ -103,6 +119,7 @@ export const ColorWays: ColorWays = {
 		color: "green",
 		card: {
 			root: "shadow-green-200 divide-green-600 dark:shadow-green-950 dark:divide-green-950}",
+			bordered: "border-2 border-green-600 dark:border-green-900",
 			header: "border-green-600 bg-green-100 dark:border-green-950 dark:bg-green-700",
 			title: "text-green-900",
 			description: "text-green-600",
@@ -119,14 +136,24 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border-2 enabled:hover:bg-green-100 focus-visible:outline-green-300 border-green-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-green-600 dark:enabled:hover:bg-green-900 dark:focus-visible:outline-green-900 dark:border-green-900 dark:text-green-300",
 		},
-		table: { header: "bg-green-600 text-white dark:bg-green-900 dark:text-gray-50", row: "", evenRow: "bg-green-50" },
+		table: {
+			header: "bg-green-600 text-white dark:bg-green-900 dark:text-gray-50",
+			evenRow: "bg-green-50 dark:bg-zinc-800",
+			bordered: "border-x border-green-600 dark:border-green-900",
+			special: "font-bold bg-green-200 text-green-700 dark:bg-green-900/50 dark:text-gray-50",
+			summaryRow: "bg-green-200 text-gray-900 dark:bg-green-900/50 dark:text-gray-50",
+		},
 		form: { control: "focus:ring-green-600", input: "ring-green-300 focus:ring-green-500 placeholder:text-gray-300" },
 		notification: {
 			root: "bg-green-100 ring-green-600 text-green-600",
 			dismiss: "hover:bg-green-200 hover:text-green-600 focus:ring-green-600",
 			title: "text-green-900",
 		},
-		tag: { root: "text-green-600 bg-green-600/20 ring-green-600 dark:text-green-300 dark:bg-green-900/20 dark:ring-green-900" },
+		tag: {
+			normal: "text-green-600 bg-green-600/20 ring-green-600 dark:text-green-300 dark:bg-green-900/20 dark:ring-green-900",
+			solid: "bg-green-500 text-white ring-green-700 ring-2 dark:bg-green-700/50 dark:text-gray-50",
+			dimSolid: "bg-green-500/50 text-green-900 ring-green-700/50 ring-2 dark:bg-green-700/50 dark:text-gray-200",
+		},
 		spinner: { primary: "text-green-600 dark:text-green-300", secondary: "white" },
 		modal: { header: { root: "bg-green-700 text-white", dismiss: "bg-green-700 text-green-200 hover:text-white", description: "text-green-200" } },
 	},
@@ -134,6 +161,7 @@ export const ColorWays: ColorWays = {
 		color: "orange",
 		card: {
 			root: "shadow-orange-200 divide-orange-600 dark:shadow-orange-950 dark:divide-orange-950}",
+			bordered: "border-2 border-orange-600 dark:border-orange-900",
 			header: "border-orange-600 bg-orange-100 dark:border-orange-950 dark:bg-orange-700",
 			title: "text-orange-900",
 			description: "text-orange-600",
@@ -150,14 +178,24 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border-2 enabled:hover:bg-orange-100 focus-visible:outline-orange-300 border-orange-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-orange-600 dark:enabled:hover:bg-orange-900 dark:focus-visible:outline-orange-900 dark:border-orange-900 dark:text-orange-300",
 		},
-		table: { header: "bg-orange-600 text-white dark:bg-orange-900 dark:text-gray-50", row: "", evenRow: "bg-orange-50" },
+		table: {
+			header: "bg-orange-600 text-white dark:bg-orange-900 dark:text-gray-50",
+			evenRow: "bg-orange-50 dark:bg-zinc-800",
+			bordered: "border-x border-orange-600 dark:border-orange-900",
+			special: "font-bold bg-orange-200 text-orange-700 dark:bg-orange-900/50 dark:text-gray-50",
+			summaryRow: "bg-orange-200 text-gray-900 dark:bg-orange-900/50 dark:text-gray-50",
+		},
 		form: { control: "focus:ring-orange-600", input: "ring-orange-300 focus:ring-orange-500 placeholder:text-gray-300" },
 		notification: {
 			root: "bg-orange-100 ring-orange-600 text-orange-600",
 			dismiss: "hover:bg-orange-200 hover:text-orange-600 focus:ring-orange-600",
 			title: "text-orange-900",
 		},
-		tag: { root: "text-orange-600 bg-orange-600/20 ring-orange-600 dark:text-orange-300 dark:bg-orange-900/20 dark:ring-orange-900" },
+		tag: {
+			normal: "text-orange-600 bg-orange-600/20 ring-orange-600 dark:text-orange-300 dark:bg-orange-900/20 dark:ring-orange-900",
+			solid: "bg-orange-500 text-white ring-orange-700 ring-2 dark:bg-orange-700/50 dark:text-gray-50",
+			dimSolid: "bg-orange-500/50 text-orange-900 ring-orange-700/50 ring-2 dark:bg-orange-700/50 dark:text-gray-200",
+		},
 		spinner: { primary: "text-orange-600 dark:text-orange-300", secondary: "white" },
 		modal: { header: { root: "bg-orange-700 text-white", dismiss: "bg-orange-700 text-orange-200 hover:text-white", description: "text-orange-200" } },
 	},
@@ -165,6 +203,7 @@ export const ColorWays: ColorWays = {
 		color: "red",
 		card: {
 			root: "shadow-red-200 divide-red-600 dark:shadow-red-950 dark:divide-red-950}",
+			bordered: "border-2 border-red-600 dark:border-red-900",
 			header: "border-red-600 bg-red-100 dark:border-red-950 dark:bg-red-700",
 			title: "text-red-900",
 			description: "text-red-600",
@@ -181,14 +220,24 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border-2 enabled:hover:bg-red-100 focus-visible:outline-red-300 border-red-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-red-600 dark:enabled:hover:bg-red-900 dark:focus-visible:outline-red-900 dark:border-red-900 dark:text-red-300",
 		},
-		table: { header: "bg-red-600 text-white dark:bg-red-900 dark:text-gray-50", row: "", evenRow: "bg-red-50" },
+		table: {
+			header: "bg-red-600 text-white dark:bg-red-900 dark:text-gray-50",
+			evenRow: "bg-red-50 dark:bg-zinc-800",
+			bordered: "border-x border-red-600 dark:border-red-900",
+			special: "font-bold bg-red-200 text-red-700 dark:bg-red-900/50 dark:text-gray-50",
+			summaryRow: "bg-red-200 text-gray-900 dark:bg-red-900/50 dark:text-gray-50",
+		},
 		form: { control: "focus:ring-red-600", input: "ring-red-300 focus:ring-red-500 placeholder:text-gray-300" },
 		notification: {
 			root: "bg-red-100 ring-red-600 text-red-600",
 			dismiss: "hover:bg-red-200 hover:text-red-600 focus:ring-red-600",
 			title: "text-red-900",
 		},
-		tag: { root: "text-red-600 bg-red-600/20 ring-red-600 dark:text-red-300 dark:bg-red-900/20 dark:ring-red-900" },
+		tag: {
+			normal: "text-red-600 bg-red-600/20 ring-red-600 dark:text-red-300 dark:bg-red-900/20 dark:ring-red-900",
+			solid: "bg-red-500 text-white ring-red-700 ring-2 dark:bg-red-700/50 dark:text-gray-50",
+			dimSolid: "bg-red-500/50 text-red-900 ring-red-700/50 ring-2 dark:bg-red-700/50 dark:text-gray-200",
+		},
 		spinner: { primary: "text-red-600 dark:text-red-300", secondary: "white" },
 		modal: { header: { root: "bg-red-700 text-white", dismiss: "bg-red-700 text-red-200 hover:text-white", description: "text-red-200" } },
 	},
@@ -196,6 +245,7 @@ export const ColorWays: ColorWays = {
 		color: "purple",
 		card: {
 			root: "shadow-purple-200 divide-purple-600 dark:shadow-purple-950 dark:divide-purple-950}",
+			bordered: "border-2 border-purple-600 dark:border-purple-900",
 			header: "border-purple-600 bg-purple-100 dark:border-purple-950 dark:bg-purple-700",
 			title: "text-purple-900",
 			description: "text-purple-600",
@@ -212,14 +262,24 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border-2 enabled:hover:bg-purple-100 focus-visible:outline-purple-300 border-purple-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-purple-600 dark:enabled:hover:bg-purple-900 dark:focus-visible:outline-purple-900 dark:border-purple-900 dark:text-purple-300",
 		},
-		table: { header: "bg-purple-600 text-white dark:bg-purple-900 dark:text-gray-50", row: "", evenRow: "bg-purple-50" },
+		table: {
+			header: "bg-purple-600 text-white dark:bg-purple-900 dark:text-gray-50",
+			evenRow: "bg-purple-50 dark:bg-zinc-800",
+			bordered: "border-x border-purple-600 dark:border-purple-900",
+			special: "font-bold bg-purple-200 text-purple-700 dark:bg-purple-900/50 dark:text-gray-50",
+			summaryRow: "bg-purple-200 text-gray-900 dark:bg-purple-900/50 dark:text-gray-50",
+		},
 		form: { control: "focus:ring-purple-600", input: "ring-purple-300 focus:ring-purple-500 placeholder:text-gray-300" },
 		notification: {
 			root: "bg-purple-100 ring-purple-600 text-purple-600",
 			dismiss: "hover:bg-purple-200 hover:text-purple-600 focus:ring-purple-600",
 			title: "text-purple-900",
 		},
-		tag: { root: "text-purple-600 bg-purple-600/20 ring-purple-600 dark:text-purple-300 dark:bg-purple-900/20 dark:ring-purple-900" },
+		tag: {
+			normal: "text-purple-600 bg-purple-600/20 ring-purple-600 dark:text-purple-300 dark:bg-purple-900/20 dark:ring-purple-900",
+			solid: "bg-purple-500 text-white ring-purple-700 ring-2 dark:bg-purple-700/50 dark:text-gray-50",
+			dimSolid: "bg-purple-500/50 text-purple-900 ring-purple-700/50 ring-2 dark:bg-purple-700/50 dark:text-gray-200",
+		},
 		spinner: { primary: "text-purple-600 dark:text-purple-300", secondary: "white" },
 		modal: { header: { root: "bg-purple-700 text-white", dismiss: "bg-purple-700 text-purple-200 hover:text-white", description: "text-purple-200" } },
 	},
@@ -227,6 +287,7 @@ export const ColorWays: ColorWays = {
 		color: "slate",
 		card: {
 			root: "shadow-slate-200 divide-slate-600 dark:shadow-slate-950 dark:divide-slate-950}",
+			bordered: "border-2 border-slate-600 dark:border-slate-900",
 			header: "border-slate-600 bg-slate-100 dark:border-slate-950 dark:bg-slate-700",
 			title: "text-slate-900",
 			description: "text-slate-600",
@@ -243,14 +304,24 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border-2 enabled:hover:bg-slate-100 focus-visible:outline-slate-300 border-slate-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-slate-600 dark:enabled:hover:bg-slate-900 dark:focus-visible:outline-slate-900 dark:border-slate-900 dark:text-slate-300",
 		},
-		table: { header: "bg-slate-600 text-white dark:bg-slate-900 dark:text-gray-50", row: "", evenRow: "bg-slate-50" },
+		table: {
+			header: "bg-slate-600 text-white dark:bg-slate-900 dark:text-gray-50",
+			evenRow: "bg-slate-50 dark:bg-zinc-800",
+			bordered: "border-x border-slate-600 dark:border-slate-900",
+			special: "font-bold bg-slate-200 text-slate-700 dark:bg-slate-900/50 dark:text-gray-50",
+			summaryRow: "bg-slate-200 text-gray-900 dark:bg-slate-900/50 dark:text-gray-50",
+		},
 		form: { control: "focus:ring-slate-600", input: "ring-slate-300 focus:ring-slate-500 placeholder:text-gray-300" },
 		notification: {
 			root: "bg-slate-100 ring-slate-600 text-slate-600",
 			dismiss: "hover:bg-slate-200 hover:text-slate-600 focus:ring-slate-600",
 			title: "text-slate-900",
 		},
-		tag: { root: "text-slate-600 bg-slate-600/20 ring-slate-600 dark:text-slate-300 dark:bg-slate-900/20 dark:ring-slate-900" },
+		tag: {
+			normal: "text-slate-600 bg-slate-600/20 ring-slate-600 dark:text-slate-300 dark:bg-slate-900/20 dark:ring-slate-900",
+			solid: "bg-slate-500 text-white ring-slate-700 ring-2 dark:bg-slate-700/50 dark:text-gray-50",
+			dimSolid: "bg-slate-500/50 text-slate-900 ring-slate-700/50 ring-2 dark:bg-slate-700/50 dark:text-gray-200",
+		},
 		spinner: { primary: "text-slate-600 dark:text-slate-300", secondary: "white" },
 		modal: { header: { root: "bg-slate-700 text-white", dismiss: "bg-slate-700 text-slate-200 hover:text-white", description: "text-slate-200" } },
 	},
@@ -258,6 +329,7 @@ export const ColorWays: ColorWays = {
 		color: "yellow",
 		card: {
 			root: "shadow-yellow-200 divide-yellow-600 dark:shadow-yellow-950 dark:divide-yellow-950}",
+			bordered: "border-2 border-yellow-600 dark:border-yellow-900",
 			header: "border-yellow-600 bg-yellow-100 dark:border-yellow-950 dark:bg-yellow-700",
 			title: "text-yellow-900",
 			description: "text-yellow-600",
@@ -274,14 +346,24 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border-2 enabled:hover:bg-yellow-100 focus-visible:outline-yellow-300 border-yellow-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-yellow-600 dark:enabled:hover:bg-yellow-900 dark:focus-visible:outline-yellow-900 dark:border-yellow-900 dark:text-yellow-300",
 		},
-		table: { header: "bg-yellow-600 text-white dark:bg-yellow-900 dark:text-gray-50", row: "", evenRow: "bg-yellow-50" },
+		table: {
+			header: "bg-yellow-600 text-white dark:bg-yellow-900 dark:text-gray-50",
+			evenRow: "bg-yellow-50 dark:bg-zinc-800",
+			bordered: "border-x border-yellow-600 dark:border-yellow-900",
+			special: "font-bold bg-yellow-200 text-yellow-700 dark:bg-yellow-900/50 dark:text-gray-50",
+			summaryRow: "bg-yellow-200 text-gray-900 dark:bg-yellow-900/50 dark:text-gray-50",
+		},
 		form: { control: "focus:ring-yellow-600", input: "ring-yellow-300 focus:ring-yellow-500 placeholder:text-gray-300" },
 		notification: {
 			root: "bg-yellow-100 ring-yellow-600 text-yellow-600",
 			dismiss: "hover:bg-yellow-200 hover:text-yellow-600 focus:ring-yellow-600",
 			title: "text-yellow-900",
 		},
-		tag: { root: "text-yellow-600 bg-yellow-600/20 ring-yellow-600 dark:text-yellow-300 dark:bg-yellow-900/20 dark:ring-yellow-900" },
+		tag: {
+			normal: "text-yellow-600 bg-yellow-600/20 ring-yellow-600 dark:text-yellow-300 dark:bg-yellow-900/20 dark:ring-yellow-900",
+			solid: "bg-yellow-500 text-white ring-yellow-700 ring-2 dark:bg-yellow-700/50 dark:text-gray-50",
+			dimSolid: "bg-yellow-500/50 text-yellow-900 ring-yellow-700/50 ring-2 dark:bg-yellow-700/50 dark:text-gray-200",
+		},
 		spinner: { primary: "text-yellow-600 dark:text-yellow-300", secondary: "white" },
 		modal: { header: { root: "bg-yellow-700 text-white", dismiss: "bg-yellow-700 text-yellow-200 hover:text-white", description: "text-yellow-200" } },
 	},

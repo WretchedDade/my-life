@@ -8,6 +8,8 @@ export const BudgetItemSchema = NotionObjectSchema.extend({
 	dateType: z.enum(["Fixed", "End of Month"]),
 	category: z.enum(["Bill", "Income", "Expense"]),
 	tags: z.array(NotionTagSchema),
+	isIncome: z.boolean(),
 });
 
 export type BudgetItem = z.infer<typeof BudgetItemSchema>;
+export type BudgetItemWithRunningTotal = BudgetItem & { runningTotal: number };

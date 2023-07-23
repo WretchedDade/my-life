@@ -1,5 +1,5 @@
-import classNames from "classnames";
 import { Fragment, useEffect, useState } from "react";
+import { classNames } from "../../shared/utils";
 
 import { Transition } from "@headlessui/react";
 

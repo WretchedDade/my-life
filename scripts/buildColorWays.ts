@@ -51,6 +51,7 @@ function getColorWay(color: string) {
 
 		card: {
 			root: `shadow-${color}-200 divide-${color}-600 dark:shadow-${color}-950 dark:divide-${color}-950}`,
+			bordered: `border-2 border-${color}-600 dark:border-${color}-900`,
 			header: `border-${color}-600 bg-${color}-100 dark:border-${color}-950 dark:bg-${color}-700`,
 			title: `text-${color}-900`,
 			description: `text-${color}-600`,
@@ -80,8 +81,10 @@ function getColorWay(color: string) {
 
 		table: {
 			header: `bg-${color}-600 text-white dark:bg-${color}-900 dark:text-gray-50`,
-			row: "",
-			evenRow: `bg-${color}-50`,
+			evenRow: `bg-${color}-50 dark:bg-zinc-800`,
+			bordered: `border-x border-${color}-600 dark:border-${color}-900`,
+			special: `font-bold bg-${color}-200 text-${color}-700 dark:bg-${color}-900/50 dark:text-gray-50`,
+			summaryRow: `bg-${color}-200 text-gray-900 dark:bg-${color}-900/50 dark:text-gray-50`,
 		},
 
 		form: {
@@ -96,7 +99,9 @@ function getColorWay(color: string) {
 		},
 
 		tag: {
-			root: `text-${color}-600 bg-${color}-600/20 ring-${color}-600 dark:text-${color}-300 dark:bg-${color}-900/20 dark:ring-${color}-900`,
+			normal: `text-${color}-600 bg-${color}-600/20 ring-${color}-600 dark:text-${color}-300 dark:bg-${color}-900/20 dark:ring-${color}-900`,
+			solid: `bg-${color}-500 text-white ring-${color}-700 ring-2 dark:bg-${color}-700/50 dark:text-gray-50`,
+			dimSolid: `bg-${color}-500/50 text-${color}-900 ring-${color}-700/50 ring-2 dark:bg-${color}-700/50 dark:text-gray-200`,
 		},
 
 		spinner: {
@@ -120,6 +125,7 @@ function getColorWayType() {
 
 		card: {
 			root: string,
+			bordered: string,
 			header: string,
 			title: string,
 			description: string,
@@ -139,8 +145,10 @@ function getColorWayType() {
 
 		table: {
 			header: string,
-			row: "",
 			evenRow: string,
+			bordered: string;
+			special: string;
+			summaryRow: string;
 		},
 
 		form: {
@@ -155,7 +163,9 @@ function getColorWayType() {
 		},
 
 		tag: {
-			root: string,
+			normal: string;
+			solid: string;
+			dimSolid: string;
 		},
 
 		spinner: {

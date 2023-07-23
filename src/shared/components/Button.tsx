@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { classNames } from "../../shared/utils";
 
 import { LoadingSpinner } from ".";
 

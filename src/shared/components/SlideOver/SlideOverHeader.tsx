@@ -3,8 +3,8 @@ import { Dialog } from "@headlessui/react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import classNames from "classnames";
 import { ColorWays, ColorWaysKey } from "../../../ColorWays";
+import { classNames } from "../../../shared/utils";
 
 export interface SlideOverHeadingProps {
 	color: ColorWaysKey;

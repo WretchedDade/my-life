@@ -1,11 +1,12 @@
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import classNames from "classnames";
 import { useCallback, useMemo, useState } from "react";
+
 import { AddBloodPressureSlideOver, BloodPressureReading, useBloodPressureReadings } from "..";
+
 import { Button, CardTable, CardTableProps } from "../../shared/components";
 import { useTailwindBreakpoint } from "../../shared/hooks";
-import { Format } from "../../shared/utils";
+import { Format, classNames } from "../../shared/utils";
 
 interface BloodPressureTableCardProps {
 	className?: string;

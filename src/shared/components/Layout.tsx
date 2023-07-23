@@ -1,6 +1,6 @@
-import classNames from "classnames";
 import * as React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { classNames } from "../../shared/utils";
 
 import { Dialog, Transition } from "@headlessui/react";
 

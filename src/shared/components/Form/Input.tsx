@@ -1,5 +1,5 @@
-import classNames from "classnames";
 import { ColorWays, ColorWaysKey } from "../../../ColorWays";
+import { classNames } from "../../../shared/utils";
 
 interface InputBaseProps {
 	color: ColorWaysKey;

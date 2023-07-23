@@ -31,7 +31,7 @@ export function BudgetPieCard() {
 	const data = useMemo(() => {
 		if (budgetItems === undefined) return null;
 
-		const totalIncome = budgetItems.filter((budgetItem) => budgetItem.category === "Income").reduce((acc, budgetItem) => acc + budgetItem.amount, 0);
+		const totalIncome = budgetItems.filter((budgetItem) => budgetItem.isIncome).reduce((acc, budgetItem) => acc + budgetItem.amount, 0);
 		const totalBills = budgetItems.filter((budgetItem) => budgetItem.category === "Bill").reduce((acc, budgetItem) => acc + budgetItem.amount, 0);
 		const totalExpenses = budgetItems.filter((budgetItem) => budgetItem.category === "Expense").reduce((acc, budgetItem) => acc + budgetItem.amount, 0);
 

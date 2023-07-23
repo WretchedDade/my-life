@@ -1,5 +1,5 @@
-import classNames from "classnames";
 import { BillPayment } from "..";
+import { classNames } from "../../shared/utils";
 
 interface BillPaymentIconProps {
 	billPayment: BillPayment;

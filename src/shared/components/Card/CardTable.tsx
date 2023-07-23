@@ -1,16 +1,18 @@
-import classNames from "classnames";
+import { classNames } from "../../../shared/utils";
 
 import { Card, CardFooterProps, CardProps } from ".";
 
 import { Button } from "..";
-import { ColorWays } from "../../../ColorWays";
-import { Page } from "../../types";
+import { ColorWay, ColorWays } from "../../../ColorWays";
+import { PageItems, PageMetadata } from "../../types";
 
 export interface CardTableProps<TModel> extends Omit<CardProps, "children" | "contentPaddingDisabled" | "footer"> {
-	page: Page<TModel> | undefined;
+	bordered?: boolean;
+
+	page: (Partial<PageMetadata> & PageItems<TModel>) | undefined;
 
 	headings: React.ComponentType<React.HTMLAttributes<HTMLTableCellElement>>[];
-	getRowValues: (item: TModel) => React.ComponentType<React.HTMLAttributes<HTMLTableCellElement>>[];
+	getRowValues: (item: TModel, colorWay: ColorWay) => React.ComponentType<React.HTMLAttributes<HTMLTableCellElement>>[];
 
 	getRowKey?: (item: TModel, index: number) => string;
 
@@ -24,6 +26,8 @@ export interface CardTableProps<TModel> extends Omit<CardProps, "children" | "co
 			onPageSizeChange: (pageSize: number) => void;
 		};
 	};
+
+	getSummaryRowValues?: (colorWay: ColorWay) => React.ComponentType<React.HTMLAttributes<HTMLTableCellElement>>[];
 }
 
 function getPageSizes(pageSizes: number[] | undefined, totalCount: number | undefined) {
@@ -31,6 +35,8 @@ function getPageSizes(pageSizes: number[] | undefined, totalCount: number | unde
 }
 
 export function CardTable<TModel>({
+	bordered = false,
+
 	page,
 	pagination,
 
@@ -38,6 +44,8 @@ export function CardTable<TModel>({
 	getRowValues,
 
 	getRowKey = (_, index) => index.toString(),
+
+	getSummaryRowValues,
 
 	...cardProps
 }: CardTableProps<TModel>) {
@@ -50,13 +58,14 @@ export function CardTable<TModel>({
 
 	return (
 		<Card
+			bordered={bordered}
 			{...cardProps}
 			contentPaddingDisabled
 			footer={(props) =>
 				page &&
 				pagination && (
 					<CardTableFooter
-						page={page}
+						pageMetadata={page}
 						onNext={pagination.onNext}
 						onPrevious={pagination.onPrevious}
 						sizeSelectOptions={sizeSelectOptions}
@@ -66,7 +75,7 @@ export function CardTable<TModel>({
 			}>
 			{page && (
 				<table className="min-w-full">
-					<thead className={classNames(colorWay.table.header)}>
+					<thead className={classNames(colorWay.table.header, { [colorWay.table.bordered]: bordered })}>
 						<tr>
 							{headings.map((TableHeaderCell, index) => (
 								<TableHeaderCell
@@ -79,25 +88,47 @@ export function CardTable<TModel>({
 							))}
 						</tr>
 					</thead>
-					<tbody className="divide-y divide-gray-200 dark:divide-zinc-950">
+					<tbody
+						className={classNames("divide-y divide-gray-200 dark:divide-zinc-950", {
+							[`${colorWay.table.bordered} border-x-2 border-b-2`]: bordered,
+						})}>
 						{page.items.map((item, itemIndex) => {
 							const rowKey = getRowKey(item, itemIndex);
 							return (
 								<tr
 									key={rowKey}
-									className={classNames(colorWay.table.row, { [`${colorWay.table.evenRow} dark:bg-zinc-800`]: itemIndex % 2 == 0 })}>
-									{getRowValues(item).map((TableCell, index) => (
+									className={classNames({
+										[colorWay.table.evenRow]: itemIndex % 2 == 0,
+									})}>
+									{getRowValues(item, colorWay).map((TableCell, index) => (
 										<TableCell
 											key={`${rowKey}-cell${index}`}
 											className={classNames("whitespace-nowrap text-xs sm:text-sm", {
 												"p-1 pl-4 text-left font-medium text-gray-900 dark:text-gray-50 sm:py-4 sm:pl-6 sm:pr-3": index === 0,
 												"p-1 text-center text-gray-500 dark:text-gray-300 sm:px-3 sm:py-4": index !== 0,
+												[colorWay.table.bordered]: bordered,
 											})}
 										/>
 									))}
 								</tr>
 							);
 						})}
+						{getSummaryRowValues && (
+							<tr className={classNames({ [colorWay.table.evenRow]: page.items.length % 2 == 0 })}>
+								{getSummaryRowValues(colorWay).map((TableCell, index) => (
+									<TableCell
+										key={`summary-cell-${index}`}
+										className={classNames(
+											"whitespace-nowrap p-1 text-center text-xs text-gray-500 dark:text-gray-300 sm:px-3 sm:py-4 sm:text-sm",
+											{
+												[`${colorWay.table.bordered} border-x-0 border-t-4`]: bordered,
+											},
+											colorWay.table.summaryRow,
+										)}
+									/>
+								))}
+							</tr>
+						)}
 					</tbody>
 				</table>
 			)}
@@ -105,8 +136,8 @@ export function CardTable<TModel>({
 	);
 }
 
-interface CardTableFooterProps<TModel> extends CardFooterProps {
-	page: Page<TModel>;
+interface CardTableFooterProps extends CardFooterProps {
+	pageMetadata: Partial<PageMetadata>;
 
 	onPrevious: (pageNumber: number) => void;
 	onNext: (pageNumber: number) => void;
@@ -120,7 +151,9 @@ interface CardTableFooterProps<TModel> extends CardFooterProps {
 
 CardTable.DefaultPageSizes = [10, 20, 30, 40, 50];
 
-function CardTableFooter<TModel>({ page, onPrevious, onNext, sizeSelectOptions, colorWay, isLoading, isRefreshing }: CardTableFooterProps<TModel>) {
+function CardTableFooter({ pageMetadata, onPrevious, onNext, sizeSelectOptions, colorWay, isLoading, isRefreshing }: CardTableFooterProps) {
+	const { hasNextPage = false, hasPreviousPage = false, pageNumber = 0, pageSize = 10, totalCount = 0 } = pageMetadata;
+
 	return (
 		<nav className={classNames("flex items-center justify-between", colorWay.card.footer)} aria-label="Pagination">
 			{sizeSelectOptions && sizeSelectOptions.pageSizes.length > 1 && (
@@ -154,9 +187,9 @@ function CardTableFooter<TModel>({ page, onPrevious, onNext, sizeSelectOptions, 
 
 			<div className="hidden sm:block">
 				<p className="text-sm text-gray-700 dark:text-gray-300">
-					Showing <span className="font-medium">{page.pageNumber * page.pageSize + 1}</span> to{" "}
-					<span className="font-medium">{Math.min(page.pageNumber * page.pageSize + page.pageSize, page.totalCount)}</span> of{" "}
-					<span className="font-medium">{page.totalCount}</span> results
+					Showing <span className="font-medium">{pageNumber * pageSize + 1}</span> to{" "}
+					<span className="font-medium">{Math.min(pageNumber * pageSize + pageSize, totalCount)}</span> of{" "}
+					<span className="font-medium">{totalCount}</span> results
 				</p>
 			</div>
 
@@ -164,15 +197,11 @@ function CardTableFooter<TModel>({ page, onPrevious, onNext, sizeSelectOptions, 
 				<Button
 					color={colorWay.color}
 					variant="secondary"
-					onClick={() => onPrevious(page.pageNumber)}
-					disabled={!page.hasPreviousPage || isRefreshing || isLoading}>
+					onClick={() => onPrevious(pageNumber)}
+					disabled={!hasPreviousPage || isRefreshing || isLoading}>
 					Previous
 				</Button>
-				<Button
-					color={colorWay.color}
-					variant="secondary"
-					onClick={() => onNext(page.pageNumber)}
-					disabled={!page.hasNextPage || isRefreshing || isLoading}>
+				<Button color={colorWay.color} variant="secondary" onClick={() => onNext(pageNumber)} disabled={!hasNextPage || isRefreshing || isLoading}>
 					Next
 				</Button>
 			</div>

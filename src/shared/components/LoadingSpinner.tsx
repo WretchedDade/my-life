@@ -1,5 +1,5 @@
-import classNames from "classnames";
 import { ColorWays } from "../../ColorWays";
+import { classNames } from "../../shared/utils";
 
 interface LoadingSpinnerProps {
 	color?: keyof ColorWays;

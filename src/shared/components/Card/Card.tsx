@@ -1,10 +1,12 @@
-import classNames from "classnames";
+import { classNames } from "../../../shared/utils";
 
 import { ColorWay, ColorWays } from "../../../ColorWays";
 
 import { Button, ButtonProps, LoadingSpinner } from "..";
 
 export interface CardProps extends React.PropsWithChildren<object> {
+	bordered?: boolean;
+
 	isLoading?: boolean;
 	isRefreshing?: boolean;
 
@@ -34,6 +36,8 @@ export interface CardFooterProps {
 }
 
 export function Card({
+	bordered = false,
+
 	isLoading,
 	isRefreshing,
 
@@ -50,7 +54,13 @@ export function Card({
 	const { title, description, mediaUrl, icon: Icon, action } = heading;
 
 	return (
-		<div className={classNames("flex flex-col overflow-hidden rounded-lg bg-white shadow-xl dark:bg-zinc-900", colorWay.card.root, className)}>
+		<div
+			className={classNames(
+				"flex flex-col overflow-hidden bg-white shadow-xl dark:bg-zinc-900",
+				colorWay.card.root,
+				{ "rounded-t-lg": bordered, "rounded-lg": !bordered },
+				className,
+			)}>
 			{mediaUrl && (
 				<div
 					style={{ backgroundImage: `url(${mediaUrl})` }}
