@@ -17,7 +17,7 @@ export function BillTimelineCard({ filter }: BillTimelineProps) {
 	const title = filter === "ThisWeek" ? "Bills from this week" : "Bills from next week";
 
 	return (
-		<Card color="green" heading={{ title }} isLoading={isLoading}>
+		<Card heading={{ title }} isLoading={isLoading}>
 			{bills !== undefined && (
 				<div className="flow-root">
 					<ul role="list" className="-mb-8">

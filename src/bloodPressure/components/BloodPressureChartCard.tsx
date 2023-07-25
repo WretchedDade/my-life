@@ -73,7 +73,7 @@ export function BloodPressureChartCard({ className }: BloodPressureChartCardProp
 
 	return (
 		<>
-			<Card isLoading={!data} color="red" isRefreshing={isFetching && !isLoading} heading={{ title: "Blood Pressure History" }} className={className}>
+			<Card isLoading={!data} isRefreshing={isFetching && !isLoading} heading={{ title: "Blood Pressure History" }} className={className}>
 				{data && (
 					<div className="h-96">
 						<Chart options={{ dark: isDarkMode, data, primaryAxis, secondaryAxes }} />

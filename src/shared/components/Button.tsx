@@ -3,6 +3,7 @@ import { classNames } from "../../shared/utils";
 import { LoadingSpinner } from ".";
 
 import { ColorWay, ColorWays } from "../../ColorWays";
+import { useColorWay } from "../ColorWayContext";
 
 type ButtonShapes = "Circle" | "Square";
 
@@ -16,7 +17,7 @@ export interface ButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAtt
 
 export function Button({
 	shape = "Square",
-	color = "blue",
+	color,
 	variant = "primary",
 	size = "md",
 	type = "button",
@@ -24,7 +25,7 @@ export function Button({
 	children,
 	...buttonProps
 }: ButtonProps) {
-	const colorWay = ColorWays[color];
+	const colorWay = useColorWay(color);
 
 	return (
 		<button

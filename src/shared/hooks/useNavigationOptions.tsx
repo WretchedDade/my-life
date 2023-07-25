@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { Location, useLocation } from "react-router-dom";
 
-import { faHeartPulse, faIgloo, faMoneyBillWave, faMoneyBills } from "@fortawesome/free-solid-svg-icons";
+import { faHeartPulse, faIgloo, faKey, faMoneyBillWave, faMoneyBills } from "@fortawesome/free-solid-svg-icons";
 
-import { ColorWay, ColorWays } from "../../ColorWays";
 import { BloodPressure, Home, UnpaidBills } from "../../pages";
 import { Budget } from "../../pages/Budget";
+import { KeywordConfig } from "../../pages/KeywordConfig";
 
 export function useNavigationOptions() {
 	const location = useLocation();
@@ -17,7 +17,6 @@ interface NavigationOption {
 	href: string;
 	icon: typeof faIgloo;
 	current: boolean;
-	colorWay: ColorWay;
 
 	element: React.ReactElement;
 }
@@ -32,7 +31,6 @@ function BuildNavigationOptions(location: Location): NavigationOption[] {
 				icon: faIgloo,
 				current: location.pathname === "/",
 
-				colorWay: ColorWays.blue,
 				element: <Home />,
 			},
 		];
@@ -45,7 +43,6 @@ function BuildNavigationOptions(location: Location): NavigationOption[] {
 			icon: faIgloo,
 			current: location.pathname === "/",
 
-			colorWay: ColorWays.blue,
 			element: <Home />,
 		},
 		{
@@ -54,7 +51,6 @@ function BuildNavigationOptions(location: Location): NavigationOption[] {
 			icon: faMoneyBillWave,
 			current: location.pathname === "/bills/unpaid",
 
-			colorWay: ColorWays.green,
 			element: <UnpaidBills />,
 		},
 		{
@@ -63,7 +59,6 @@ function BuildNavigationOptions(location: Location): NavigationOption[] {
 			icon: faHeartPulse,
 			current: location.pathname === "/bloodpressure",
 
-			colorWay: ColorWays.red,
 			element: <BloodPressure />,
 		},
 		{
@@ -72,8 +67,15 @@ function BuildNavigationOptions(location: Location): NavigationOption[] {
 			icon: faMoneyBills,
 			current: location.pathname === "/budget",
 
-			colorWay: ColorWays.purple,
 			element: <Budget />,
+		},
+		{
+			name: "Keyword Config",
+			href: "/keywordconfig",
+			icon: faKey,
+			current: location.pathname === "/keywordconfig",
+
+			element: <KeywordConfig />,
 		},
 	];
 }

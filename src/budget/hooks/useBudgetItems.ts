@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { useAccessToken } from "../../auth";
 
-import { BudgetItem, BudgetItemSchema, BudgetItemWithRunningTotal } from "..";
+import { BudgetItem, BudgetItemSchema } from "..";
 
 export function useBudgetItems() {
 	const accessToken = useAccessToken();
@@ -16,10 +16,10 @@ export function useBudgetItems() {
 			return GetBudgetItems(accessToken ?? "");
 		},
 
-		select(data: BudgetItem[]): BudgetItemWithRunningTotal[] {
+		select(data: BudgetItem[]) {
 			let runningTotal = 0;
 
-			return data
+			const items = data
 				.map((item) => (item.isIncome && item.day == null ? { ...item, day: 1 } : item))
 				.sort((item) => (item.isIncome ? -1 : 1))
 				.sort((itemA, itemB) => (itemA.day ?? 100) - (itemB.day ?? 100))
@@ -27,6 +27,13 @@ export function useBudgetItems() {
 					runningTotal += item.isIncome ? item.amount : -item.amount;
 					return { ...item, runningTotal };
 				});
+
+			return {
+				items,
+				remainingBalance: items?.[items.length - 1]?.runningTotal ?? 0,
+				totalIncome: items?.filter((item) => item.isIncome).reduce((total, item) => total + item.amount, 0) ?? 0,
+				totalExpenses: items?.filter((item) => !item.isIncome).reduce((total, item) => total + item.amount, 0) ?? 0,
+			};
 		},
 	});
 }

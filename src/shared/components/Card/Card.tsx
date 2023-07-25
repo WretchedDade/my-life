@@ -3,6 +3,7 @@ import { classNames } from "../../../shared/utils";
 import { ColorWay, ColorWays } from "../../../ColorWays";
 
 import { Button, ButtonProps, LoadingSpinner } from "..";
+import { useColorWay } from "../../ColorWayContext";
 
 export interface CardProps extends React.PropsWithChildren<object> {
 	bordered?: boolean;
@@ -42,14 +43,14 @@ export function Card({
 	isRefreshing,
 
 	className,
-	color = "blue",
+	color,
 	contentPaddingDisabled = false,
 
 	heading,
 	children,
 	footer: Footer,
 }: CardProps) {
-	const colorWay = ColorWays[color];
+	const colorWay = useColorWay(color);
 
 	const { title, description, mediaUrl, icon: Icon, action } = heading;
 
@@ -89,7 +90,7 @@ export function Card({
 
 				{(isRefreshing || action) && (
 					<div className="flex items-center gap-x-4">
-						{isRefreshing && <LoadingSpinner color={color} className="h-7 w-7" />}
+						{isRefreshing && <LoadingSpinner color={colorWay.color} className="h-7 w-7" />}
 						{action && (
 							<div className="flex-shrink-0">
 								<Button color={color} size="lg" type="button" {...action} disabled={action.disabled || isLoading || isRefreshing}>
@@ -105,12 +106,12 @@ export function Card({
 				{Footer && <Footer colorWay={colorWay} isRefreshing={isRefreshing} isLoading={isLoading} />}
 				{isLoading && children && (
 					<div className="absolute top-0 h-full w-full bg-zinc-600/30">
-						<LoadingSpinner color={color} centered className="h-1/2 w-1/2" />
+						<LoadingSpinner color={colorWay.color} centered className="h-1/2 w-1/2" />
 					</div>
 				)}
 				{isLoading && !children && (
 					<div className="h-72 w-full">
-						<LoadingSpinner color={color} centered className="h-1/2 w-1/2" />
+						<LoadingSpinner color={colorWay.color} centered className="h-1/2 w-1/2" />
 					</div>
 				)}
 			</div>

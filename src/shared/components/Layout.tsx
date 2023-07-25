@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from ".";
 import { UserAvatar, useMe } from "../../auth";
+import { useColorWay } from "../ColorWayContext";
 import { DarkModeContext } from "../DarkModeContext";
 import { useNavigationOptions } from "../hooks";
 
@@ -47,6 +48,7 @@ interface SidebarProps {
 
 function DynamicSidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 	const navigationOptions = useNavigationOptions();
+	const colorWay = useColorWay();
 
 	return (
 		<Transition.Root show={sidebarOpen} as={React.Fragment}>
@@ -90,10 +92,7 @@ function DynamicSidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 							{/* Sidebar component, swap this element with another sidebar if you like */}
 							<div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2 dark:bg-zinc-900">
 								<div className="flex h-16 shrink-0 items-center">
-									<FontAwesomeIcon
-										className={classNames("h-8 w-8", navigationOptions.find((option) => option.current)?.colorWay.logo)}
-										icon={faPeopleRoof}
-									/>
+									<FontAwesomeIcon className={classNames("h-8 w-8", colorWay.logo)} icon={faPeopleRoof} />
 								</div>
 								<nav className="flex flex-1 flex-col">
 									<ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -104,19 +103,15 @@ function DynamicSidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 														<Link
 															to={navigationOption.href}
 															className={classNames(
-																navigationOption.colorWay.nav,
-																navigationOption.current
-																	? navigationOption.colorWay.activeNav
-																	: "text-gray-700 dark:text-gray-50",
+																colorWay.nav,
+																navigationOption.current ? colorWay.activeNav : "text-gray-700 dark:text-gray-50",
 																"group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
 															)}>
 															<FontAwesomeIcon
 																icon={navigationOption.icon}
 																className={classNames(
-																	navigationOption.colorWay.nav,
-																	navigationOption.current
-																		? navigationOption.colorWay.activeNav
-																		: "text-gray-400 dark:text-gray-300",
+																	colorWay.nav,
+																	navigationOption.current ? colorWay.activeNav : "text-gray-400 dark:text-gray-300",
 																	"h-6 w-6 shrink-0",
 																)}
 																aria-hidden="true"
@@ -139,6 +134,7 @@ function DynamicSidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 }
 
 function StaticSidebar() {
+	const colorWay = useColorWay();
 	const { data: me } = useMe();
 	const navigationOptions = useNavigationOptions();
 	const { isDarkMode, toggleDarkMode } = React.useContext(DarkModeContext);
@@ -147,7 +143,7 @@ function StaticSidebar() {
 		<div className="xl:72 hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-52 lg:flex-col">
 			<div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 dark:border-r-2 dark:border-gray-950 dark:bg-zinc-900">
 				<div className="flex h-16 shrink-0 items-center">
-					<FontAwesomeIcon className={classNames("h-8 w-8", navigationOptions.find((option) => option.current)?.colorWay.logo)} icon={faPeopleRoof} />
+					<FontAwesomeIcon className={classNames("h-8 w-8", colorWay.logo)} icon={faPeopleRoof} />
 				</div>
 				<nav className="flex flex-1 flex-col">
 					<ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -158,15 +154,15 @@ function StaticSidebar() {
 										<Link
 											to={navigationOption.href}
 											className={classNames(
-												navigationOption.colorWay.nav,
-												navigationOption.current ? navigationOption.colorWay.activeNav : "text-gray-700 dark:text-gray-50",
+												colorWay.nav,
+												navigationOption.current ? colorWay.activeNav : "text-gray-700 dark:text-gray-50",
 												"group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
 											)}>
 											<FontAwesomeIcon
 												icon={navigationOption.icon}
 												className={classNames(
-													navigationOption.colorWay.nav,
-													navigationOption.current ? navigationOption.colorWay.activeNav : "text-gray-400 dark:text-gray-300",
+													colorWay.nav,
+													navigationOption.current ? colorWay.activeNav : "text-gray-400 dark:text-gray-300",
 													"h-6 w-6 shrink-0",
 												)}
 												aria-hidden="true"

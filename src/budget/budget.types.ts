@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { NotionObjectSchema, NotionTagSchema } from "../shared/types";
+import { NotionObjectSchema, NotionTagSchema, PageBaseSchema } from "../shared/types";
 
 export const BudgetItemSchema = NotionObjectSchema.extend({
 	day: z.number().int().min(1).max(31).optional(),
@@ -13,3 +13,16 @@ export const BudgetItemSchema = NotionObjectSchema.extend({
 
 export type BudgetItem = z.infer<typeof BudgetItemSchema>;
 export type BudgetItemWithRunningTotal = BudgetItem & { runningTotal: number };
+
+export const KeywordSchema = z.object({
+	name: z.string(),
+	keyword: z.string(),
+	category: z.string(),
+	lastModifiedOn: z.coerce.date(),
+});
+
+export const KeywordPageSchema = PageBaseSchema.extend({
+	items: z.array(KeywordSchema),
+});
+
+export type Keyword = z.infer<typeof KeywordSchema>;

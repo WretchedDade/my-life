@@ -21,16 +21,18 @@ const chartOptions: Chart["props"]["options"] = {
 };
 
 export function ExpenditurePieCard() {
-	const { data: budgetItems } = useBudgetItems();
+	const { data } = useBudgetItems();
 	const { isDarkMode } = useContext(DarkModeContext);
 
-	const data = useMemo(() => {
-		if (budgetItems === undefined) return null;
+	const { items } = data ?? {};
+
+	const dataPoints = useMemo(() => {
+		if (items === undefined) return null;
 
 		return [
 			["Budget Item", "Amount"],
 			...Object.entries(
-				budgetItems
+				items
 					.filter((budgetItem) => budgetItem.category !== "Income")
 					.reduce<{ [key: string]: number }>((acc, budgetItem) => {
 						const name = budgetItem.name.split("|")[0].trim();
@@ -40,14 +42,14 @@ export function ExpenditurePieCard() {
 					}, {}),
 			),
 		];
-	}, [budgetItems]);
+	}, [items]);
 
 	return (
-		<Card heading={{ title: "Expenses" }} isLoading={!data}>
-			{data && (
+		<Card heading={{ title: "Expenses" }} isLoading={!dataPoints}>
+			{dataPoints && (
 				<Chart
 					chartType="PieChart"
-					data={data}
+					data={dataPoints}
 					width="100%"
 					height="400px"
 					options={{ ...chartOptions, legend: { ...chartOptions, textStyle: { color: isDarkMode ? "white" : "black" } } }}

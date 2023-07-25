@@ -7,7 +7,7 @@ import tailwindConfig from "../tailwind.config";
 const fullConfig = resolveConfig(tailwindConfig as unknown as Config);
 
 if (fullConfig?.theme?.colors) {
-	const colors = ["blue", "green", "orange", "red", "purple", "slate", "yellow"];
+	const colors = ["blue", "green", "orange", "red", "purple", "slate", "yellow", "sky"];
 
 	fs.writeFileSync(
 		"./src/ColorWays.ts",
@@ -52,7 +52,7 @@ function getColorWay(color: string) {
 		card: {
 			root: `shadow-${color}-200 divide-${color}-600 dark:shadow-${color}-950 dark:divide-${color}-950}`,
 			bordered: `border-2 border-${color}-600 dark:border-${color}-900`,
-			header: `border-${color}-600 bg-${color}-100 dark:border-${color}-950 dark:bg-${color}-700`,
+			header: `border-${color}-600 bg-${color}-200 dark:border-${color}-950 dark:bg-${color}-800`,
 			title: `text-${color}-900`,
 			description: `text-${color}-600`,
 			footer: `border-${color}-600 border-t p-3 px-6`,
@@ -66,8 +66,8 @@ function getColorWay(color: string) {
 			`dark:hover:text-${color}-600 dark:hover:bg-${color}-200 dark:group-hover:text-${color}-600 dark:focus-visible:outline-${color}-700`,
 
 		activeNav:
-			`text-${color}-500 hover:text-${color}-700 group-hover:text-${color}-700 bg-${color}-100 ` +
-			`dark:text-${color}-700 dark:hover:text-${color}-600 dark:group-hover:text-${color}-600 dark:bg-${color}-300 dark:group-hover:bg-${color}-200`,
+			`text-${color}-700 hover:text-${color}-500 group-hover:text-${color}-500 bg-${color}-200` +
+			`dark:text-${color}-700 dark:hover:text-${color}-500 dark:group-hover:text-${color}-500 dark:bg-${color}-300 dark:group-hover:bg-${color}-200`,
 
 		actions: {
 			primary:
@@ -75,26 +75,40 @@ function getColorWay(color: string) {
 				`dark:bg-${color}-900 dark:hover:bg-${color}-950 dark:focus-visible:outline-${color}-950 dark:text-gray-50 dark:disabled:opacity-75`,
 
 			secondary:
-				`border-2 enabled:hover:bg-${color}-100 focus-visible:outline-${color}-300 border-${color}-600 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-${color}-600 ` +
+				`border-2 enabled:hover:bg-${color}-200 focus-visible:outline-${color}-900 border-${color}-600 text-${color}-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-${color}-600 ` +
 				`dark:enabled:hover:bg-${color}-900 dark:focus-visible:outline-${color}-900 dark:border-${color}-900 dark:text-${color}-300`,
 		},
 
 		table: {
-			header: `bg-${color}-600 text-white dark:bg-${color}-900 dark:text-gray-50`,
+			header: `bg-${color}-600 text-white dark:bg-${color}-700 dark:text-gray-50`,
 			evenRow: `bg-${color}-50 dark:bg-zinc-800`,
-			bordered: `border-x border-${color}-600 dark:border-${color}-900`,
-			special: `font-bold bg-${color}-200 text-${color}-700 dark:bg-${color}-900/50 dark:text-gray-50`,
-			summaryRow: `bg-${color}-200 text-gray-900 dark:bg-${color}-900/50 dark:text-gray-50`,
+			bordered: `border-x border-${color}-600 dark:border-${color}-700`,
+			special: `font-bold border-l-8 text-${color}-700 dark:text-gray-50`,
+			summaryRow: `bg-${color}-200 text-gray-900 dark:bg-${color}-700 dark:text-gray-50`,
 		},
 
 		form: {
 			control: `focus:ring-${color}-600`,
-			input: `ring-${color}-300 focus:ring-${color}-500 placeholder:text-gray-300`,
+
+			input: `bg-white text-gray-900 ring-gray-300 focus:ring-${color}-600`,
+
+			autoComplete: {
+				options: `bg-white ring-black`,
+
+				option: `text-gray-900`,
+				activeOption: `bg-${color}-600 text-white`,
+
+				optionIcon: `text-${color}-600`,
+				activeOptionIcon: `text-white`,
+
+				secondaryText: `text-gray-500`,
+				activeSecondaryText: `text-${color}-200`,
+			},
 		},
 
 		notification: {
-			root: `bg-${color}-100 ring-${color}-600 text-${color}-600`,
-			dismiss: `hover:bg-${color}-200 hover:text-${color}-600 focus:ring-${color}-600`,
+			root: `bg-${color}-100 ring-${color}-700 text-${color}-600 shadow-${color}-700`,
+			dismiss: `text-${color}-700 hover:bg-${color}-200 hover:text-${color}-600 focus:ring-${color}-600`,
 			title: `text-${color}-900`,
 		},
 
@@ -146,14 +160,27 @@ function getColorWayType() {
 		table: {
 			header: string,
 			evenRow: string,
-			bordered: string;
-			special: string;
-			summaryRow: string;
+			bordered: string,
+			special: string,
+			summaryRow: string,
 		},
 
 		form: {
 			control: string,
 			input: string,
+
+			autoComplete: {
+				options: string,
+
+				option: string,
+				activeOption: string,
+
+				optionIcon: string,
+				activeOptionIcon: string,
+
+				secondaryText: string,
+				activeSecondaryText: string
+			},
 		},
 
 		notification: {

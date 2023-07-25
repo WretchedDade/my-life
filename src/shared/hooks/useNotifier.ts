@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { NotificationContext } from "../NotificationContext";
 
 export function useNotifier() {
-	const { showNotification, showSuccessNotification } = useContext(NotificationContext);
+	const { showNotification, showSuccessNotification, showErrorNotification } = useContext(NotificationContext);
 
-	return { custom: showNotification, success: showSuccessNotification };
+	return { custom: showNotification, success: showSuccessNotification, error: showErrorNotification };
 }

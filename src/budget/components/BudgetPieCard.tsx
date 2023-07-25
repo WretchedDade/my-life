@@ -25,15 +25,17 @@ const chartOptions: Chart["props"]["options"] = {
 };
 
 export function BudgetPieCard() {
-	const { data: budgetItems } = useBudgetItems();
+	const { data } = useBudgetItems();
 	const { isDarkMode } = useContext(DarkModeContext);
 
-	const data = useMemo(() => {
-		if (budgetItems === undefined) return null;
+	const { items } = data ?? {};
 
-		const totalIncome = budgetItems.filter((budgetItem) => budgetItem.isIncome).reduce((acc, budgetItem) => acc + budgetItem.amount, 0);
-		const totalBills = budgetItems.filter((budgetItem) => budgetItem.category === "Bill").reduce((acc, budgetItem) => acc + budgetItem.amount, 0);
-		const totalExpenses = budgetItems.filter((budgetItem) => budgetItem.category === "Expense").reduce((acc, budgetItem) => acc + budgetItem.amount, 0);
+	const dataPoints = useMemo(() => {
+		if (items === undefined) return null;
+
+		const totalIncome = items.filter((budgetItem) => budgetItem.isIncome).reduce((acc, budgetItem) => acc + budgetItem.amount, 0);
+		const totalBills = items.filter((budgetItem) => budgetItem.category === "Bill").reduce((acc, budgetItem) => acc + budgetItem.amount, 0);
+		const totalExpenses = items.filter((budgetItem) => budgetItem.category === "Expense").reduce((acc, budgetItem) => acc + budgetItem.amount, 0);
 
 		const remainingIncome = totalIncome - totalBills - totalExpenses;
 
@@ -43,14 +45,14 @@ export function BudgetPieCard() {
 			["Bills", totalBills],
 			["Expenses", totalExpenses],
 		];
-	}, [budgetItems]);
+	}, [items]);
 
 	return (
-		<Card color="blue" heading={{ title: "Budget" }} isLoading={!data}>
-			{data && (
+		<Card heading={{ title: "Budget" }} isLoading={!data}>
+			{dataPoints && (
 				<Chart
 					chartType="PieChart"
-					data={data}
+					data={dataPoints}
 					width="100%"
 					height="400px"
 					options={{ ...chartOptions, legend: { ...chartOptions, textStyle: { color: isDarkMode ? "white" : "black" } } }}

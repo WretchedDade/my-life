@@ -62,7 +62,7 @@ export function BloodPressureTableCard({ defaultPageSize = 10, className }: Bloo
 			),
 			(props) => (
 				<td {...props} className={classNames(props.className, { "flex items-center justify-end": isAboveSm })}>
-					<Button color="red" size={isAboveSm ? "sm" : "xs"}>
+					<Button variant="secondary" size="xs">
 						<FontAwesomeIcon icon={faTrashCan} /> Delete
 					</Button>
 				</td>
@@ -74,7 +74,6 @@ export function BloodPressureTableCard({ defaultPageSize = 10, className }: Bloo
 	return (
 		<>
 			<CardTable
-				color="red"
 				isRefreshing={isFetching && !isLoading}
 				isLoading={isLoading}
 				heading={{ title: "Blood Pressure Log", action: { onClick: () => setAddModalOpen(true), text: "Add New" } }}

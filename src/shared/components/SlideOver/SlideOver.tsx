@@ -1,4 +1,4 @@
-import { Fragment, forwardRef } from "react";
+import { Fragment, MutableRefObject, forwardRef } from "react";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { SlideOverHeader, SlideOverHeadingProps } from ".";
@@ -13,6 +13,7 @@ type SlideOverBaseProps = React.PropsWithChildren<{
 	color?: ColorWaysKey;
 	header?: Omit<SlideOverHeadingProps, "onClose" | "color">;
 	footer?: Omit<SlideOverFooterProps, "color">;
+	initialFocus?: MutableRefObject<HTMLElement | null>;
 }>;
 
 export const SlideOver: PolymorphicComponent<SlideOverBaseProps> = forwardRef(
@@ -29,6 +30,8 @@ export const SlideOver: PolymorphicComponent<SlideOverBaseProps> = forwardRef(
 
 			children,
 
+			initialFocus,
+
 			...props
 		}: PolymorphicComponentProps<TElement, SlideOverBaseProps>,
 		ref: PolymorphicRef<TElement>,
@@ -37,13 +40,13 @@ export const SlideOver: PolymorphicComponent<SlideOverBaseProps> = forwardRef(
 
 		return (
 			<Transition.Root show={open} as={Fragment}>
-				<Dialog as="div" className="relative z-50" onClose={onClose}>
+				<Dialog as="div" className="relative z-50" onClose={onClose} initialFocus={initialFocus}>
 					<Transition.Child
 						as={Fragment}
-						enter="ease-in-out duration-700"
+						enter="ease-in-out duration-500"
 						enterFrom="opacity-0"
 						enterTo="opacity-100"
-						leave="ease-in-out duration-700"
+						leave="ease-in-out duration-500"
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0">
 						<div className="fixed inset-0 bg-gray-900/80 bg-opacity-80 transition-opacity" onClick={onClose} />

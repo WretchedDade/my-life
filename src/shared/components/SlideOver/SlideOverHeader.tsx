@@ -3,11 +3,12 @@ import { Dialog } from "@headlessui/react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { ColorWays, ColorWaysKey } from "../../../ColorWays";
+import { ColorWaysKey } from "../../../ColorWays";
 import { classNames } from "../../../shared/utils";
+import { useColorWay } from "../../ColorWayContext";
 
 export interface SlideOverHeadingProps {
-	color: ColorWaysKey;
+	color?: ColorWaysKey;
 
 	title: string;
 	description?: string;
@@ -16,7 +17,7 @@ export interface SlideOverHeadingProps {
 }
 
 export function SlideOverHeader({ color, title, description, onClose }: SlideOverHeadingProps) {
-	const colorWay = ColorWays[color];
+	const colorWay = useColorWay(color);
 
 	return (
 		<div className={classNames("px-4 py-6 sm:px-6", colorWay.modal.header.root)}>

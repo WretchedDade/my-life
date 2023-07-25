@@ -3,7 +3,8 @@ import { classNames } from "../../../shared/utils";
 import { Card, CardFooterProps, CardProps } from ".";
 
 import { Button } from "..";
-import { ColorWay, ColorWays } from "../../../ColorWays";
+import { ColorWay } from "../../../ColorWays";
+import { useColorWay } from "../../ColorWayContext";
 import { PageItems, PageMetadata } from "../../types";
 
 export interface CardTableProps<TModel> extends Omit<CardProps, "children" | "contentPaddingDisabled" | "footer"> {
@@ -49,7 +50,7 @@ export function CardTable<TModel>({
 
 	...cardProps
 }: CardTableProps<TModel>) {
-	const colorWay = ColorWays[cardProps.color ?? "blue"];
+	const colorWay = useColorWay(cardProps.color);
 
 	const sizeSelectOptions =
 		pagination?.sizeSelectOptions != null
@@ -75,7 +76,7 @@ export function CardTable<TModel>({
 			}>
 			{page && (
 				<table className="min-w-full">
-					<thead className={classNames(colorWay.table.header, { [colorWay.table.bordered]: bordered })}>
+					<thead className={classNames(colorWay.table.header, { [`${colorWay.table.bordered} border-x-4`]: bordered })}>
 						<tr>
 							{headings.map((TableHeaderCell, index) => (
 								<TableHeaderCell
@@ -90,7 +91,7 @@ export function CardTable<TModel>({
 					</thead>
 					<tbody
 						className={classNames("divide-y divide-gray-200 dark:divide-zinc-950", {
-							[`${colorWay.table.bordered} border-x-2 border-b-2`]: bordered,
+							[`${colorWay.table.bordered} border-x-4 border-b-4`]: bordered,
 						})}>
 						{page.items.map((item, itemIndex) => {
 							const rowKey = getRowKey(item, itemIndex);
@@ -162,7 +163,7 @@ function CardTableFooter({ pageMetadata, onPrevious, onNext, sizeSelectOptions, 
 						id="pageSize"
 						name="pageSize"
 						className={classNames(
-							"block rounded border-0 p-1 pr-2 text-xs text-gray-900 ring-1 ring-gray-300 ring-offset-1 focus:ring-2 dark:bg-zinc-900 dark:text-gray-50 sm:leading-6",
+							"block rounded border-0 py-1 pl-3 pr-10 text-xs text-gray-900 ring-1 ring-gray-300 ring-offset-1 focus:ring-2 dark:bg-zinc-900 dark:text-gray-50 sm:leading-6",
 							colorWay.form.control,
 						)}
 						defaultValue={sizeSelectOptions.pageSize}

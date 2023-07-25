@@ -1,8 +1,9 @@
-import { ColorWays } from "../../ColorWays";
+import { ColorWaysKey } from "../../ColorWays";
 import { classNames } from "../../shared/utils";
+import { useColorWay } from "../ColorWayContext";
 
 interface LoadingSpinnerProps {
-	color?: keyof ColorWays;
+	color?: ColorWaysKey;
 	className?: string;
 
 	variant?: "primary" | "secondary";
@@ -12,14 +13,15 @@ interface LoadingSpinnerProps {
 }
 
 export function LoadingSpinner({
-	color = "blue",
+	color,
 	centered,
 	centeringDivClassName,
 	variant = "primary",
 	className,
 	children,
 }: React.PropsWithChildren<LoadingSpinnerProps>) {
-	const colorWay = ColorWays[color];
+	const colorWay = useColorWay(color);
+
 	if (centered)
 		return (
 			<div className={classNames("flex h-full w-full items-center justify-center", { "flex flex-col gap-y-6": children }, centeringDivClassName)}>

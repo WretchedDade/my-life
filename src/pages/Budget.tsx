@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { BudgetItemWithRunningTotal, useBudgetItems } from "../budget";
 
 import { CardTable, CardTableProps, Tag } from "../shared/components";
@@ -13,16 +13,9 @@ interface Budget {
 export function Budget() {
 	const { isAboveSm } = useTailwindBreakpoint("sm");
 
-	const { isLoading, data: budgetItems } = useBudgetItems();
+	const { isLoading, data } = useBudgetItems();
 
-	const { remainingBalance, totalExpenses, totalIncome } = useMemo(
-		() => ({
-			remainingBalance: budgetItems?.[budgetItems.length - 1]?.runningTotal ?? 0,
-			totalIncome: budgetItems?.filter((item) => item.isIncome).reduce((total, item) => total + item.amount, 0) ?? 0,
-			totalExpenses: budgetItems?.filter((item) => !item.isIncome).reduce((total, item) => total + item.amount, 0) ?? 0,
-		}),
-		[budgetItems],
-	);
+	const { items, remainingBalance, totalExpenses, totalIncome } = data ?? {};
 
 	const getSummaryRowValues = useCallback<NonNullable<CardTableProps<BudgetItemWithRunningTotal>["getSummaryRowValues"]>>(() => {
 		return [
@@ -45,36 +38,22 @@ export function Budget() {
 							</div>
 						</div>
 					</div>
-
-					{/* <div className="flex items-end justify-between">
-						<p className="font-bold">Remaining Balance:</p>
-						<div className="flex flex-col items-end gap-y-2 font-medium">
-							<p>{Format.asCurrency(totalIncome)}</p>
-							<p>- {Format.asCurrency(totalExpenses)}</p>
-
-							<div className="w-full border-t border-gray-600" />
-
-							<p>= {Format.asCurrency(budgetItems[budgetItems.length - 1].runningTotal)}</p>
-						</div>
-					</div> */}
 				</td>
 			),
 		];
-	}, [remainingBalance, totalExpenses, totalIncome]);
+	}, [isAboveSm, remainingBalance, totalExpenses, totalIncome]);
 
 	return (
-		<div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-2">
+		<div className="mb-16 grid grid-cols-1 gap-6">
 			<CardTable
 				bordered
-				color="purple"
 				isLoading={isLoading}
 				heading={{ title: "Budget" }}
 				headings={headings}
 				getRowKey={getRowKey}
 				getRowValues={getRowValues}
 				getSummaryRowValues={getSummaryRowValues}
-				page={budgetItems ? { items: budgetItems } : undefined}
-				className="md:col-span-2"
+				page={items ? { items } : undefined}
 			/>
 		</div>
 	);

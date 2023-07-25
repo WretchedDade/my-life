@@ -1,6 +1,7 @@
 import { PropsWithChildren, createContext, useCallback, useState } from "react";
+import { createPortal } from "react-dom";
 
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 
 import { Notification, NotificationProps } from "./components";
 
@@ -10,11 +11,13 @@ type NotificationOptions = Omit<NotificationProps, "id" | "onClose" | "message">
 interface NotificationContext {
 	showNotification: (message: string, options?: NotificationOptions) => void;
 	showSuccessNotification: (message: string, options?: Omit<NotificationOptions, "icon">) => void;
+	showErrorNotification: (message: string, options?: Omit<NotificationOptions, "icon">) => void;
 }
 
 export const NotificationContext = createContext<NotificationContext>({
 	showNotification: () => undefined,
 	showSuccessNotification: () => undefined,
+	showErrorNotification: () => undefined,
 });
 
 export function NotificationContextProvider({ children }: PropsWithChildren<object>) {
@@ -30,6 +33,11 @@ export function NotificationContextProvider({ children }: PropsWithChildren<obje
 		[],
 	);
 
+	const showErrorNotification = useCallback<NotificationContext["showErrorNotification"]>(
+		(message, options = {}) =>
+			setNotifications((prevNotifications) => [...prevNotifications, { id: crypto.randomUUID(), message, ...options, icon: faXmarkCircle }]),
+		[],
+	);
 	const closeNotification = useCallback(
 		(id: string) => {
 			setNotifications((prevNotifications) => prevNotifications.filter((notification) => notification.id !== id));
@@ -38,15 +46,18 @@ export function NotificationContextProvider({ children }: PropsWithChildren<obje
 	);
 
 	return (
-		<NotificationContext.Provider value={{ showNotification, showSuccessNotification }}>
+		<NotificationContext.Provider value={{ showNotification, showSuccessNotification, showErrorNotification }}>
 			{children}
-			<div aria-live="assertive" className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6">
-				<div className="flex w-full flex-col items-center space-y-4 sm:items-end">
-					{notifications.map((props) => (
-						<Notification key={props.id} {...props} onClose={closeNotification} />
-					))}
-				</div>
-			</div>
+			{createPortal(
+				<div aria-live="assertive" className="pointer-events-none fixed inset-0 z-[60] flex items-end px-4 py-6 sm:items-start sm:p-6">
+					<div className="flex h-full w-full flex-col items-center justify-end space-y-4 sm:items-end">
+						{notifications.map((props) => (
+							<Notification key={props.id} {...props} onClose={closeNotification} />
+						))}
+					</div>
+				</div>,
+				document.body,
+			)}
 		</NotificationContext.Provider>
 	);
 }

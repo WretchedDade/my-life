@@ -7,6 +7,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ColorWays } from "../../ColorWays";
+import { useColorWay } from "../ColorWayContext";
 
 export type NotificationVariants = "success" | "warning" | "error" | "info";
 export interface NotificationProps {
@@ -22,7 +23,7 @@ export interface NotificationProps {
 
 const notificationLifetime = 2500;
 
-export function Notification({ id, message, onClose, title, color = "green", icon }: NotificationProps) {
+export function Notification({ id, message, onClose, title, color, icon }: NotificationProps) {
 	const [show, setShow] = useState(true);
 
 	useEffect(() => {
@@ -38,7 +39,7 @@ export function Notification({ id, message, onClose, title, color = "green", ico
 		}
 	}, [id, onClose, show, setShow]);
 
-	const colorWay = ColorWays[color];
+	const colorWay = useColorWay(color);
 
 	return (
 		<Transition
@@ -54,7 +55,7 @@ export function Notification({ id, message, onClose, title, color = "green", ico
 			leaveTo="opacity-0 translate-x-48">
 			<div
 				className={classNames(
-					"pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg shadow-lg ring-1  ring-opacity-5",
+					"pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg shadow-lg ring-1 ring-opacity-5",
 					colorWay.notification.root,
 				)}>
 				<div className="p-4">
