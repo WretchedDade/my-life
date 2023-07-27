@@ -4,8 +4,8 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ColorWaysKey } from "../../../ColorWays";
-import { classNames } from "../../../shared/utils";
-import { useColorWay } from "../../ColorWayContext";
+import { useColorWay } from "../../hooks";
+import { classNames } from "../../utils";
 
 export interface SlideOverHeadingProps {
 	color?: ColorWaysKey;

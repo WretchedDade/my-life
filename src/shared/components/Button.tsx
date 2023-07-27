@@ -3,7 +3,7 @@ import { classNames } from "../../shared/utils";
 import { LoadingSpinner } from ".";
 
 import { ColorWay, ColorWays } from "../../ColorWays";
-import { useColorWay } from "../ColorWayContext";
+import { useColorWay } from "../hooks";
 
 type ButtonShapes = "Circle" | "Square";
 

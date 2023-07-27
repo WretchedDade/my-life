@@ -19,7 +19,7 @@ export function BloodPressureTableCard({ defaultPageSize = 10, className }: Bloo
 	const [pageSize, setPageSize] = useState(defaultPageSize);
 	const [pageNumber, setPageNumber] = useState(0);
 
-	const { data: page, isLoading, isFetching } = useBloodPressureReadings(pageNumber, pageSize);
+	const { data: page, isLoading } = useBloodPressureReadings(pageNumber, pageSize);
 
 	const pagination = useMemo<CardTableProps<BloodPressureReading>["pagination"]>(() => {
 		const pageSizes = Array.from(new Set([defaultPageSize, ...CardTable.DefaultPageSizes]));
@@ -74,7 +74,6 @@ export function BloodPressureTableCard({ defaultPageSize = 10, className }: Bloo
 	return (
 		<>
 			<CardTable
-				isRefreshing={isFetching && !isLoading}
 				isLoading={isLoading}
 				heading={{ title: "Blood Pressure Log", action: { onClick: () => setAddModalOpen(true), text: "Add New" } }}
 				page={page}

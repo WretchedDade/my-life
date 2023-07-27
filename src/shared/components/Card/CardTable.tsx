@@ -4,7 +4,7 @@ import { Card, CardFooterProps, CardProps } from ".";
 
 import { Button } from "..";
 import { ColorWay } from "../../../ColorWays";
-import { useColorWay } from "../../ColorWayContext";
+import { useColorWay } from "../../hooks";
 import { PageItems, PageMetadata } from "../../types";
 
 export interface CardTableProps<TModel> extends Omit<CardProps, "children" | "contentPaddingDisabled" | "footer"> {

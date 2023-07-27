@@ -27,11 +27,11 @@ export function DarkModeContextProvider({ children }: PropsWithChildren<object>)
 	}, [prefersDarkMode, setIsDarkMode]);
 
 	useEffect(() => {
-		if (isDarkMode) {
-			document.documentElement.classList.add("dark");
-		} else {
-			document.documentElement.classList.remove("dark");
-		}
+		// if (isDarkMode) {
+		// 	document.documentElement.classList.add("dark");
+		// } else {
+		// 	document.documentElement.classList.remove("dark");
+		// }
 
 		localStorage.setItem("isDarkMode", JSON.stringify(isDarkMode));
 	}, [isDarkMode]);

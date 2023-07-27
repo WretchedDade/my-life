@@ -1,6 +1,6 @@
 import { ColorWaysKey } from "../../ColorWays";
 import { classNames } from "../../shared/utils";
-import { useColorWay } from "../ColorWayContext";
+import { useColorWay } from "../hooks";
 
 interface LoadingSpinnerProps {
 	color?: ColorWaysKey;

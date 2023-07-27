@@ -61,13 +61,20 @@ function getColorWay(color: string) {
 
 		logo: `text-${color}-500 dark:text-${color}-300`,
 
-		nav:
-			`hover:text-${color}-500 hover:bg-${color}-100 group-hover:text-${color}-500 focus-visible:outline-${color}-500 ` +
-			`dark:hover:text-${color}-600 dark:hover:bg-${color}-200 dark:group-hover:text-${color}-600 dark:focus-visible:outline-${color}-700`,
+		navigation: {
+			item:
+				/* Base */ `group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700 ` +
+				/* Color Specific */ `hover:text-${color}-700 hover:bg-${color}-100 group-hover:text-${color}-500 focus-visible:outline-${color}-500 ` +
+				/* Dark Mode */ `dark:text-gray-50 dark:hover:bg-${color}-900 dark:group-hover:text-${color}-600 dark:focus-visible:outline-${color}-700`,
 
-		activeNav:
-			`text-${color}-700 hover:text-${color}-500 group-hover:text-${color}-500 bg-${color}-200` +
-			`dark:text-${color}-700 dark:hover:text-${color}-500 dark:group-hover:text-${color}-500 dark:bg-${color}-300 dark:group-hover:bg-${color}-200`,
+			childItem: `border-l-2 border-${color}-50 pl-8 rounded-none dark:border-${color}-800 dark:hover:border-${color}-900 dark:border-l-4`,
+
+			openItem: `bg-${color}-100 rounded-t-md rounded-b-none dark:bg-${color}-900 `,
+			openItemBody: `bg-${color}-50 dark:bg-${color}-800`,
+
+			activeRootItem: `text-${color}-900 border-b-2 rounded-b-none border-${color}-700 pb-1 bg-${color}-50 dark:bg-${color}-900 dark:border-${color}-800`,
+			activeChildItem: `text-${color}-900 border-${color}-700 bg-${color}-50 dark:bg-${color}-800 dark:border-${color}-950 dark:hover:border-${color}-950`,
+		},
 
 		actions: {
 			primary:
@@ -75,8 +82,13 @@ function getColorWay(color: string) {
 				`dark:bg-${color}-900 dark:hover:bg-${color}-950 dark:focus-visible:outline-${color}-950 dark:text-gray-50 dark:disabled:opacity-75`,
 
 			secondary:
-				`border-2 enabled:hover:bg-${color}-200 focus-visible:outline-${color}-900 border-${color}-600 text-${color}-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-${color}-600 ` +
+				`border enabled:hover:bg-${color}-200 focus-visible:outline-${color}-900 border-${color}-600 text-${color}-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-${color}-600 ` +
 				`dark:enabled:hover:bg-${color}-900 dark:focus-visible:outline-${color}-900 dark:border-${color}-900 dark:text-${color}-300`,
+		},
+
+		textAction: {
+			root: `border-b border-transparent hover:border-${color}-600 text-${color}-600`,
+			active: `border-${color}-600`,
 		},
 
 		table: {
@@ -149,12 +161,23 @@ function getColorWayType() {
 
 		logo: string,
 
-		nav: string,
-		activeNav: string,
+		navigation: {
+			item: string,
+			childItem: string,
+			openItem: string,
+			openItemBody: string,
+			activeRootItem: string,
+			activeChildItem: string,
+		}
 
 		actions: {
 			primary: string,
-			secondary: string,
+			secondary: string
+		},
+
+		textAction:{
+			root: string,
+			active: string,
 		},
 
 		table: {

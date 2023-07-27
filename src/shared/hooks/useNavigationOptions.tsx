@@ -1,35 +1,53 @@
-import { useMemo } from "react";
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable no-mixed-spaces-and-tabs */
+
+import React, { useMemo } from "react";
 import { Location, useLocation } from "react-router-dom";
 
-import { faHeartPulse, faIgloo, faKey, faMoneyBillWave, faMoneyBills } from "@fortawesome/free-solid-svg-icons";
+import { AccountActivity, BloodPressure, Budget, Home, KeywordConfig, UnpaidBills } from "../../pages";
 
-import { BloodPressure, Home, UnpaidBills } from "../../pages";
-import { Budget } from "../../pages/Budget";
-import { KeywordConfig } from "../../pages/KeywordConfig";
-
-export function useNavigationOptions() {
+export function useNavigation() {
 	const location = useLocation();
-	return useMemo(() => BuildNavigationOptions(location), [location]);
+	return useMemo(() => BuildNavigation(location), [location]);
 }
 
-interface NavigationOption {
+interface NavigationItem {
 	name: string;
 	href: string;
-	icon: typeof faIgloo;
 	current: boolean;
-
 	element: React.ReactElement;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-function BuildNavigationOptions(location: Location): NavigationOption[] {
+interface NavigationItemWithChildren {
+	name: string;
+	current: boolean;
+	children: NavigationItem[];
+}
+
+export function hasChildren(item: NavigationItem | NavigationItemWithChildren): item is NavigationItemWithChildren {
+	return (item as NavigationItemWithChildren).children !== undefined;
+}
+
+const routes = {
+	home: "/",
+	bloodPressure: "/blood-pressure",
+	financials: {
+		budget: "/financials/budget",
+		unpaidBills: "/financials/unpaid-bills",
+		accountActivity: "/financials/account-activity",
+	},
+	configuration: {
+		keywords: "/config/keywords",
+	},
+};
+
+function BuildNavigation(location: Location): (NavigationItem | NavigationItemWithChildren)[] {
 	if (import.meta.env.DEV && import.meta.env.VITE_DEMO_MODE) {
 		return [
 			{
 				name: "Home",
-				href: "/",
-				icon: faIgloo,
-				current: location.pathname === "/",
+				href: routes.home,
+				current: location.pathname === routes.home,
 
 				element: <Home />,
 			},
@@ -38,44 +56,60 @@ function BuildNavigationOptions(location: Location): NavigationOption[] {
 
 	return [
 		{
-			name: "Home",
-			href: "/",
-			icon: faIgloo,
-			current: location.pathname === "/",
+			name: "Dashboard",
+			href: routes.home,
+			current: location.pathname === routes.home,
 
 			element: <Home />,
 		},
 		{
-			name: "Unpaid Bills",
-			href: "/bills/unpaid",
-			icon: faMoneyBillWave,
-			current: location.pathname === "/bills/unpaid",
+			name: "Financials",
+			current: Object.values(routes.financials).includes(location.pathname),
 
-			element: <UnpaidBills />,
+			children: [
+				{
+					name: "Unpaid Bills",
+					href: routes.financials.unpaidBills,
+					current: location.pathname === routes.financials.unpaidBills,
+
+					element: <UnpaidBills />,
+				},
+				{
+					name: "Planned Budget",
+					href: routes.financials.budget,
+					current: location.pathname === routes.financials.budget,
+
+					element: <Budget />,
+				},
+				{
+					name: "Account Activity",
+					href: routes.financials.accountActivity,
+					current: location.pathname === routes.financials.accountActivity,
+
+					element: <AccountActivity />,
+				},
+			],
+		},
+		{
+			name: "Configuration",
+			current: Object.values(routes.configuration).includes(location.pathname),
+
+			children: [
+				{
+					name: "Keywords",
+					href: routes.configuration.keywords,
+					current: location.pathname === routes.configuration.keywords,
+
+					element: <KeywordConfig />,
+				},
+			],
 		},
 		{
 			name: "Blood Pressure",
-			href: "/bloodpressure",
-			icon: faHeartPulse,
-			current: location.pathname === "/bloodpressure",
+			href: routes.bloodPressure,
+			current: location.pathname === routes.bloodPressure,
 
 			element: <BloodPressure />,
-		},
-		{
-			name: "Budget",
-			href: "/budget",
-			icon: faMoneyBills,
-			current: location.pathname === "/budget",
-
-			element: <Budget />,
-		},
-		{
-			name: "Keyword Config",
-			href: "/keywordconfig",
-			icon: faKey,
-			current: location.pathname === "/keywordconfig",
-
-			element: <KeywordConfig />,
 		},
 	];
 }

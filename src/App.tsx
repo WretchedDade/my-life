@@ -9,11 +9,11 @@ import { Layout } from "./shared/components";
 import { AuthContext, IdTokenClaims, RolesSchema, Scopes } from "./auth";
 import { Authenticating, NotFound } from "./pages";
 import { DemoPage } from "./pages/DemoPage";
-import { useNavigationOptions } from "./shared/hooks";
+import { hasChildren, useNavigation } from "./shared/hooks";
 
 export function App() {
 	const { roles, setRoles } = useContext(AuthContext);
-	const navigationOptions = useNavigationOptions();
+	const navigationOptions = useNavigation();
 
 	const context = useMsal();
 	const { result, error } = useMsalAuthentication(InteractionType.Redirect, {
@@ -58,9 +58,11 @@ export function App() {
 			<Routes>
 				<Route path="/Redirect" element={<Navigate to={result?.state ?? "/"} />} />
 				<Route path="/" element={<Layout />}>
-					{navigationOptions.map((option) => (
-						<Route path={option.href} element={option.element} />
-					))}
+					{navigationOptions.flatMap((item) =>
+						hasChildren(item)
+							? item.children.map((child) => <Route key={child.href} path={child.href} element={child.element} />)
+							: [<Route key={item.href} path={item.href} element={item.element} />],
+					)}
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

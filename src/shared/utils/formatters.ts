@@ -49,3 +49,18 @@ export function asDateString(
 
 	return new Intl.DateTimeFormat("en-US", { dateStyle, timeStyle, timeZone: "UTC" }).format(date);
 }
+
+export function asMonthName(value: number) {
+	const date = new Date();
+	date.setMonth(value);
+
+	return new Intl.DateTimeFormat("en-US", { month: "long" }).format(date);
+}
+
+export function asTruncated(value: string, length: number) {
+	if (value.length <= length) {
+		return value;
+	}
+
+	return `${value.slice(0, length).trim()}...`;
+}

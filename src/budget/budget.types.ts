@@ -26,3 +26,20 @@ export const KeywordPageSchema = PageBaseSchema.extend({
 });
 
 export type Keyword = z.infer<typeof KeywordSchema>;
+
+export const AccountActivityItemSchema = z.object({
+	name: z.string(),
+	fullName: z.string(),
+	amount: z.number(),
+	category: z.string(),
+	date: z.coerce.date(),
+	id: z.string(),
+	lastModifiedOn: z.coerce.date(),
+	hasShortName: z.boolean(),
+});
+
+export type AccountActivityItem = z.infer<typeof AccountActivityItemSchema>;
+
+export const AccountActivityPageSchema = PageBaseSchema.extend({
+	items: z.array(AccountActivityItemSchema),
+});

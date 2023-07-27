@@ -3,7 +3,7 @@ import { classNames } from "../../../shared/utils";
 import { ColorWay, ColorWays } from "../../../ColorWays";
 
 import { Button, ButtonProps, LoadingSpinner } from "..";
-import { useColorWay } from "../../ColorWayContext";
+import { useColorWay } from "../../hooks";
 
 export interface CardProps extends React.PropsWithChildren<object> {
 	bordered?: boolean;

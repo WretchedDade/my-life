@@ -1,8 +1,9 @@
 import { Combobox } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { useCallback, useState } from "react";
+
 import { ColorWaysKey } from "../../../ColorWays";
-import { useColorWay } from "../../ColorWayContext";
+import { useColorWay } from "../../hooks";
 import { classNames } from "../../utils";
 
 interface AutoCompleteProps<TOption> {

@@ -7,7 +7,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ColorWays } from "../../ColorWays";
-import { useColorWay } from "../ColorWayContext";
+import { useColorWay } from "../hooks";
 
 export type NotificationVariants = "success" | "warning" | "error" | "info";
 export interface NotificationProps {

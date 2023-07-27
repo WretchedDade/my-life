@@ -6,7 +6,7 @@ interface SlideOverFooterAction extends Omit<ButtonProps, "children" | "size" | 
 }
 
 export interface SlideOverFooterProps {
-	color: ColorWaysKey;
+	color?: ColorWaysKey;
 	actions: SlideOverFooterAction[];
 }
 

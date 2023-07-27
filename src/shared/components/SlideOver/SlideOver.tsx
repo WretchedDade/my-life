@@ -24,7 +24,7 @@ export const SlideOver: PolymorphicComponent<SlideOverBaseProps> = forwardRef(
 
 			as,
 
-			color = "blue",
+			color,
 			header,
 			footer,
 

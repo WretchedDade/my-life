@@ -26,12 +26,23 @@ export interface ColorWay {
 
 	logo: string;
 
-	nav: string;
-	activeNav: string;
+	navigation: {
+		item: string;
+		childItem: string;
+		openItem: string;
+		openItemBody: string;
+		activeRootItem: string;
+		activeChildItem: string;
+	};
 
 	actions: {
 		primary: string;
 		secondary: string;
+	};
+
+	textAction: {
+		root: string;
+		active: string;
 	};
 
 	table: {
@@ -99,15 +110,21 @@ export const ColorWays: ColorWays = {
 			icon: "text-blue-600 ring-blue-600",
 		},
 		logo: "text-blue-500 dark:text-blue-300",
-		nav: "hover:text-blue-500 hover:bg-blue-100 group-hover:text-blue-500 focus-visible:outline-blue-500 dark:hover:text-blue-600 dark:hover:bg-blue-200 dark:group-hover:text-blue-600 dark:focus-visible:outline-blue-700",
-		activeNav:
-			"text-blue-700 hover:text-blue-500 group-hover:text-blue-500 bg-blue-200dark:text-blue-700 dark:hover:text-blue-500 dark:group-hover:text-blue-500 dark:bg-blue-300 dark:group-hover:bg-blue-200",
+		navigation: {
+			item: "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700 hover:text-blue-700 hover:bg-blue-100 group-hover:text-blue-500 focus-visible:outline-blue-500 dark:text-gray-50 dark:hover:bg-blue-900 dark:group-hover:text-blue-600 dark:focus-visible:outline-blue-700",
+			childItem: "border-l-2 border-blue-50 pl-8 rounded-none dark:border-blue-800 dark:hover:border-blue-900 dark:border-l-4",
+			openItem: "bg-blue-100 rounded-t-md rounded-b-none dark:bg-blue-900 ",
+			openItemBody: "bg-blue-50 dark:bg-blue-800",
+			activeRootItem: "text-blue-900 border-b-2 rounded-b-none border-blue-700 pb-1 bg-blue-50 dark:bg-blue-900 dark:border-blue-800",
+			activeChildItem: "text-blue-900 border-blue-700 bg-blue-50 dark:bg-blue-800 dark:border-blue-950 dark:hover:border-blue-950",
+		},
 		actions: {
 			primary:
 				"bg-blue-600 hover:bg-blue-700 focus-visible:outline-blue-700 text-white disabled:opacity-50 disabled:cursor-not-allowed dark:bg-blue-900 dark:hover:bg-blue-950 dark:focus-visible:outline-blue-950 dark:text-gray-50 dark:disabled:opacity-75",
 			secondary:
-				"border-2 enabled:hover:bg-blue-200 focus-visible:outline-blue-900 border-blue-600 text-blue-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-blue-600 dark:enabled:hover:bg-blue-900 dark:focus-visible:outline-blue-900 dark:border-blue-900 dark:text-blue-300",
+				"border enabled:hover:bg-blue-200 focus-visible:outline-blue-900 border-blue-600 text-blue-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-blue-600 dark:enabled:hover:bg-blue-900 dark:focus-visible:outline-blue-900 dark:border-blue-900 dark:text-blue-300",
 		},
+		textAction: { root: "border-b border-transparent hover:border-blue-600 text-blue-600", active: "border-blue-600" },
 		table: {
 			header: "bg-blue-600 text-white dark:bg-blue-700 dark:text-gray-50",
 			evenRow: "bg-blue-50 dark:bg-zinc-800",
@@ -153,15 +170,21 @@ export const ColorWays: ColorWays = {
 			icon: "text-green-600 ring-green-600",
 		},
 		logo: "text-green-500 dark:text-green-300",
-		nav: "hover:text-green-500 hover:bg-green-100 group-hover:text-green-500 focus-visible:outline-green-500 dark:hover:text-green-600 dark:hover:bg-green-200 dark:group-hover:text-green-600 dark:focus-visible:outline-green-700",
-		activeNav:
-			"text-green-700 hover:text-green-500 group-hover:text-green-500 bg-green-200dark:text-green-700 dark:hover:text-green-500 dark:group-hover:text-green-500 dark:bg-green-300 dark:group-hover:bg-green-200",
+		navigation: {
+			item: "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700 hover:text-green-700 hover:bg-green-100 group-hover:text-green-500 focus-visible:outline-green-500 dark:text-gray-50 dark:hover:bg-green-900 dark:group-hover:text-green-600 dark:focus-visible:outline-green-700",
+			childItem: "border-l-2 border-green-50 pl-8 rounded-none dark:border-green-800 dark:hover:border-green-900 dark:border-l-4",
+			openItem: "bg-green-100 rounded-t-md rounded-b-none dark:bg-green-900 ",
+			openItemBody: "bg-green-50 dark:bg-green-800",
+			activeRootItem: "text-green-900 border-b-2 rounded-b-none border-green-700 pb-1 bg-green-50 dark:bg-green-900 dark:border-green-800",
+			activeChildItem: "text-green-900 border-green-700 bg-green-50 dark:bg-green-800 dark:border-green-950 dark:hover:border-green-950",
+		},
 		actions: {
 			primary:
 				"bg-green-600 hover:bg-green-700 focus-visible:outline-green-700 text-white disabled:opacity-50 disabled:cursor-not-allowed dark:bg-green-900 dark:hover:bg-green-950 dark:focus-visible:outline-green-950 dark:text-gray-50 dark:disabled:opacity-75",
 			secondary:
-				"border-2 enabled:hover:bg-green-200 focus-visible:outline-green-900 border-green-600 text-green-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-green-600 dark:enabled:hover:bg-green-900 dark:focus-visible:outline-green-900 dark:border-green-900 dark:text-green-300",
+				"border enabled:hover:bg-green-200 focus-visible:outline-green-900 border-green-600 text-green-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-green-600 dark:enabled:hover:bg-green-900 dark:focus-visible:outline-green-900 dark:border-green-900 dark:text-green-300",
 		},
+		textAction: { root: "border-b border-transparent hover:border-green-600 text-green-600", active: "border-green-600" },
 		table: {
 			header: "bg-green-600 text-white dark:bg-green-700 dark:text-gray-50",
 			evenRow: "bg-green-50 dark:bg-zinc-800",
@@ -207,15 +230,21 @@ export const ColorWays: ColorWays = {
 			icon: "text-orange-600 ring-orange-600",
 		},
 		logo: "text-orange-500 dark:text-orange-300",
-		nav: "hover:text-orange-500 hover:bg-orange-100 group-hover:text-orange-500 focus-visible:outline-orange-500 dark:hover:text-orange-600 dark:hover:bg-orange-200 dark:group-hover:text-orange-600 dark:focus-visible:outline-orange-700",
-		activeNav:
-			"text-orange-700 hover:text-orange-500 group-hover:text-orange-500 bg-orange-200dark:text-orange-700 dark:hover:text-orange-500 dark:group-hover:text-orange-500 dark:bg-orange-300 dark:group-hover:bg-orange-200",
+		navigation: {
+			item: "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700 hover:text-orange-700 hover:bg-orange-100 group-hover:text-orange-500 focus-visible:outline-orange-500 dark:text-gray-50 dark:hover:bg-orange-900 dark:group-hover:text-orange-600 dark:focus-visible:outline-orange-700",
+			childItem: "border-l-2 border-orange-50 pl-8 rounded-none dark:border-orange-800 dark:hover:border-orange-900 dark:border-l-4",
+			openItem: "bg-orange-100 rounded-t-md rounded-b-none dark:bg-orange-900 ",
+			openItemBody: "bg-orange-50 dark:bg-orange-800",
+			activeRootItem: "text-orange-900 border-b-2 rounded-b-none border-orange-700 pb-1 bg-orange-50 dark:bg-orange-900 dark:border-orange-800",
+			activeChildItem: "text-orange-900 border-orange-700 bg-orange-50 dark:bg-orange-800 dark:border-orange-950 dark:hover:border-orange-950",
+		},
 		actions: {
 			primary:
 				"bg-orange-600 hover:bg-orange-700 focus-visible:outline-orange-700 text-white disabled:opacity-50 disabled:cursor-not-allowed dark:bg-orange-900 dark:hover:bg-orange-950 dark:focus-visible:outline-orange-950 dark:text-gray-50 dark:disabled:opacity-75",
 			secondary:
-				"border-2 enabled:hover:bg-orange-200 focus-visible:outline-orange-900 border-orange-600 text-orange-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-orange-600 dark:enabled:hover:bg-orange-900 dark:focus-visible:outline-orange-900 dark:border-orange-900 dark:text-orange-300",
+				"border enabled:hover:bg-orange-200 focus-visible:outline-orange-900 border-orange-600 text-orange-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-orange-600 dark:enabled:hover:bg-orange-900 dark:focus-visible:outline-orange-900 dark:border-orange-900 dark:text-orange-300",
 		},
+		textAction: { root: "border-b border-transparent hover:border-orange-600 text-orange-600", active: "border-orange-600" },
 		table: {
 			header: "bg-orange-600 text-white dark:bg-orange-700 dark:text-gray-50",
 			evenRow: "bg-orange-50 dark:bg-zinc-800",
@@ -261,15 +290,21 @@ export const ColorWays: ColorWays = {
 			icon: "text-red-600 ring-red-600",
 		},
 		logo: "text-red-500 dark:text-red-300",
-		nav: "hover:text-red-500 hover:bg-red-100 group-hover:text-red-500 focus-visible:outline-red-500 dark:hover:text-red-600 dark:hover:bg-red-200 dark:group-hover:text-red-600 dark:focus-visible:outline-red-700",
-		activeNav:
-			"text-red-700 hover:text-red-500 group-hover:text-red-500 bg-red-200dark:text-red-700 dark:hover:text-red-500 dark:group-hover:text-red-500 dark:bg-red-300 dark:group-hover:bg-red-200",
+		navigation: {
+			item: "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700 hover:text-red-700 hover:bg-red-100 group-hover:text-red-500 focus-visible:outline-red-500 dark:text-gray-50 dark:hover:bg-red-900 dark:group-hover:text-red-600 dark:focus-visible:outline-red-700",
+			childItem: "border-l-2 border-red-50 pl-8 rounded-none dark:border-red-800 dark:hover:border-red-900 dark:border-l-4",
+			openItem: "bg-red-100 rounded-t-md rounded-b-none dark:bg-red-900 ",
+			openItemBody: "bg-red-50 dark:bg-red-800",
+			activeRootItem: "text-red-900 border-b-2 rounded-b-none border-red-700 pb-1 bg-red-50 dark:bg-red-900 dark:border-red-800",
+			activeChildItem: "text-red-900 border-red-700 bg-red-50 dark:bg-red-800 dark:border-red-950 dark:hover:border-red-950",
+		},
 		actions: {
 			primary:
 				"bg-red-600 hover:bg-red-700 focus-visible:outline-red-700 text-white disabled:opacity-50 disabled:cursor-not-allowed dark:bg-red-900 dark:hover:bg-red-950 dark:focus-visible:outline-red-950 dark:text-gray-50 dark:disabled:opacity-75",
 			secondary:
-				"border-2 enabled:hover:bg-red-200 focus-visible:outline-red-900 border-red-600 text-red-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-red-600 dark:enabled:hover:bg-red-900 dark:focus-visible:outline-red-900 dark:border-red-900 dark:text-red-300",
+				"border enabled:hover:bg-red-200 focus-visible:outline-red-900 border-red-600 text-red-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-red-600 dark:enabled:hover:bg-red-900 dark:focus-visible:outline-red-900 dark:border-red-900 dark:text-red-300",
 		},
+		textAction: { root: "border-b border-transparent hover:border-red-600 text-red-600", active: "border-red-600" },
 		table: {
 			header: "bg-red-600 text-white dark:bg-red-700 dark:text-gray-50",
 			evenRow: "bg-red-50 dark:bg-zinc-800",
@@ -315,15 +350,21 @@ export const ColorWays: ColorWays = {
 			icon: "text-purple-600 ring-purple-600",
 		},
 		logo: "text-purple-500 dark:text-purple-300",
-		nav: "hover:text-purple-500 hover:bg-purple-100 group-hover:text-purple-500 focus-visible:outline-purple-500 dark:hover:text-purple-600 dark:hover:bg-purple-200 dark:group-hover:text-purple-600 dark:focus-visible:outline-purple-700",
-		activeNav:
-			"text-purple-700 hover:text-purple-500 group-hover:text-purple-500 bg-purple-200dark:text-purple-700 dark:hover:text-purple-500 dark:group-hover:text-purple-500 dark:bg-purple-300 dark:group-hover:bg-purple-200",
+		navigation: {
+			item: "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700 hover:text-purple-700 hover:bg-purple-100 group-hover:text-purple-500 focus-visible:outline-purple-500 dark:text-gray-50 dark:hover:bg-purple-900 dark:group-hover:text-purple-600 dark:focus-visible:outline-purple-700",
+			childItem: "border-l-2 border-purple-50 pl-8 rounded-none dark:border-purple-800 dark:hover:border-purple-900 dark:border-l-4",
+			openItem: "bg-purple-100 rounded-t-md rounded-b-none dark:bg-purple-900 ",
+			openItemBody: "bg-purple-50 dark:bg-purple-800",
+			activeRootItem: "text-purple-900 border-b-2 rounded-b-none border-purple-700 pb-1 bg-purple-50 dark:bg-purple-900 dark:border-purple-800",
+			activeChildItem: "text-purple-900 border-purple-700 bg-purple-50 dark:bg-purple-800 dark:border-purple-950 dark:hover:border-purple-950",
+		},
 		actions: {
 			primary:
 				"bg-purple-600 hover:bg-purple-700 focus-visible:outline-purple-700 text-white disabled:opacity-50 disabled:cursor-not-allowed dark:bg-purple-900 dark:hover:bg-purple-950 dark:focus-visible:outline-purple-950 dark:text-gray-50 dark:disabled:opacity-75",
 			secondary:
-				"border-2 enabled:hover:bg-purple-200 focus-visible:outline-purple-900 border-purple-600 text-purple-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-purple-600 dark:enabled:hover:bg-purple-900 dark:focus-visible:outline-purple-900 dark:border-purple-900 dark:text-purple-300",
+				"border enabled:hover:bg-purple-200 focus-visible:outline-purple-900 border-purple-600 text-purple-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-purple-600 dark:enabled:hover:bg-purple-900 dark:focus-visible:outline-purple-900 dark:border-purple-900 dark:text-purple-300",
 		},
+		textAction: { root: "border-b border-transparent hover:border-purple-600 text-purple-600", active: "border-purple-600" },
 		table: {
 			header: "bg-purple-600 text-white dark:bg-purple-700 dark:text-gray-50",
 			evenRow: "bg-purple-50 dark:bg-zinc-800",
@@ -369,15 +410,21 @@ export const ColorWays: ColorWays = {
 			icon: "text-slate-600 ring-slate-600",
 		},
 		logo: "text-slate-500 dark:text-slate-300",
-		nav: "hover:text-slate-500 hover:bg-slate-100 group-hover:text-slate-500 focus-visible:outline-slate-500 dark:hover:text-slate-600 dark:hover:bg-slate-200 dark:group-hover:text-slate-600 dark:focus-visible:outline-slate-700",
-		activeNav:
-			"text-slate-700 hover:text-slate-500 group-hover:text-slate-500 bg-slate-200dark:text-slate-700 dark:hover:text-slate-500 dark:group-hover:text-slate-500 dark:bg-slate-300 dark:group-hover:bg-slate-200",
+		navigation: {
+			item: "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700 hover:text-slate-700 hover:bg-slate-100 group-hover:text-slate-500 focus-visible:outline-slate-500 dark:text-gray-50 dark:hover:bg-slate-900 dark:group-hover:text-slate-600 dark:focus-visible:outline-slate-700",
+			childItem: "border-l-2 border-slate-50 pl-8 rounded-none dark:border-slate-800 dark:hover:border-slate-900 dark:border-l-4",
+			openItem: "bg-slate-100 rounded-t-md rounded-b-none dark:bg-slate-900 ",
+			openItemBody: "bg-slate-50 dark:bg-slate-800",
+			activeRootItem: "text-slate-900 border-b-2 rounded-b-none border-slate-700 pb-1 bg-slate-50 dark:bg-slate-900 dark:border-slate-800",
+			activeChildItem: "text-slate-900 border-slate-700 bg-slate-50 dark:bg-slate-800 dark:border-slate-950 dark:hover:border-slate-950",
+		},
 		actions: {
 			primary:
 				"bg-slate-600 hover:bg-slate-700 focus-visible:outline-slate-700 text-white disabled:opacity-50 disabled:cursor-not-allowed dark:bg-slate-900 dark:hover:bg-slate-950 dark:focus-visible:outline-slate-950 dark:text-gray-50 dark:disabled:opacity-75",
 			secondary:
-				"border-2 enabled:hover:bg-slate-200 focus-visible:outline-slate-900 border-slate-600 text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-slate-600 dark:enabled:hover:bg-slate-900 dark:focus-visible:outline-slate-900 dark:border-slate-900 dark:text-slate-300",
+				"border enabled:hover:bg-slate-200 focus-visible:outline-slate-900 border-slate-600 text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-slate-600 dark:enabled:hover:bg-slate-900 dark:focus-visible:outline-slate-900 dark:border-slate-900 dark:text-slate-300",
 		},
+		textAction: { root: "border-b border-transparent hover:border-slate-600 text-slate-600", active: "border-slate-600" },
 		table: {
 			header: "bg-slate-600 text-white dark:bg-slate-700 dark:text-gray-50",
 			evenRow: "bg-slate-50 dark:bg-zinc-800",
@@ -423,15 +470,21 @@ export const ColorWays: ColorWays = {
 			icon: "text-yellow-600 ring-yellow-600",
 		},
 		logo: "text-yellow-500 dark:text-yellow-300",
-		nav: "hover:text-yellow-500 hover:bg-yellow-100 group-hover:text-yellow-500 focus-visible:outline-yellow-500 dark:hover:text-yellow-600 dark:hover:bg-yellow-200 dark:group-hover:text-yellow-600 dark:focus-visible:outline-yellow-700",
-		activeNav:
-			"text-yellow-700 hover:text-yellow-500 group-hover:text-yellow-500 bg-yellow-200dark:text-yellow-700 dark:hover:text-yellow-500 dark:group-hover:text-yellow-500 dark:bg-yellow-300 dark:group-hover:bg-yellow-200",
+		navigation: {
+			item: "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700 hover:text-yellow-700 hover:bg-yellow-100 group-hover:text-yellow-500 focus-visible:outline-yellow-500 dark:text-gray-50 dark:hover:bg-yellow-900 dark:group-hover:text-yellow-600 dark:focus-visible:outline-yellow-700",
+			childItem: "border-l-2 border-yellow-50 pl-8 rounded-none dark:border-yellow-800 dark:hover:border-yellow-900 dark:border-l-4",
+			openItem: "bg-yellow-100 rounded-t-md rounded-b-none dark:bg-yellow-900 ",
+			openItemBody: "bg-yellow-50 dark:bg-yellow-800",
+			activeRootItem: "text-yellow-900 border-b-2 rounded-b-none border-yellow-700 pb-1 bg-yellow-50 dark:bg-yellow-900 dark:border-yellow-800",
+			activeChildItem: "text-yellow-900 border-yellow-700 bg-yellow-50 dark:bg-yellow-800 dark:border-yellow-950 dark:hover:border-yellow-950",
+		},
 		actions: {
 			primary:
 				"bg-yellow-600 hover:bg-yellow-700 focus-visible:outline-yellow-700 text-white disabled:opacity-50 disabled:cursor-not-allowed dark:bg-yellow-900 dark:hover:bg-yellow-950 dark:focus-visible:outline-yellow-950 dark:text-gray-50 dark:disabled:opacity-75",
 			secondary:
-				"border-2 enabled:hover:bg-yellow-200 focus-visible:outline-yellow-900 border-yellow-600 text-yellow-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-yellow-600 dark:enabled:hover:bg-yellow-900 dark:focus-visible:outline-yellow-900 dark:border-yellow-900 dark:text-yellow-300",
+				"border enabled:hover:bg-yellow-200 focus-visible:outline-yellow-900 border-yellow-600 text-yellow-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-yellow-600 dark:enabled:hover:bg-yellow-900 dark:focus-visible:outline-yellow-900 dark:border-yellow-900 dark:text-yellow-300",
 		},
+		textAction: { root: "border-b border-transparent hover:border-yellow-600 text-yellow-600", active: "border-yellow-600" },
 		table: {
 			header: "bg-yellow-600 text-white dark:bg-yellow-700 dark:text-gray-50",
 			evenRow: "bg-yellow-50 dark:bg-zinc-800",
@@ -477,15 +530,21 @@ export const ColorWays: ColorWays = {
 			icon: "text-sky-600 ring-sky-600",
 		},
 		logo: "text-sky-500 dark:text-sky-300",
-		nav: "hover:text-sky-500 hover:bg-sky-100 group-hover:text-sky-500 focus-visible:outline-sky-500 dark:hover:text-sky-600 dark:hover:bg-sky-200 dark:group-hover:text-sky-600 dark:focus-visible:outline-sky-700",
-		activeNav:
-			"text-sky-700 hover:text-sky-500 group-hover:text-sky-500 bg-sky-200dark:text-sky-700 dark:hover:text-sky-500 dark:group-hover:text-sky-500 dark:bg-sky-300 dark:group-hover:bg-sky-200",
+		navigation: {
+			item: "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700 hover:text-sky-700 hover:bg-sky-100 group-hover:text-sky-500 focus-visible:outline-sky-500 dark:text-gray-50 dark:hover:bg-sky-900 dark:group-hover:text-sky-600 dark:focus-visible:outline-sky-700",
+			childItem: "border-l-2 border-sky-50 pl-8 rounded-none dark:border-sky-800 dark:hover:border-sky-900 dark:border-l-4",
+			openItem: "bg-sky-100 rounded-t-md rounded-b-none dark:bg-sky-900 ",
+			openItemBody: "bg-sky-50 dark:bg-sky-800",
+			activeRootItem: "text-sky-900 border-b-2 rounded-b-none border-sky-700 pb-1 bg-sky-50 dark:bg-sky-900 dark:border-sky-800",
+			activeChildItem: "text-sky-900 border-sky-700 bg-sky-50 dark:bg-sky-800 dark:border-sky-950 dark:hover:border-sky-950",
+		},
 		actions: {
 			primary:
 				"bg-sky-600 hover:bg-sky-700 focus-visible:outline-sky-700 text-white disabled:opacity-50 disabled:cursor-not-allowed dark:bg-sky-900 dark:hover:bg-sky-950 dark:focus-visible:outline-sky-950 dark:text-gray-50 dark:disabled:opacity-75",
 			secondary:
-				"border-2 enabled:hover:bg-sky-200 focus-visible:outline-sky-900 border-sky-600 text-sky-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-sky-600 dark:enabled:hover:bg-sky-900 dark:focus-visible:outline-sky-900 dark:border-sky-900 dark:text-sky-300",
+				"border enabled:hover:bg-sky-200 focus-visible:outline-sky-900 border-sky-600 text-sky-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-sky-600 dark:enabled:hover:bg-sky-900 dark:focus-visible:outline-sky-900 dark:border-sky-900 dark:text-sky-300",
 		},
+		textAction: { root: "border-b border-transparent hover:border-sky-600 text-sky-600", active: "border-sky-600" },
 		table: {
 			header: "bg-sky-600 text-white dark:bg-sky-700 dark:text-gray-50",
 			evenRow: "bg-sky-50 dark:bg-zinc-800",

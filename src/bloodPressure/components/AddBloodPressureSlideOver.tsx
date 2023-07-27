@@ -44,7 +44,6 @@ export function AddBloodPressureSlideOver({ open, onClose }: AddBloodPressureSli
 			ref={formRef}
 			open={open}
 			onClose={onClose}
-			color="red"
 			onBlur={onBlur}
 			onReset={onReset}
 			onSubmit={onSubmit}
