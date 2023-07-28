@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Keyword, useCreateKeyword, useKeywordCategories, useUpdateKeyword } from "..";
 
@@ -20,6 +20,8 @@ export function KeywordPanel({ open, onClose, keyword }: KeywordPanelProps) {
 	const keywordRef = useRef<HTMLInputElement>(null);
 
 	const [category, setCategory] = useState(keyword?.category ?? "");
+
+	useEffect(() => setCategory(keyword?.category ?? ""), [keyword?.category]);
 
 	const [errors, setErrors] = useState<Errors>({ formErrors: [], fieldErrors: {} });
 
@@ -68,7 +70,6 @@ export function KeywordPanel({ open, onClose, keyword }: KeywordPanelProps) {
 			initialFocus={keywordRef}
 			open={open}
 			onClose={close}
-			color="slate"
 			onBlur={onBlur}
 			onReset={close}
 			onSubmit={onSubmit}

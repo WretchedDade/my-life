@@ -3,7 +3,17 @@ import { useCallback, useMemo, useState } from "react";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { AccountActivityPie, AccountActivityTable, useAccountActivity, useKeywordCategories } from "../budget";
+import {
+	AccountActivityExpensesPie,
+	AccountActivityIncomePie,
+	AccountActivityItem,
+	AccountActivityItemPanel,
+	AccountActivityItemsPanel,
+	AccountActivityTable,
+	AccountActivityTrendChart,
+	useAccountActivity,
+	useKeywordCategories,
+} from "../budget";
 
 import { Button, TextButton } from "../shared/components";
 import { AutoComplete } from "../shared/components/Form/AutoComplete";
@@ -25,6 +35,9 @@ export function AccountActivity() {
 
 	const [category, setCategory] = useState("All");
 
+	const [selectedItem, setSelectedItem] = useState<AccountActivityItem>();
+	const [selectedItems, setSelectedItems] = useState<AccountActivityItem[]>();
+
 	const {
 		isLoading,
 		isFetching,
@@ -37,7 +50,7 @@ export function AccountActivity() {
 	const onNextPage = useCallback(() => setPageNumber(pageNumber + 1), [pageNumber]);
 	const onPrevPage = useCallback(() => setPageNumber(pageNumber - 1), [pageNumber]);
 
-	const [view, setView] = useState<"Breakdown" | "Table">("Breakdown");
+	const [view, setView] = useState<"Expenses" | "Income" | "Table" | "Trend">("Trend");
 
 	const onNextMonth = useCallback(() => {
 		if (month === 11) {
@@ -68,8 +81,14 @@ export function AccountActivity() {
 			<div className="flex items-end justify-end border-b border-gray-200 text-gray-900">
 				<div className="flex items-center gap-x-2 text-xs text-gray-500">
 					<p>View: </p>
-					<TextButton active={view === "Breakdown"} onClick={() => setView("Breakdown")}>
-						Breakdown
+					<TextButton active={view === "Trend"} onClick={() => setView("Trend")}>
+						Trend
+					</TextButton>
+					<TextButton active={view === "Expenses"} onClick={() => setView("Expenses")}>
+						Expenses
+					</TextButton>
+					<TextButton active={view === "Income"} onClick={() => setView("Income")}>
+						Income
 					</TextButton>
 					<TextButton active={view === "Table"} onClick={() => setView("Table")}>
 						Table
@@ -77,28 +96,32 @@ export function AccountActivity() {
 				</div>
 			</div>
 
-			<div className="flex items-center justify-between gap-x-2 border-b border-gray-200 py-4">
-				<Button size="xs" variant="secondary" onClick={onPrevMonth} disabled={month === 6 && year === 2022}>
-					<FontAwesomeIcon icon={faChevronLeft} className="h-4 w-4" />
-				</Button>
-				<p className="flex-grow text-center">
-					{Format.asMonthName(month)} {year}
-				</p>
-				<Button size="xs" variant="secondary" onClick={onNextMonth} disabled={month === currentMonth && year === currentYear}>
-					<FontAwesomeIcon icon={faChevronRight} className="h-4 w-4" />
-				</Button>
-			</div>
-
-			<div className="flex justify-start gap-x-2 border-b border-gray-200 py-4 sm:justify-end">
-				<div>
-					<AutoComplete inline name="category" value={category} onChange={setCategory} options={categories} getPrimary={(category) => category} />
-				</div>
-				{category !== "All" && (
-					<Button size="xs" onClick={() => setCategory("All")}>
-						Clear
+			{view !== "Trend" && (
+				<div className="flex items-center justify-between gap-x-2 border-b border-gray-200 py-4">
+					<Button size="xs" variant="secondary" onClick={onPrevMonth} disabled={month === 6 && year === 2022}>
+						<FontAwesomeIcon icon={faChevronLeft} className="h-4 w-4" />
 					</Button>
-				)}
-			</div>
+					<p className="flex-grow text-center">
+						{Format.asMonthName(month)} {year}
+					</p>
+					<Button size="xs" variant="secondary" onClick={onNextMonth} disabled={month === currentMonth && year === currentYear}>
+						<FontAwesomeIcon icon={faChevronRight} className="h-4 w-4" />
+					</Button>
+				</div>
+			)}
+
+			{view !== "Trend" && (
+				<div className="flex justify-start gap-x-2 border-b border-gray-200 py-4 sm:justify-end">
+					<div>
+						<AutoComplete inline name="category" value={category} onChange={setCategory} options={categories} getPrimary={(category) => category} />
+					</div>
+					{category !== "All" && (
+						<Button size="xs" onClick={() => setCategory("All")}>
+							Clear
+						</Button>
+					)}
+				</div>
+			)}
 
 			{view === "Table" && (
 				<div className="mt-4">
@@ -109,10 +132,35 @@ export function AccountActivity() {
 						onPrevPage={onPrevPage}
 						pageSize={pageSize}
 						onPageSizeChange={setPageSize}
+						onItemSelect={setSelectedItem}
 					/>
 				</div>
 			)}
-			{view === "Breakdown" && <AccountActivityPie year={year} month={month} category={category} onCategoryChange={setCategory} />}
+
+			{view === "Expenses" && (
+				<AccountActivityExpensesPie
+					year={year}
+					month={month}
+					category={category}
+					onCategoryChange={setCategory}
+					onItemSelected={setSelectedItem}
+					onItemsSelected={setSelectedItems}
+				/>
+			)}
+
+			{view === "Income" && <AccountActivityIncomePie year={year} month={month} onItemSelected={setSelectedItem} onItemsSelected={setSelectedItems} />}
+			{view === "Trend" && <AccountActivityTrendChart />}
+
+			<AccountActivityItemPanel open={selectedItem !== undefined} onClose={() => setSelectedItem(undefined)} item={selectedItem} />
+			<AccountActivityItemsPanel
+				open={selectedItems !== undefined}
+				onClose={() => setSelectedItems(undefined)}
+				items={selectedItems}
+				onItemSelect={(item) => {
+					setSelectedItem(item);
+					setSelectedItems(undefined);
+				}}
+			/>
 		</>
 	);
 }

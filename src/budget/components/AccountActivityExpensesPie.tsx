@@ -2,7 +2,7 @@
 import { useMemo } from "react";
 import Chart, { ReactGoogleChartEvent } from "react-google-charts";
 
-import { useAccountActivity } from "..";
+import { AccountActivityItem, useAccountActivity } from "..";
 
 const chartOptions: Chart["props"]["options"] = {
 	is3D: true,
@@ -18,15 +18,18 @@ const chartOptions: Chart["props"]["options"] = {
 	},
 };
 
-interface AccountActivityPieProps {
+interface AccountActivityExpensesPieProps {
 	year: number;
 	month: number;
 
 	category: string;
 	onCategoryChange: (category: string) => void;
+
+	onItemSelected: (item: AccountActivityItem) => void;
+	onItemsSelected: (items: AccountActivityItem[]) => void;
 }
 
-export function AccountActivityPie({ year, month, category, onCategoryChange }: AccountActivityPieProps) {
+export function AccountActivityExpensesPie({ year, month, category, onCategoryChange, onItemSelected, onItemsSelected }: AccountActivityExpensesPieProps) {
 	const { data } = useAccountActivity({ year, month: month + 1 });
 	const { items } = data ?? {};
 
@@ -39,11 +42,18 @@ export function AccountActivityPie({ year, month, category, onCategoryChange }: 
 			category === "All"
 				? Object.entries(
 						expenses.reduce<Record<string, number>>((groups, item) => {
-							groups[item.category] = groups[item.category] ?? 0 + Math.abs(item.amount);
+							groups[item.category] = (groups[item.category] ?? 0) + Math.abs(item.amount);
 							return groups;
 						}, {}),
 				  )
-				: expenses.filter((item) => item.category === category).map((item) => [item.name, Math.abs(item.amount)]);
+				: Object.entries(
+						expenses
+							.filter((item) => item.category === category)
+							.reduce<Record<string, number>>((groups, item) => {
+								groups[item.name] = (groups[item.name] ?? 0) + Math.abs(item.amount);
+								return groups;
+							}, {}),
+				  );
 
 		return [["Category", "Amount"], ...filteredItems];
 	}, [category, items]);
@@ -55,8 +65,11 @@ export function AccountActivityPie({ year, month, category, onCategoryChange }: 
 			events.push({
 				eventName: "select",
 				callback: ({ chartWrapper }) => {
+					console.log("selected!");
 					const chart = chartWrapper.getChart();
 					const selection = chart.getSelection();
+
+					console.log(selection);
 
 					if (selection.length === 1) {
 						const { row } = selection[0];
@@ -66,10 +79,28 @@ export function AccountActivityPie({ year, month, category, onCategoryChange }: 
 					}
 				},
 			});
+		} else {
+			events.push({
+				eventName: "select",
+				callback: ({ chartWrapper }) => {
+					const chart = chartWrapper.getChart();
+					const selection = chart.getSelection();
+
+					if (selection.length === 1) {
+						const { row } = selection[0];
+
+						const value = chartWrapper.getDataTable()?.getValue(row, 0);
+						const selectedItems = items?.filter((item) => item.name === value) ?? [];
+
+						if (selectedItems.length > 1) onItemsSelected(selectedItems);
+						else if (selectedItems.length === 1) onItemSelected(selectedItems[0]);
+					}
+				},
+			});
 		}
 
 		return events;
-	}, [category, onCategoryChange]);
+	}, [category, items, onCategoryChange, onItemSelected, onItemsSelected]);
 
 	if (!dataPoints) return null;
 

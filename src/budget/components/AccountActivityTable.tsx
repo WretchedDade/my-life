@@ -2,7 +2,7 @@ import { useCallback, useMemo } from "react";
 
 import { AccountActivityItem } from "..";
 
-import { Table, TableFooter, TableProps, getPageSizes } from "../../shared/components";
+import { Button, Table, TableFooter, TableProps, getPageSizes } from "../../shared/components";
 import { useTailwindBreakpoint } from "../../shared/hooks";
 import { Page } from "../../shared/types";
 import { Format, classNames } from "../../shared/utils";
@@ -17,9 +17,11 @@ interface AccountActivityTableProps {
 
 	pageSize: number;
 	onPageSizeChange: (number: number) => void;
+
+	onItemSelect: (item: AccountActivityItem) => void;
 }
 
-export function AccountActivityTable({ isLoading = false, page, onNextPage, onPrevPage, pageSize, onPageSizeChange }: AccountActivityTableProps) {
+export function AccountActivityTable({ isLoading = false, page, onNextPage, onPrevPage, pageSize, onPageSizeChange, onItemSelect }: AccountActivityTableProps) {
 	const { isAboveSm } = useTailwindBreakpoint("sm");
 
 	const pageSizes = useMemo(() => getPageSizes(page?.totalCount), [page?.totalCount]);
@@ -46,8 +48,17 @@ export function AccountActivityTable({ isLoading = false, page, onNextPage, onPr
 					{item.amount}
 				</td>
 			),
+			(props) => (
+				<td {...props}>
+					<div className="flex justify-end">
+						<Button size="sm" variant="secondary" onClick={() => onItemSelect(item)}>
+							View Details
+						</Button>
+					</div>
+				</td>
+			),
 		],
-		[isAboveSm],
+		[isAboveSm, onItemSelect],
 	);
 	return (
 		<>
@@ -83,6 +94,7 @@ const headings: TableProps<AccountActivityItem>["headings"] = [
 			Amount
 		</th>
 	),
+	(props) => <th {...props}></th>,
 ];
 
 const getRowKey = (item: AccountActivityItem) => item.id;

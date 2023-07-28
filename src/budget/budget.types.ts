@@ -43,3 +43,10 @@ export type AccountActivityItem = z.infer<typeof AccountActivityItemSchema>;
 export const AccountActivityPageSchema = PageBaseSchema.extend({
 	items: z.array(AccountActivityItemSchema),
 });
+
+export const AccountActivityHistorySchema = z.object({
+	expenses: z.record(z.number()),
+	income: z.record(z.number()),
+});
+
+export type AccountActivityHistory = z.infer<typeof AccountActivityHistorySchema>;
