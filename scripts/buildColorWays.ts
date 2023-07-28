@@ -49,6 +49,10 @@ function getColorWay(color: string) {
 	return {
 		color: `${color}`,
 
+		text: {
+			accent: `text-${color}-600 dark:text-${color}-300`,
+		},
+
 		card: {
 			root: `shadow-${color}-200 divide-${color}-600 dark:shadow-${color}-950 dark:divide-${color}-950}`,
 			bordered: `border-2 border-${color}-600 dark:border-${color}-900`,
@@ -87,8 +91,8 @@ function getColorWay(color: string) {
 		},
 
 		textAction: {
-			root: `border-b border-transparent hover:border-${color}-600 text-${color}-600`,
-			active: `border-${color}-600`,
+			root: `border-b border-transparent hover:border-${color}-600`,
+			active: `border-${color}-600 text-${color}-600`,
 		},
 
 		table: {
@@ -148,6 +152,10 @@ function getColorWay(color: string) {
 function getColorWayType() {
 	return `{
 		color: keyof ColorWays,
+
+		text: {
+			accent: string,
+		}
 
 		card: {
 			root: string,

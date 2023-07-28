@@ -14,6 +14,10 @@ export type ColorWaysKey = keyof ColorWays;
 export interface ColorWay {
 	color: keyof ColorWays;
 
+	text: {
+		accent: string;
+	};
+
 	card: {
 		root: string;
 		bordered: string;
@@ -100,6 +104,7 @@ export interface ColorWay {
 export const ColorWays: ColorWays = {
 	blue: {
 		color: "blue",
+		text: { accent: "text-blue-600 dark:text-blue-300" },
 		card: {
 			root: "shadow-blue-200 divide-blue-600 dark:shadow-blue-950 dark:divide-blue-950}",
 			bordered: "border-2 border-blue-600 dark:border-blue-900",
@@ -124,7 +129,7 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border enabled:hover:bg-blue-200 focus-visible:outline-blue-900 border-blue-600 text-blue-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-blue-600 dark:enabled:hover:bg-blue-900 dark:focus-visible:outline-blue-900 dark:border-blue-900 dark:text-blue-300",
 		},
-		textAction: { root: "border-b border-transparent hover:border-blue-600 text-blue-600", active: "border-blue-600" },
+		textAction: { root: "border-b border-transparent hover:border-blue-600", active: "border-blue-600 text-blue-600" },
 		table: {
 			header: "bg-blue-600 text-white dark:bg-blue-700 dark:text-gray-50",
 			evenRow: "bg-blue-50 dark:bg-zinc-800",
@@ -160,6 +165,7 @@ export const ColorWays: ColorWays = {
 	},
 	green: {
 		color: "green",
+		text: { accent: "text-green-600 dark:text-green-300" },
 		card: {
 			root: "shadow-green-200 divide-green-600 dark:shadow-green-950 dark:divide-green-950}",
 			bordered: "border-2 border-green-600 dark:border-green-900",
@@ -184,7 +190,7 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border enabled:hover:bg-green-200 focus-visible:outline-green-900 border-green-600 text-green-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-green-600 dark:enabled:hover:bg-green-900 dark:focus-visible:outline-green-900 dark:border-green-900 dark:text-green-300",
 		},
-		textAction: { root: "border-b border-transparent hover:border-green-600 text-green-600", active: "border-green-600" },
+		textAction: { root: "border-b border-transparent hover:border-green-600", active: "border-green-600 text-green-600" },
 		table: {
 			header: "bg-green-600 text-white dark:bg-green-700 dark:text-gray-50",
 			evenRow: "bg-green-50 dark:bg-zinc-800",
@@ -220,6 +226,7 @@ export const ColorWays: ColorWays = {
 	},
 	orange: {
 		color: "orange",
+		text: { accent: "text-orange-600 dark:text-orange-300" },
 		card: {
 			root: "shadow-orange-200 divide-orange-600 dark:shadow-orange-950 dark:divide-orange-950}",
 			bordered: "border-2 border-orange-600 dark:border-orange-900",
@@ -244,7 +251,7 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border enabled:hover:bg-orange-200 focus-visible:outline-orange-900 border-orange-600 text-orange-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-orange-600 dark:enabled:hover:bg-orange-900 dark:focus-visible:outline-orange-900 dark:border-orange-900 dark:text-orange-300",
 		},
-		textAction: { root: "border-b border-transparent hover:border-orange-600 text-orange-600", active: "border-orange-600" },
+		textAction: { root: "border-b border-transparent hover:border-orange-600", active: "border-orange-600 text-orange-600" },
 		table: {
 			header: "bg-orange-600 text-white dark:bg-orange-700 dark:text-gray-50",
 			evenRow: "bg-orange-50 dark:bg-zinc-800",
@@ -280,6 +287,7 @@ export const ColorWays: ColorWays = {
 	},
 	red: {
 		color: "red",
+		text: { accent: "text-red-600 dark:text-red-300" },
 		card: {
 			root: "shadow-red-200 divide-red-600 dark:shadow-red-950 dark:divide-red-950}",
 			bordered: "border-2 border-red-600 dark:border-red-900",
@@ -304,7 +312,7 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border enabled:hover:bg-red-200 focus-visible:outline-red-900 border-red-600 text-red-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-red-600 dark:enabled:hover:bg-red-900 dark:focus-visible:outline-red-900 dark:border-red-900 dark:text-red-300",
 		},
-		textAction: { root: "border-b border-transparent hover:border-red-600 text-red-600", active: "border-red-600" },
+		textAction: { root: "border-b border-transparent hover:border-red-600", active: "border-red-600 text-red-600" },
 		table: {
 			header: "bg-red-600 text-white dark:bg-red-700 dark:text-gray-50",
 			evenRow: "bg-red-50 dark:bg-zinc-800",
@@ -340,6 +348,7 @@ export const ColorWays: ColorWays = {
 	},
 	purple: {
 		color: "purple",
+		text: { accent: "text-purple-600 dark:text-purple-300" },
 		card: {
 			root: "shadow-purple-200 divide-purple-600 dark:shadow-purple-950 dark:divide-purple-950}",
 			bordered: "border-2 border-purple-600 dark:border-purple-900",
@@ -364,7 +373,7 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border enabled:hover:bg-purple-200 focus-visible:outline-purple-900 border-purple-600 text-purple-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-purple-600 dark:enabled:hover:bg-purple-900 dark:focus-visible:outline-purple-900 dark:border-purple-900 dark:text-purple-300",
 		},
-		textAction: { root: "border-b border-transparent hover:border-purple-600 text-purple-600", active: "border-purple-600" },
+		textAction: { root: "border-b border-transparent hover:border-purple-600", active: "border-purple-600 text-purple-600" },
 		table: {
 			header: "bg-purple-600 text-white dark:bg-purple-700 dark:text-gray-50",
 			evenRow: "bg-purple-50 dark:bg-zinc-800",
@@ -400,6 +409,7 @@ export const ColorWays: ColorWays = {
 	},
 	slate: {
 		color: "slate",
+		text: { accent: "text-slate-600 dark:text-slate-300" },
 		card: {
 			root: "shadow-slate-200 divide-slate-600 dark:shadow-slate-950 dark:divide-slate-950}",
 			bordered: "border-2 border-slate-600 dark:border-slate-900",
@@ -424,7 +434,7 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border enabled:hover:bg-slate-200 focus-visible:outline-slate-900 border-slate-600 text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-slate-600 dark:enabled:hover:bg-slate-900 dark:focus-visible:outline-slate-900 dark:border-slate-900 dark:text-slate-300",
 		},
-		textAction: { root: "border-b border-transparent hover:border-slate-600 text-slate-600", active: "border-slate-600" },
+		textAction: { root: "border-b border-transparent hover:border-slate-600", active: "border-slate-600 text-slate-600" },
 		table: {
 			header: "bg-slate-600 text-white dark:bg-slate-700 dark:text-gray-50",
 			evenRow: "bg-slate-50 dark:bg-zinc-800",
@@ -460,6 +470,7 @@ export const ColorWays: ColorWays = {
 	},
 	yellow: {
 		color: "yellow",
+		text: { accent: "text-yellow-600 dark:text-yellow-300" },
 		card: {
 			root: "shadow-yellow-200 divide-yellow-600 dark:shadow-yellow-950 dark:divide-yellow-950}",
 			bordered: "border-2 border-yellow-600 dark:border-yellow-900",
@@ -484,7 +495,7 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border enabled:hover:bg-yellow-200 focus-visible:outline-yellow-900 border-yellow-600 text-yellow-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-yellow-600 dark:enabled:hover:bg-yellow-900 dark:focus-visible:outline-yellow-900 dark:border-yellow-900 dark:text-yellow-300",
 		},
-		textAction: { root: "border-b border-transparent hover:border-yellow-600 text-yellow-600", active: "border-yellow-600" },
+		textAction: { root: "border-b border-transparent hover:border-yellow-600", active: "border-yellow-600 text-yellow-600" },
 		table: {
 			header: "bg-yellow-600 text-white dark:bg-yellow-700 dark:text-gray-50",
 			evenRow: "bg-yellow-50 dark:bg-zinc-800",
@@ -520,6 +531,7 @@ export const ColorWays: ColorWays = {
 	},
 	sky: {
 		color: "sky",
+		text: { accent: "text-sky-600 dark:text-sky-300" },
 		card: {
 			root: "shadow-sky-200 divide-sky-600 dark:shadow-sky-950 dark:divide-sky-950}",
 			bordered: "border-2 border-sky-600 dark:border-sky-900",
@@ -544,7 +556,7 @@ export const ColorWays: ColorWays = {
 			secondary:
 				"border enabled:hover:bg-sky-200 focus-visible:outline-sky-900 border-sky-600 text-sky-900 disabled:opacity-50 disabled:cursor-not-allowed dark:text-sky-600 dark:enabled:hover:bg-sky-900 dark:focus-visible:outline-sky-900 dark:border-sky-900 dark:text-sky-300",
 		},
-		textAction: { root: "border-b border-transparent hover:border-sky-600 text-sky-600", active: "border-sky-600" },
+		textAction: { root: "border-b border-transparent hover:border-sky-600", active: "border-sky-600 text-sky-600" },
 		table: {
 			header: "bg-sky-600 text-white dark:bg-sky-700 dark:text-gray-50",
 			evenRow: "bg-sky-50 dark:bg-zinc-800",

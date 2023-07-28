@@ -1,5 +1,6 @@
 import { classNames } from "../../shared/utils";
 
+import { LoadingSpinner } from ".";
 import { ColorWay, ColorWaysKey } from "../../ColorWays";
 import { useColorWay } from "../hooks";
 import { PageItems, PageMetadata } from "../types";
@@ -40,7 +41,7 @@ export function Table<TModel>({
 
 	if (!page) return null; // TODO: Empty State
 
-	if (isLoading) return null; // TODO: Loading State
+	if (isLoading) return <LoadingSpinner centered className="h-24 w-24" />;
 
 	return (
 		<>

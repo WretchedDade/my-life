@@ -1,20 +1,43 @@
-import { useCallback, useState } from "react";
-import { AccountActivityTable } from "../budget";
+import { useCallback, useMemo, useState } from "react";
 
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { AccountActivityPie, AccountActivityTable, useAccountActivity, useKeywordCategories } from "../budget";
+
 import { Button, TextButton } from "../shared/components";
-import { Format } from "../shared/utils";
+import { AutoComplete } from "../shared/components/Form/AutoComplete";
+import { useColorWay } from "../shared/hooks";
+import { Format, classNames } from "../shared/utils";
 
 const today = new Date();
 const currentMonth = today.getMonth();
 const currentYear = today.getFullYear();
 
 export function AccountActivity() {
+	const colorWay = useColorWay();
+
 	const [year, setYear] = useState(currentYear);
 	const [month, setMonth] = useState(currentMonth);
 
-	const [view, setView] = useState<"Charts" | "Table">("Charts");
+	const [pageNumber, setPageNumber] = useState(0);
+	const [pageSize, setPageSize] = useState(10);
+
+	const [category, setCategory] = useState("All");
+
+	const {
+		isLoading,
+		isFetching,
+		data: page,
+	} = useAccountActivity({ pageNumber, pageSize, year, month: month + 1, category: category === "All" ? undefined : category });
+	const { data: keywordCategories = [] } = useKeywordCategories();
+
+	const categories = useMemo(() => ["All", ...keywordCategories], [keywordCategories]);
+
+	const onNextPage = useCallback(() => setPageNumber(pageNumber + 1), [pageNumber]);
+	const onPrevPage = useCallback(() => setPageNumber(pageNumber - 1), [pageNumber]);
+
+	const [view, setView] = useState<"Breakdown" | "Table">("Breakdown");
 
 	const onNextMonth = useCallback(() => {
 		if (month === 11) {
@@ -23,6 +46,8 @@ export function AccountActivity() {
 		} else {
 			setMonth(month + 1);
 		}
+
+		setPageNumber(0);
 	}, [month, year]);
 
 	const onPrevMonth = useCallback(() => {
@@ -32,30 +57,19 @@ export function AccountActivity() {
 		} else {
 			setMonth(month - 1);
 		}
+
+		setPageNumber(0);
 	}, [month, year]);
 
 	return (
 		<>
-			<h1 className="mb-8 text-xl font-semibold leading-6">Account Activity</h1>
+			<h1 className={classNames("mb-8 text-xl font-semibold leading-6", colorWay.text.accent)}>{category} Expenses</h1>
 
-			<div className="mb-8 flex w-full border-y border-gray-200 py-4">
-				<Button variant="secondary" onClick={onPrevMonth} disabled={month === 6 && year === 2022}>
-					<FontAwesomeIcon icon={faChevronLeft} className="h-4 w-4" />
-				</Button>
-				<p className="flex-grow text-center">
-					{Format.asMonthName(month)} {year}
-				</p>
-				<Button variant="secondary" onClick={onNextMonth} disabled={month === currentMonth && year === currentYear}>
-					<FontAwesomeIcon icon={faChevronRight} className="h-4 w-4" />
-				</Button>
-			</div>
-
-			<div className="mb-2 flex items-end justify-between border-b border-gray-200 text-gray-900">
-				<div></div>
-				<div className="flex items-center gap-x-2 px-4 text-xs text-gray-500">
+			<div className="flex items-end justify-end border-b border-gray-200 text-gray-900">
+				<div className="flex items-center gap-x-2 text-xs text-gray-500">
 					<p>View: </p>
-					<TextButton active={view === "Charts"} onClick={() => setView("Charts")}>
-						Charts
+					<TextButton active={view === "Breakdown"} onClick={() => setView("Breakdown")}>
+						Breakdown
 					</TextButton>
 					<TextButton active={view === "Table"} onClick={() => setView("Table")}>
 						Table
@@ -63,7 +77,42 @@ export function AccountActivity() {
 				</div>
 			</div>
 
-			{view === "Table" && <AccountActivityTable year={year} month={month} />}
+			<div className="flex items-center justify-between gap-x-2 border-b border-gray-200 py-4">
+				<Button size="xs" variant="secondary" onClick={onPrevMonth} disabled={month === 6 && year === 2022}>
+					<FontAwesomeIcon icon={faChevronLeft} className="h-4 w-4" />
+				</Button>
+				<p className="flex-grow text-center">
+					{Format.asMonthName(month)} {year}
+				</p>
+				<Button size="xs" variant="secondary" onClick={onNextMonth} disabled={month === currentMonth && year === currentYear}>
+					<FontAwesomeIcon icon={faChevronRight} className="h-4 w-4" />
+				</Button>
+			</div>
+
+			<div className="flex justify-start gap-x-2 border-b border-gray-200 py-4 sm:justify-end">
+				<div>
+					<AutoComplete inline name="category" value={category} onChange={setCategory} options={categories} getPrimary={(category) => category} />
+				</div>
+				{category !== "All" && (
+					<Button size="xs" onClick={() => setCategory("All")}>
+						Clear
+					</Button>
+				)}
+			</div>
+
+			{view === "Table" && (
+				<div className="mt-4">
+					<AccountActivityTable
+						isLoading={isLoading || isFetching}
+						page={page}
+						onNextPage={onNextPage}
+						onPrevPage={onPrevPage}
+						pageSize={pageSize}
+						onPageSizeChange={setPageSize}
+					/>
+				</div>
+			)}
+			{view === "Breakdown" && <AccountActivityPie year={year} month={month} category={category} onCategoryChange={setCategory} />}
 		</>
 	);
 }

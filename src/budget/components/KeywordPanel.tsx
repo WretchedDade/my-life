@@ -19,6 +19,8 @@ export function KeywordPanel({ open, onClose, keyword }: KeywordPanelProps) {
 	const formRef = useRef<HTMLFormElement>(null);
 	const keywordRef = useRef<HTMLInputElement>(null);
 
+	const [category, setCategory] = useState(keyword?.category ?? "");
+
 	const [errors, setErrors] = useState<Errors>({ formErrors: [], fieldErrors: {} });
 
 	const { data: categories } = useKeywordCategories();
@@ -103,7 +105,8 @@ export function KeywordPanel({ open, onClose, keyword }: KeywordPanelProps) {
 						placeholder="Entertainment"
 						label="Category"
 						options={categories}
-						initialOption={keyword?.category ?? ""}
+						value={category}
+						onChange={setCategory}
 						getPrimary={(category) => category}
 					/>
 					{errors.fieldErrors.category?.[0] && <FormError>{errors.fieldErrors.category?.[0]}</FormError>}

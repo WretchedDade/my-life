@@ -11,15 +11,26 @@ interface useAccountActivityOptions {
 
 	year?: number;
 	month?: number;
+
+	category?: string;
 }
 
-export function useAccountActivity({ pageNumber = 0, pageSize = 30, year, month }: useAccountActivityOptions = {}) {
+export function useAccountActivity({ pageNumber, pageSize, year, month, category }: useAccountActivityOptions = {}) {
 	const accessToken = useAccessToken();
 
 	const filterByTime = year != null && month != null;
 
-	const queryKey = filterByTime ? ["account-activity", year, month, pageNumber, pageSize] : ["account-activity", undefined, undefined, pageNumber, pageSize];
-	const url = filterByTime ? `${baseUrl}/${year}/${month}` : baseUrl;
+	const queryKey = ["account-activity", year, month, pageNumber, pageSize, category];
+
+	const queryParameters = [];
+
+	if (pageNumber != null) queryParameters.push(["pageNumber", `${pageNumber}`]);
+	if (pageSize != null) queryParameters.push(["pageSize", `${pageSize}`]);
+	if (category != null) queryParameters.push(["category", `${category}`]);
+
+	const urlSearchParams = new URLSearchParams(queryParameters);
+
+	const url = filterByTime ? `${baseUrl}/${year}/${month}?${urlSearchParams}` : `${baseUrl}?${urlSearchParams}`;
 
 	return useQuery({
 		enabled: accessToken != null,
@@ -27,8 +38,8 @@ export function useAccountActivity({ pageNumber = 0, pageSize = 30, year, month 
 
 		queryKey,
 
-		async queryFn({ queryKey: [, , , pageNumber, pageSize] }) {
-			const response = await fetch(`${url}?pageNumber=${pageNumber}&pageSize=${pageSize}`, {
+		async queryFn() {
+			const response = await fetch(url, {
 				headers: {
 					Authorization: `Bearer ${accessToken}`,
 				},

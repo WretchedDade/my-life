@@ -47,7 +47,7 @@ export function asDateString(
 
 	const date = value instanceof Date ? value : new Date(value);
 
-	return new Intl.DateTimeFormat("en-US", { dateStyle, timeStyle, timeZone: "UTC" }).format(date);
+	return new Intl.DateTimeFormat("en-US", { dateStyle, timeStyle }).format(date);
 }
 
 export function asMonthName(value: number) {

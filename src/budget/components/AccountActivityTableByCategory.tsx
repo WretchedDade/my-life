@@ -1,26 +1,23 @@
-import { useCallback, useMemo } from "react";
-
-import { AccountActivityItem } from "..";
-
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { AccountActivityItem, useAccountActivity } from "..";
 import { Table, TableFooter, TableProps, getPageSizes } from "../../shared/components";
 import { useTailwindBreakpoint } from "../../shared/hooks";
-import { Page } from "../../shared/types";
 import { Format, classNames } from "../../shared/utils";
 
-interface AccountActivityTableProps {
-	isLoading?: boolean;
-
-	page: Page<AccountActivityItem> | undefined;
-
-	onNextPage: () => void;
-	onPrevPage: () => void;
-
-	pageSize: number;
-	onPageSizeChange: (number: number) => void;
-}
-
-export function AccountActivityTable({ isLoading = false, page, onNextPage, onPrevPage, pageSize, onPageSizeChange }: AccountActivityTableProps) {
+export function AccountActivityTableByCategory({ year, month }: { year: number; month: number }) {
 	const { isAboveSm } = useTailwindBreakpoint("sm");
+
+	const [pageNumber, setPageNumber] = useState(0);
+	const [pageSize, setPageSize] = useState(10);
+
+	useEffect(() => {
+		setPageNumber(0);
+	}, [year, month]);
+
+	const { isLoading, data: page } = useAccountActivity({ pageNumber, pageSize, year, month: month + 1 });
+
+	const onNextPage = useCallback(() => setPageNumber(pageNumber + 1), [pageNumber]);
+	const onPrevPage = useCallback(() => setPageNumber(pageNumber - 1), [pageNumber]);
 
 	const pageSizes = useMemo(() => getPageSizes(page?.totalCount), [page?.totalCount]);
 
@@ -60,7 +57,7 @@ export function AccountActivityTable({ isLoading = false, page, onNextPage, onPr
 				onPrevious={onPrevPage}
 				pageSize={pageSize}
 				pageSizes={pageSizes}
-				onPageSizeChange={onPageSizeChange}
+				onPageSizeChange={setPageSize}
 			/>
 		</>
 	);

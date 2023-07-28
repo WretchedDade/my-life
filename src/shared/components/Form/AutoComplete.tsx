@@ -7,14 +7,16 @@ import { useColorWay } from "../../hooks";
 import { classNames } from "../../utils";
 
 interface AutoCompleteProps<TOption> {
+	inline?: boolean;
 	color?: ColorWaysKey;
 
 	name: string;
-	label: string;
+	label?: string;
 
 	placeholder?: string;
 
-	initialOption?: TOption;
+	value: TOption;
+	onChange: (option: TOption) => void;
 
 	options: TOption[] | undefined;
 
@@ -22,11 +24,23 @@ interface AutoCompleteProps<TOption> {
 	getSecondary?: (option: TOption) => string;
 }
 
-export function AutoComplete<TOption>({ color, name, label, placeholder, options = [], initialOption, getPrimary, getSecondary }: AutoCompleteProps<TOption>) {
+export function AutoComplete<TOption>({
+	inline = false,
+	color,
+	name,
+	label,
+	placeholder,
+	options = [],
+
+	value,
+	onChange,
+
+	getPrimary,
+	getSecondary,
+}: AutoCompleteProps<TOption>) {
 	const colorWay = useColorWay(color);
 
 	const [query, setQuery] = useState("");
-	const [selectedOption, setSelectedOption] = useState(initialOption ? getPrimary(initialOption) : undefined);
 
 	const matchesQuery = useCallback(
 		(option: TOption) => {
@@ -41,14 +55,15 @@ export function AutoComplete<TOption>({ color, name, label, placeholder, options
 	const filteredOptions = query === "" ? options : options.filter(matchesQuery);
 
 	return (
-		<Combobox name={name} as="div" value={selectedOption} onChange={setSelectedOption}>
+		<Combobox name={name} as="div" value={value} onChange={onChange} className={classNames({ "flex items-center": inline, "gap-x-4": inline && label })}>
 			<Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">{label}</Combobox.Label>
-			<div className="relative mt-2">
+			<div className={classNames("relative", { "mt-2": !inline })}>
 				<Combobox.Input
 					placeholder={placeholder}
 					className={classNames(
-						"w-full rounded-md border-0 py-1.5 pl-3 pr-12 shadow-sm ring-1 ring-inset  focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
+						"w-full rounded-md border-0 py-1.5 pr-12 shadow-sm ring-1 ring-inset  focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
 						colorWay.form.input,
+						{ "py-1": inline },
 					)}
 					onChange={(event) => setQuery(event.target.value)}
 					displayValue={getPrimary}
