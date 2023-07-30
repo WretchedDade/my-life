@@ -65,11 +65,8 @@ export function AccountActivityExpensesPie({ year, month, category, onCategoryCh
 			events.push({
 				eventName: "select",
 				callback: ({ chartWrapper }) => {
-					console.log("selected!");
 					const chart = chartWrapper.getChart();
 					const selection = chart.getSelection();
-
-					console.log(selection);
 
 					if (selection.length === 1) {
 						const { row } = selection[0];

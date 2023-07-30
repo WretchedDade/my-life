@@ -47,7 +47,6 @@ export function KeywordPanel({ open, onClose, keyword }: KeywordPanelProps) {
 	}
 
 	function onBlur(e: React.FormEvent<HTMLFormElement>) {
-		console.log("blur");
 		const formData = getFormData(e.currentTarget);
 		const validationResult = FormSchema.safeParse(formData);
 

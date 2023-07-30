@@ -33,7 +33,7 @@ export function AccountActivityIncomePie({ year, month, onItemSelected, onItemsS
 	const dataPoints = useMemo(() => {
 		if (items === undefined) return null;
 
-		const income = items.filter((item) => item.amount > 0);
+		const income = items.filter((item) => item.amount > 0 && item.accountName !== "Credit Card");
 
 		const filteredItems = Object.entries(
 			income.reduce<Record<string, number>>((groups, item) => {

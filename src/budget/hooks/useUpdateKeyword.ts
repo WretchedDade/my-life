@@ -41,7 +41,7 @@ export function useUpdateKeyword(onSuccess?: () => void) {
 		},
 
 		onError(error, keyword) {
-			console.log(error);
+			console.error(error);
 
 			notifier.error(`The ${keyword.name} keyword could not be created`, {
 				color: "red",

@@ -19,7 +19,7 @@ export function useCreateKeyword(onSuccess?: () => void) {
 					body: JSON.stringify(keyword, null, 4),
 				});
 
-				if(!response.ok) throw new Error(await response.text());
+				if (!response.ok) throw new Error(await response.text());
 
 				const json = await response.json();
 
@@ -41,12 +41,12 @@ export function useCreateKeyword(onSuccess?: () => void) {
 		},
 
 		onError(error, keyword) {
-			console.log(error);
+			console.error(error);
 
 			notifier.error(`The ${keyword.name} keyword could not be created`, {
 				color: "red",
 				title: "Creation Failed",
 			});
-		}
+		},
 	});
 }

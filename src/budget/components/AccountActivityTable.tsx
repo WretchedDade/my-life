@@ -1,6 +1,6 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 
-import { AccountActivityItem } from "..";
+import { AccountActivityItem, Keyword, KeywordPanel } from "..";
 
 import { Button, Table, TableFooter, TableProps, getPageSizes } from "../../shared/components";
 import { useTailwindBreakpoint } from "../../shared/hooks";
@@ -24,6 +24,8 @@ interface AccountActivityTableProps {
 export function AccountActivityTable({ isLoading = false, page, onNextPage, onPrevPage, pageSize, onPageSizeChange, onItemSelect }: AccountActivityTableProps) {
 	const { isAboveSm } = useTailwindBreakpoint("sm");
 
+	const [keywordToCreate, setKeywordToCreate] = useState<Keyword>();
+
 	const pageSizes = useMemo(() => getPageSizes(page?.totalCount), [page?.totalCount]);
 
 	const getRowValues: TableProps<AccountActivityItem>["getRowValues"] = useCallback(
@@ -39,8 +41,18 @@ export function AccountActivityTable({ isLoading = false, page, onNextPage, onPr
 				</td>
 			),
 			(props) => (
-				<td {...props} className={classNames(props.className, "whitespace-break-spaces text-left")}>
+				<td {...props} className={classNames(props.className, "whitespace-break-spaces text-center")}>
 					{item.category}
+				</td>
+			),
+			(props) => (
+				<td {...props} className={classNames(props.className, "hidden sm:table-cell")}>
+					{item.accountName}
+				</td>
+			),
+			(props) => (
+				<td {...props} className={classNames(props.className, "hidden sm:table-cell")}>
+					{item.cardUsed}
 				</td>
 			),
 			(props) => (
@@ -50,8 +62,16 @@ export function AccountActivityTable({ isLoading = false, page, onNextPage, onPr
 			),
 			(props) => (
 				<td {...props}>
-					<div className="flex justify-end">
-						<Button size="sm" variant="secondary" onClick={() => onItemSelect(item)}>
+					<div className="flex justify-end gap-x-2">
+						{item.category === "Misc (Unmapped)" && (
+							<Button
+								size="xs"
+								variant="secondary"
+								onClick={() => setKeywordToCreate({ keyword: item.name, category: "", name: item.name, lastModifiedOn: new Date() })}>
+								Create Keyword
+							</Button>
+						)}
+						<Button size="xs" variant="secondary" onClick={() => onItemSelect(item)}>
 							View Details
 						</Button>
 					</div>
@@ -73,6 +93,8 @@ export function AccountActivityTable({ isLoading = false, page, onNextPage, onPr
 				pageSizes={pageSizes}
 				onPageSizeChange={onPageSizeChange}
 			/>
+
+			<KeywordPanel open={keywordToCreate != null} onClose={() => setKeywordToCreate(undefined)} keyword={keywordToCreate} />
 		</>
 	);
 }
@@ -85,8 +107,18 @@ const headings: TableProps<AccountActivityItem>["headings"] = [
 		</th>
 	),
 	(props) => (
-		<th {...props} className={classNames(props.className, "text-left")}>
+		<th {...props} className={classNames(props.className, "text-center")}>
 			Category
+		</th>
+	),
+	(props) => (
+		<th {...props} className={classNames(props.className, "hidden sm:table-cell")}>
+			Account
+		</th>
+	),
+	(props) => (
+		<th {...props} className={classNames(props.className, "hidden sm:table-cell")}>
+			Card
 		</th>
 	),
 	(props) => (

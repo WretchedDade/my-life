@@ -36,6 +36,32 @@ export const AccountActivityItemSchema = z.object({
 	id: z.string(),
 	lastModifiedOn: z.coerce.date(),
 	hasShortName: z.boolean(),
+
+	accountName: z.preprocess((accountNameEnum) => {
+		switch (accountNameEnum) {
+			case "Checking":
+				return "Checking";
+			case "Saving":
+				return "Savings";
+			case "CreditCard":
+				return "Credit Card";
+		}
+
+		return "Unknown";
+	}, z.enum(["Checking", "Savings", "Credit Card", "Unknown"])),
+
+	cardUsed: z.preprocess((cardUsedEnum) => {
+		switch (cardUsedEnum) {
+			case "DebitDade":
+				return "Dade's Debit";
+			case "DebitCarla":
+				return "Carla's Debit";
+			case "Credit":
+				return "Credit";
+		}
+
+		return "N/A";
+	}, z.enum(["Dade's Debit", "Carla's Debit", "Credit", "N/A"])),
 });
 
 export type AccountActivityItem = z.infer<typeof AccountActivityItemSchema>;

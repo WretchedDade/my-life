@@ -26,16 +26,20 @@ export function AccountActivityItemPanel({ open, onClose, item }: AccountActivit
 						<dd className="mt-2 text-sm text-gray-600">{item.name}</dd>
 					</div>
 					<div className="border-l-2 px-4">
-						<dt className="block font-medium leading-6 text-gray-900">Date</dt>
-						<dd className="mt-2 text-sm text-gray-600">{Format.asFullDate(item.date)}</dd>
-					</div>
-					<div className="border-l-2 px-4">
 						<dt className="block font-medium leading-6 text-gray-900">Category</dt>
 						<dd className="mt-2 text-sm text-gray-600">{item.category}</dd>
 					</div>
 					<div className="border-l-2 px-4">
 						<dt className="block font-medium leading-6 text-gray-900">Amount</dt>
 						<dd className="mt-2 text-sm text-gray-600">{Format.asCurrency(item.amount)}</dd>
+					</div>
+					<div className="border-l-2 px-4">
+						<dt className="block font-medium leading-6 text-gray-900">Account</dt>
+						<dd className="mt-2 text-sm text-gray-600">{item.accountName}</dd>
+					</div>
+					<div className="border-l-2 px-4">
+						<dt className="block font-medium leading-6 text-gray-900">Date</dt>
+						<dd className="mt-2 text-sm text-gray-600">{Format.asFullDate(item.date)}</dd>
 					</div>
 					<div className="col-span-2 border-l-2 px-4">
 						<dt className="block font-medium leading-6 text-gray-900">Full Name</dt>

@@ -15,7 +15,6 @@ export function AddBloodPressureSlideOver({ open, onClose }: AddBloodPressureSli
 	const { mutate, isLoading } = useCreateBloodPressure({ onSuccess: onClose });
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		console.log("onSubmit");
 		e.preventDefault();
 
 		const validationResult = validate(e.currentTarget);
