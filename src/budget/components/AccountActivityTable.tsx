@@ -72,14 +72,25 @@ export function AccountActivityTable({ isLoading = false, page, onNextPage, onPr
 							</Button>
 						)}
 						<Button size="xs" variant="secondary" onClick={() => onItemSelect(item)}>
-							View Details
+							View
 						</Button>
+						{/* <Button size="xs" variant="secondary" color="red" onClick={() => onItemSelect(item)}>
+							Delete
+						</Button> */}
 					</div>
 				</td>
 			),
 		],
 		[isAboveSm, onItemSelect],
 	);
+
+	if (page?.totalCount === 0)
+		return (
+			<div>
+				<p className="py-20 text-center">No data available</p>
+			</div>
+		);
+
 	return (
 		<>
 			<Table isLoading={isLoading} headings={headings} getRowKey={getRowKey} getRowValues={getRowValues} page={page} />

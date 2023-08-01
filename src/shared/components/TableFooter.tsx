@@ -27,6 +27,8 @@ export function TableFooter({ page, onPrevious, onNext, pageSizes, onPageSizeCha
 
 	const { hasNextPage = false, hasPreviousPage = false, pageNumber = 0, pageSize = 10, totalCount = 0 } = page;
 
+	if (totalCount <= pageSize) return null;
+
 	return (
 		<nav className={classNames("flex items-center justify-between", colorWay.card.footer)} aria-label="Pagination">
 			{pageSizes.length > 1 && (
