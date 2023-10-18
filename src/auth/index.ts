@@ -1,4 +1,3 @@
-export * from "./AuthContext";
-export * from "./UserAvatar";
-export * from "./auth.types";
-export * from "./hooks";
+export { AuthProvider, Roles, Scopes } from "./AuthProvider";
+export * from "./acquireToken";
+export * from "./useAuth";

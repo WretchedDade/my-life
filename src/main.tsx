@@ -1,34 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { ErrorBoundary } from "react-error-boundary";
+
 import { BrowserRouter } from "react-router-dom";
-
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
-
-import dayjs from "dayjs";
-import utcPlugin from "dayjs/plugin/utc";
 
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 
-import "./main.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
+
+import { MantineProvider } from "@mantine/core";
 
 import { App } from "./App.tsx";
+import { AuthProvider } from "./auth/AuthProvider.tsx";
 
-import { AuthContextProvider } from "./auth";
-import { Error } from "./pages";
-import { ColorWayContextProvider } from "./shared/ColorWayContext.tsx";
-import { DarkModeContextProvider } from "./shared/DarkModeContext.tsx";
-import { NotificationContextProvider } from "./shared/NotificationContext.tsx";
-
-const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			// refetchOnWindowFocus: false,
-		},
-	},
-});
+const queryClient = new QueryClient();
 
 const configuration: Configuration = {
 	auth: {
@@ -42,27 +31,20 @@ const configuration: Configuration = {
 
 const publicClientApplication = new PublicClientApplication(configuration);
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-		<ErrorBoundary FallbackComponent={Error}>
-			<DarkModeContextProvider>
-				<ColorWayContextProvider>
-					<QueryClientProvider client={queryClient}>
+		<QueryClientProvider client={queryClient}>
+			<MantineProvider defaultColorScheme="light">
+				<MsalProvider instance={publicClientApplication}>
+					<AuthProvider>
 						<BrowserRouter future={{ v7_startTransition: true }}>
-							<MsalProvider instance={publicClientApplication}>
-								<AuthContextProvider>
-									<NotificationContextProvider>
-										<App />
-										<ReactQueryDevtools initialIsOpen={false} position="bottom-left" toggleButtonProps={{ style: { bottom: 52 } }} />
-									</NotificationContextProvider>
-								</AuthContextProvider>
-							</MsalProvider>
+							<App />
+							<ReactQueryDevtools initialIsOpen={false} />
 						</BrowserRouter>
-					</QueryClientProvider>
-				</ColorWayContextProvider>
-			</DarkModeContextProvider>
-		</ErrorBoundary>
+					</AuthProvider>
+				</MsalProvider>
+			</MantineProvider>
+		</QueryClientProvider>
 	</React.StrictMode>,
 );
-
-dayjs.extend(utcPlugin);

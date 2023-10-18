@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { NotionObjectSchema, NotionTagSchema } from "../shared/types";
+import { NotionObjectSchema, NotionTagSchema } from "../shared/types/notion.types";
 
 export const BillPaymentSchema = NotionObjectSchema.extend({
 	isPaid: z.boolean(),

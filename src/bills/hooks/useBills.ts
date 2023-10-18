@@ -1,27 +1,28 @@
-import { useQuery } from "react-query";
 import { z } from "zod";
 
-import { BillFilter, BillPayment, BillPaymentSchema } from "..";
-import { useAccessToken } from "../../auth";
+import { useQuery } from "@tanstack/react-query";
+
+import { useAuth } from "../../auth";
+import { BillFilter, BillPaymentSchema } from "../Bills.types";
 
 export function useBills(filter: BillFilter) {
-	const accessToken = useAccessToken();
+	const { acquireToken } = useAuth();
 
 	return useQuery({
 		queryKey: ["bills", filter] as const,
-		queryFn: ({ queryKey: [, filter] }) => GetBills(filter, accessToken ?? ""),
-		enabled: accessToken != null,
-	});
-}
 
-async function GetBills(filter: BillFilter, accessToken: string): Promise<BillPayment[]> {
-	const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Bills/${filter}`, {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
+		queryFn: async ({ queryKey: [, filter] }) => {
+			const accessToken = await acquireToken();
+
+			const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Bills/${filter}`, {
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+			});
+
+			const json = await response.json();
+
+			return z.array(BillPaymentSchema).parse(json);
 		},
 	});
-
-	const json = await response.json();
-
-	return z.array(BillPaymentSchema).parse(json);
 }

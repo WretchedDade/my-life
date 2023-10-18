@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PageBaseSchema } from "../shared/types";
+import { PageBaseSchema } from "../shared/types/page.types";
 
 export const BloodPressureReadingSchema = z.object({
 	id: z.string().uuid(),

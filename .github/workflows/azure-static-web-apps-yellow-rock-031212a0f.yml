@@ -20,8 +20,7 @@ jobs:
                   azure_static_web_apps_api_token: ${{ secrets.MY_LIFE_STATIC_WEB_APP_DEPLOYMENT_TOKEN }}
                   repo_token: ${{ secrets.GITHUB_TOKEN }}
                   action: "upload"
-                  app_location: "/"
-                  api_location: "api"
+                  app_location: "/src"
                   output_location: "dist"
               env:
                   VITE_AAD_CLIENT_ID: ${{ secrets.VITE_AAD_CLIENT_ID }}

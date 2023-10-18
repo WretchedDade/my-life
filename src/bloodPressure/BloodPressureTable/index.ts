@@ -1,0 +1,1 @@
+export { BloodPressureTable } from "./BloodPressureTable";
