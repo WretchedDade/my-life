@@ -24,6 +24,10 @@ jobs:
 
             - name: Build project
               run: npm run build
+              env:
+                  VITE_AAD_CLIENT_ID: ${{ secrets.VITE_AAD_CLIENT_ID }}
+                  VITE_AAD_TENANT_ID: ${{ secrets.VITE_AAD_TENANT_ID }}
+                  VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
 
             - name: Copy Static Web App Config
               run: cp staticwebapp.config.json ./dist
@@ -57,7 +61,3 @@ jobs:
                   action: "upload"
                   skip_app_build: true
                   app_location: "./dist"
-              env:
-                  VITE_AAD_CLIENT_ID: ${{ secrets.VITE_AAD_CLIENT_ID }}
-                  VITE_AAD_TENANT_ID: ${{ secrets.VITE_AAD_TENANT_ID }}
-                  VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
