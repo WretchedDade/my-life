@@ -1,1 +1,3 @@
-export { BloodPressure } from "./BloodPressure";
+import { BloodPressure } from "./BloodPressure";
+
+export default BloodPressure;

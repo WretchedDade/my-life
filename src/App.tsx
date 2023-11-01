@@ -1,11 +1,13 @@
+import { lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { useAuth } from "./auth";
-import { Layout, NotFound } from "./shared/components";
+import { NotFound } from "./shared/components";
 
-import { UnpaidBills } from "./Bills";
-import { BloodPressure } from "./BloodPressure";
-import { Dashboard } from "./Dashboard";
+const Layout = lazy(() => import("./shared/components/Layout"));
+const UnpaidBills = lazy(() => import("./Bills"));
+const BloodPressure = lazy(() => import("./BloodPressure"));
+const Dashboard = lazy(() => import("./Dashboard"));
 
 export function App() {
 	const { redirect } = useAuth();
