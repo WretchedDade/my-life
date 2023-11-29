@@ -9,7 +9,7 @@ export function useBills(filter: BillFilter) {
 	const { acquireToken } = useAuth();
 
 	return useQuery({
-		queryKey: ["bills", filter] as const,
+		queryKey: useBills.generateQueryKey(filter),
 
 		queryFn: async ({ queryKey: [, filter] }) => {
 			const accessToken = await acquireToken();
@@ -26,3 +26,7 @@ export function useBills(filter: BillFilter) {
 		},
 	});
 }
+
+useBills.generateQueryKey = (filter?: BillFilter) => {
+	return filter != null ? (["bills", filter] as const) : (["bills"] as const);
+};

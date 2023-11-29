@@ -11,7 +11,7 @@ export function BillsGrid(props: BillsGridProps) {
 	return (
 		<SimpleGrid cols={cols}>
 			{props.bills.map((bill) => (
-				<BillsGridCard bill={bill} />
+				<BillsGridCard key={bill.id} bill={bill} />
 			))}
 		</SimpleGrid>
 	);

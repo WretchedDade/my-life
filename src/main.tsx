@@ -13,6 +13,7 @@ import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 
 import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
 import { App } from "./App.tsx";
 import { AuthProvider } from "./auth/AuthProvider.tsx";
@@ -36,6 +37,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<QueryClientProvider client={queryClient}>
 			<MantineProvider defaultColorScheme="light">
+				<Notifications position="top-right" limit={3} />
 				<MsalProvider instance={publicClientApplication}>
 					<AuthProvider>
 						<BrowserRouter future={{ v7_startTransition: true }}>

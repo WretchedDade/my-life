@@ -1,25 +1,28 @@
 import { IconExternalLink } from "@tabler/icons-react";
 
-import { ActionIcon, Badge, Button, Card, Group, Image, Text } from "@mantine/core";
+import { ActionIcon, Badge, Button, Card, Group, Text } from "@mantine/core";
 
 import { format } from "../../shared/utils";
 import { BillPayment } from "../Bills.types";
 import { BillGridCardIcon } from "./BillGridCardIcon";
 
+import { usePayBillMutation } from "../hooks/usePayBillMutation";
 import classes from "./BillsGridCard.module.css";
 
 export function BillsGridCard(props: BillsGridCardProps) {
+	const payBillMutation = usePayBillMutation();
+
 	if (isSkeleton(props)) return <></>;
 
 	const { bill } = props;
 
 	return (
 		<Card shadow="xl" radius="md" p="md" className={classes.card}>
-			<Card.Section>
-				<Image src={bill.coverUri} height={180} />
-			</Card.Section>
+			{/* <Card.Section>
+				<Image src={bill.coverUri} h={180} />
+			</Card.Section> */}
 
-			<Card.Section className={classes.section} mt="md">
+			<Card.Section className={classes.section}>
 				<Group>
 					<BillGridCardIcon billPayment={bill} />
 					<Text fz="lg" fw={500}>
@@ -55,7 +58,13 @@ export function BillsGridCard(props: BillsGridCardProps) {
 			</Card.Section>
 
 			<Group mt="xs">
-				<Button variant="light" radius="md" style={{ flex: 1 }}>
+				<Button
+					loading={payBillMutation.isPending}
+					loaderProps={{ type: "dots" }}
+					variant="light"
+					radius="md"
+					style={{ flex: 1 }}
+					onClick={() => payBillMutation.mutate(bill.id)}>
 					Mark as Paid
 				</Button>
 				{bill.linkToPay != null && (
