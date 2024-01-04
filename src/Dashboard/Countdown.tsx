@@ -37,13 +37,13 @@ export function Countdown({ title, eventDate }: CountdownProps) {
 			h="100%"
 			pt="lg"
 			pb="sm"
-			bg={colorScheme === "light" ? "gray.0" : "dark.5"}
+			bg={colorScheme === "light" ? "white" : "dark.6"}
 			style={(theme) => ({
-				border: `1px solid ${colorScheme === "light" ? theme.colors.gray[2] : theme.colors.dark[4]}`,
-				borderRadius: theme.radius.md,
-				boxShadow: theme.shadows.xl,
+				// border: `1px solid ${colorScheme === "light" ? theme.colors.gray[4] : theme.colors.dark[4]}`,
+				borderRadius: theme.radius.sm,
+				boxShadow: theme.shadows.md,
 			})}>
-			<Text size="lg" fw={500} mb="md" c="blue.7" ta="center" px="sm">
+			<Text size="lg" fw={500} mb="md" c={colorScheme === "light" ? "blue.7" : "dark.0"} ta="center" px="sm">
 				{title}
 			</Text>
 			<Group justify="center">
@@ -54,8 +54,8 @@ export function Countdown({ title, eventDate }: CountdownProps) {
 					sections={[{ value: percentPast, color: "blue.9" }]}
 					thickness={8}
 					label={
-						<Text c="blue.9" ta="center" size="xl" fw="bold">
-							{daysUntil}
+						<Text c="blue.9" ta="center" size="lg" fw="bold">
+							{percentPast.toFixed(1)}%
 						</Text>
 					}
 				/>
@@ -68,29 +68,4 @@ export function Countdown({ title, eventDate }: CountdownProps) {
 			</Text>
 		</Stack>
 	);
-
-	// return (
-	// 	<Card withBorder shadow="xl">
-	// 		<Card.Section withBorder>
-	// 			<Title px="lg" py="sm" order={3} fw="normal" ta="center">
-	// 				{title}
-	// 			</Title>
-	// 		</Card.Section>
-	// 		<Card.Section py="md">
-	// 			<Group justify="center">
-	// 				<RingProgress
-	// 					roundCaps
-	// 					size={90}
-	// 					sections={[{ value: percentPast, color: "blue" }]}
-	// 					thickness={8}
-	// 					label={
-	// 						<Text c="blue" fw={700} ta="center" size="xl">
-	// 							{daysUntil}
-	// 						</Text>
-	// 					}
-	// 				/>
-	// 			</Group>
-	// 		</Card.Section>
-	// 	</Card>
-	// );
 }

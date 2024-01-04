@@ -8,23 +8,7 @@ export function Dashboard() {
 		<div>
 			<Title order={1}>Dashboard</Title>
 			<SimpleGrid mt="xl" cols={{ base: 1, sm: 2 }} spacing="md">
-				<Card withBorder shadow="xl">
-					<Card.Section withBorder>
-						<Title p="lg" order={2} fw="normal">
-							Countdowns
-						</Title>
-					</Card.Section>
-					<Grid gutter="md" my="md">
-						{events
-							.sort((a, b) => a.eventDate.localeCompare(b.eventDate))
-							.map((event) => (
-								<Grid.Col span={{ base: 12, md: 6, lg: 4 }} key={event.title}>
-									<Countdown title={event.title} eventDate={event.eventDate} />
-								</Grid.Col>
-							))}
-					</Grid>
-				</Card>
-				<Card withBorder shadow="xl">
+				<Card shadow="md" mb={{ base: 0, md: "xl" }}>
 					<Card.Section withBorder>
 						<Title p="lg" order={2} fw="normal">
 							Bills to Pay
@@ -34,6 +18,15 @@ export function Dashboard() {
 						<BillsToPay />
 					</Card.Section>
 				</Card>
+				<Grid gutter="md" pb="xl">
+					{events
+						.sort((a, b) => a.eventDate.localeCompare(b.eventDate))
+						.map((event) => (
+							<Grid.Col span={{ base: 12, md: 6, lg: 4 }} bg="transparent" key={event.title}>
+								<Countdown title={event.title} eventDate={event.eventDate} />
+							</Grid.Col>
+						))}
+				</Grid>
 			</SimpleGrid>
 		</div>
 	);
